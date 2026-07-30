@@ -271,6 +271,18 @@ Nunca usar `user_metadata` editável pelo usuário como fonte confiável de auto
 
 Nunca expor `service_role` ou chave secreta no navegador.
 
+### 9.1. Backend First para Operações Sensíveis
+
+Frontend apenas apresenta, coleta e inicia. Backend valida e conclui.
+
+Nenhuma identidade, tenant, papel, preço, assinatura ou pagamento enviado pelo navegador é confiável.
+
+Operações sensíveis precisam de validação server-side, incluindo sessão, tenant, papel, módulo, permissão e entrada recebida.
+
+RLS é defesa obrigatória adicional no banco, mesmo quando a operação passa pelo backend.
+
+Segredos ficam exclusivamente no servidor. `service_role`, chaves secretas, webhooks e credenciais administrativas nunca chegam ao navegador.
+
 ---
 
 ## 10. Estado real do Supabase
@@ -897,6 +909,7 @@ Parar e registrar a dúvida antes de decidir sozinho quando ela afetar:
 - **ADR-008:** Produção e Banho separado;
 - **ADR-009:** histórico congelado;
 - **ADR-010:** Supabase + Stripe + Vercel + GitHub.
+- **ADR-011:** Backend First para operações sensíveis.
 
 ---
 
