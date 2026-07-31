@@ -8,12 +8,13 @@ Ecossistema SaaS modular para iniciantes e pequenos negocios do segmento de semi
 - SPEC-002 v1.1 aprovada: fundacao frontend, autenticacao, PWA e App Shell da usuaria final.
 - Entrega A da SPEC-002 concluida, commitada e enviada: fundacao frontend, tokens, assets, estrutura global, componentes-base e validacao E2E.
 - Entrega B da SPEC-002 concluida, commitada e enviada: clientes Supabase browser/server, sessao server-side, protecao de rotas e resolucao segura inicial de acesso.
-- Entrega C da SPEC-002 implementada localmente: splash, login, recuperacao, redefinicao, callback seguro, logout, validacoes de formulario e testes unit/integration/E2E.
+- Entrega C da SPEC-002 concluida, commitada e enviada: splash, login, recuperacao, redefinicao, callback seguro, logout, validacoes de formulario e testes unit/integration/E2E.
+- Entrega D da SPEC-002 implementada localmente: App Shell autenticado, dashboard estrutural, navegacao desktop/mobile, Minha Conta, Minha Assinatura, estados oficiais de modulos, estados de acesso e governanca permanente.
 - Nenhuma implementacao funcional dos modulos do MVP comecou ainda.
 
 ## Fase atual
 
-O projeto esta na validacao final da Entrega C da SPEC-002, sem iniciar modulos funcionais.
+O projeto esta no fechamento da Entrega D da SPEC-002. A proxima etapa recomendada e a Entrega E da SPEC-002, sem reconstruir as Entregas A, B, C ou D.
 
 Ordem oficial das proximas entregas:
 
@@ -53,6 +54,9 @@ Fundacao Frontend
 ## Arquivos principais
 
 - `PROJECT.md`: contexto permanente do projeto.
+- `docs/PROJECT_STATE.md`: retrato curto do estado real para a proxima entrega.
+- `docs/GOAL_FRAMEWORK.md`: modelo oficial para proximos Goals.
+- `docs/IMPLEMENTATION_RULES.md`: regras permanentes de execucao das entregas.
 - `MVP_INITIAL_SCOPE_UPDATED.md`: escopo funcional e visual oficial do MVP.
 - `FRONTEND_DESIGN_SYSTEM.md`: sistema visual oficial.
 - `SECURITY_POLICY.md`: politica permanente de seguranca.
@@ -72,4 +76,4 @@ A SPEC vigente para a proxima implementacao e:
 
 ## Proximo passo
 
-Concluir a revisao final, commit e push da Entrega C. Depois disso, preparar a proxima entrega aprovada da SPEC-002 sem reconstruir as Entregas A, B ou C.
+Concluir commit e push da Entrega D. Depois disso, iniciar a proxima entrega aprovada da SPEC-002 sem reconstruir fundacoes e sem implementar modulos fora de ordem.

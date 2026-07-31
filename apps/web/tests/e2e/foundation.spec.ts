@@ -130,3 +130,27 @@ test.describe("SPEC-002 Entrega C auth flows", () => {
     ).toBeTruthy();
   });
 });
+test.describe("SPEC-002 Entrega D app shell routes", () => {
+  const protectedRoutes = ["/inicio", "/minha-conta", "/minha-assinatura", "/precificacao", "/estoque", "/fornecedores", "/minicursos"];
+
+  test("keeps every app shell route behind the server-side guard without a session", async ({ page }) => {
+    for (const route of protectedRoutes) {
+      await page.goto(route, { waitUntil: "networkidle" });
+      await expect(page).toHaveURL(new RegExp(`/login(\\?next=${encodeURIComponent(route).replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}|$)`));
+      await expect(page.getByRole("heading", { name: /Entre na MARIED UNIVERSITY/i })).toBeVisible();
+      await expectNoSecrets(page);
+      await expectNoHorizontalOverflow(page);
+    }
+  });
+
+  test("shows a neutral blocked access state without sensitive details", async ({ page }, testInfo) => {
+    await page.goto("/acesso-negado", { waitUntil: "networkidle" });
+
+    await expect(page.getByRole("heading", { name: /Nao foi possivel validar seu acesso/i })).toBeVisible();
+    await expect(page.getByText(/inativo, encerrado ou sem permissao/i)).toBeVisible();
+    await expect(page.getByText(/tenant_id|role|service_role|stripe/i)).toHaveCount(0);
+    await expectNoSecrets(page);
+    await expectNoHorizontalOverflow(page);
+    await page.screenshot({ path: `test-results/${testInfo.project.name}-entrega-d-acesso-negado.png`, fullPage: true });
+  });
+});

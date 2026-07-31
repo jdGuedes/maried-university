@@ -1,8 +1,8 @@
-# Documentação oficial
+# Documentacao oficial
 
-Esta pasta contém a fonte documental versionada da MARIED UNIVERSITY.
+Esta pasta contem a fonte documental versionada da MARIED UNIVERSITY.
 
-A documentação deve sempre diferenciar:
+A documentacao deve sempre diferenciar:
 
 - implementado;
 - aprovado;
@@ -10,7 +10,15 @@ A documentação deve sempre diferenciar:
 - futuro;
 - fora do escopo.
 
-Nenhuma alteração estrutural relevante deve ser implementada sem documentação ou ADR quando aplicável.
+Nenhuma alteracao estrutural relevante deve ser implementada sem documentacao ou ADR quando aplicavel.
+
+## Estado e governanca
+
+- `PROJECT_STATE.md`: retrato curto e factual do estado real do projeto para continuidade entre Goals.
+- `GOAL_FRAMEWORK.md`: estrutura reutilizavel para preparar proximas metas de implementacao.
+- `IMPLEMENTATION_RULES.md`: regras permanentes de execucao, validacao, commit e push de entregas.
+
+Esses arquivos reduzem repeticao nos proximos Goals. Eles nao substituem `PROJECT.md`, SPECs, ADRs, `SECURITY_POLICY.md`, `CODEX_EXECUTION_PROTOCOL.md`, `FRONTEND_DESIGN_SYSTEM.md`, `CHANGELOG.md` ou os logs de implementacao.
 
 ## Implementation Log
 

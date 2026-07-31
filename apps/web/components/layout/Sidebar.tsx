@@ -1,18 +1,50 @@
+import Link from "next/link";
+import { LayoutDashboard, PackageSearch, Store, Truck, GraduationCap, CreditCard, UserRound } from "lucide-react";
 import { LogoMark } from "@/components/brand";
-import type { NavigationItem } from "@/lib/modules/navigation";
 import { StatusBadge } from "@/components/ui";
+import { canNavigateToModule, isNavigationItemActive, moduleStateLabels, type NavigationItem, type NavigationItemId } from "@/lib/modules/navigation";
 
-export function Sidebar({ items }: { items: NavigationItem[] }) {
+const iconById: Record<NavigationItemId, typeof LayoutDashboard> = {
+  inicio: LayoutDashboard,
+  precificacao: PackageSearch,
+  estoque: Store,
+  fornecedores: Truck,
+  minicursos: GraduationCap,
+  "minha-assinatura": CreditCard,
+  "minha-conta": UserRound
+};
+
+export function Sidebar({ items, pathname }: { items: NavigationItem[]; pathname: string }) {
   return (
-    <nav aria-label="Navegacao estrutural desktop" className="flex h-full flex-col gap-5">
+    <nav aria-label="Navegacao principal desktop" className="app-sidebar-nav">
       <LogoMark compact />
-      <div className="grid gap-2">
-        {items.map((item) => (
-          <a key={item.id} aria-disabled={item.state !== "AVAILABLE"} className="flex min-h-11 items-center justify-between gap-3 rounded-[var(--maried-radius-lg)] px-3 text-sm font-medium text-[var(--maried-color-text-primary)] hover:bg-white/45" href={item.href}>
-            <span>{item.label}</span>
-            {item.state !== "AVAILABLE" ? <StatusBadge tone="warning">em breve</StatusBadge> : null}
-          </a>
-        ))}
+      <a className="skip-link" href="#conteudo-principal">
+        Ir para conteudo
+      </a>
+      <div className="app-sidebar-list">
+        {items.map((item) => {
+          const Icon = iconById[item.id];
+          const active = isNavigationItemActive(pathname, item);
+          const enabled = canNavigateToModule(item);
+          const className = `app-nav-link ${active ? "app-nav-link--active" : ""} ${enabled ? "" : "app-nav-link--disabled"}`;
+
+          if (!enabled) {
+            return (
+              <span key={item.id} aria-disabled="true" className={className} title={item.description}>
+                <Icon aria-hidden="true" size={18} />
+                <span>{item.label}</span>
+                <StatusBadge tone="warning">{moduleStateLabels[item.state]}</StatusBadge>
+              </span>
+            );
+          }
+
+          return (
+            <Link key={item.id} aria-current={active ? "page" : undefined} className={className} href={item.href} title={item.description}>
+              <Icon aria-hidden="true" size={18} />
+              <span>{item.label}</span>
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

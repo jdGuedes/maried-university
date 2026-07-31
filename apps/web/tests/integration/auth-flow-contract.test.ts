@@ -18,6 +18,14 @@ describe("auth flow contracts", () => {
     expect(getSafeRedirectPath(null)).toBe(DEFAULT_AUTHENTICATED_PATH);
   });
 
+
+  it("keeps app shell destinations protected and explicit", () => {
+    expect(SAFE_REDIRECT_PREFIXES).toEqual(["/inicio", "/minha-conta", "/minha-assinatura", "/precificacao", "/estoque", "/fornecedores", "/minicursos"]);
+    expect(getSafeRedirectPath("/admin")).toBe(DEFAULT_AUTHENTICATED_PATH);
+    expect(getSafeRedirectPath("/offline")).toBe(DEFAULT_AUTHENTICATED_PATH);
+    expect(getSafeRedirectPath("/precificacao?from=dashboard")).toBe("/precificacao?from=dashboard");
+    expect(getSafeRedirectPath("/minha-assinatura#plano")).toBe("/minha-assinatura#plano");
+  });
   it("keeps status redirects local to login", () => {
     expect(getLoginRedirectPath("signed-out")).toBe("/login?status=signed-out");
     expect(getLoginRedirectPath()).toBe("/login");

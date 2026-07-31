@@ -29,8 +29,9 @@ Cada SPEC deve conter:
 
 - Entrega A concluida, commitada e enviada.
 - Entrega B concluida, commitada e enviada.
-- Entrega C implementada localmente com splash, login, recuperacao, redefinicao, callback seguro, logout e testes.
+- Entrega C concluida, commitada e enviada com splash, login, recuperacao, redefinicao, callback seguro, logout e testes.
+- Entrega D implementada localmente com App Shell, dashboard estrutural, navegacao desktop/mobile, Minha Conta, Minha Assinatura e estados oficiais de modulos.
 
 ## Proxima implementacao
 
-A proxima tarefa deve ser definida a partir da SPEC-002, sem reconstruir as Entregas A, B ou C e sem iniciar modulos de negocio.
+A proxima tarefa deve ser definida a partir da SPEC-002, sem reconstruir as Entregas A, B, C ou D e sem iniciar modulos de negocio fora de ordem.
