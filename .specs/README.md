@@ -23,14 +23,14 @@ Cada SPEC deve conter:
 | Codigo | Titulo | Status | Responsabilidade | Arquivo |
 |---|---|---|---|---|
 | SPEC-001 | Fundacao de Identidade e Multitenancy | CONCLUIDA | Fundacao tecnica de identidade, tenants, ownership, papeis, RLS e isolamento local validado | `001-CORE-IDENTITY/SPEC-001-CORE-IDENTITY.md` |
-| SPEC-002 | Frontend Foundation, Authentication, PWA and User App Shell | APROVADA PARA IMPLEMENTACAO | Fundacao frontend, autenticacao, PWA, App Shell, navegacao e dashboard estrutural da usuaria final | `002-FRONTEND-AUTH-PWA-USER-SHELL/SPEC-002-FRONTEND-AUTH-PWA-USER-SHELL-v1.1-APROVADA.md` |
+| SPEC-002 | Frontend Foundation, Authentication, PWA and User App Shell | EM IMPLEMENTACAO | Fundacao frontend, autenticacao, PWA, App Shell, navegacao e dashboard estrutural da usuaria final | `002-FRONTEND-AUTH-PWA-USER-SHELL/SPEC-002-FRONTEND-AUTH-PWA-USER-SHELL-v1.1-APROVADA.md` |
+
+## Estado da SPEC-002
+
+- Entrega A concluida, commitada e enviada.
+- Entrega B concluida, commitada e enviada.
+- Entrega C implementada localmente com splash, login, recuperacao, redefinicao, callback seguro, logout e testes.
 
 ## Proxima implementacao
 
-As Entregas A e B da SPEC-002 foram concluidas localmente. A proxima tarefa e preparar a Entrega C da SPEC-002:
-
-- splash;
-- login;
-- recuperacao de senha;
-- redefinicao de senha;
-- logout seguro.
+A proxima tarefa deve ser definida a partir da SPEC-002, sem reconstruir as Entregas A, B ou C e sem iniciar modulos de negocio.

@@ -10,7 +10,9 @@ export type AccessResolutionCode =
   | "PROFILE_NOT_FOUND"
   | "NO_ACTIVE_TENANT"
   | "MULTIPLE_TENANTS_UNSUPPORTED"
+  | "TENANT_INVALID"
   | "TENANT_INACTIVE"
+  | "TENANT_ACCESS_ENDED"
   | "ACCESS_ERROR";
 
 export type TenantContext = {
@@ -63,14 +65,14 @@ export async function resolveServerAccessContext(): Promise<AccessResolution> {
   const userId = claimsResult.data?.claims?.sub;
 
   if (!userId || claimsResult.error) {
-    return accessDenied("NO_SESSION", "Sessao nao encontrada ou expirada.");
+    return accessDenied("NO_SESSION", "Sessão não encontrada ou expirada.");
   }
 
   const userResult = await supabase.auth.getUser();
   const user = userResult.data.user;
 
   if (!user || user.id !== userId || userResult.error) {
-    return accessDenied("NO_SESSION", "Sessao nao encontrada ou expirada.");
+    return accessDenied("NO_SESSION", "Sessão não encontrada ou expirada.");
   }
 
   const profileResult = await supabase
@@ -80,11 +82,11 @@ export async function resolveServerAccessContext(): Promise<AccessResolution> {
     .maybeSingle();
 
   if (profileResult.error) {
-    return accessDenied("ACCESS_ERROR", "Nao foi possivel validar seu acesso.");
+    return accessDenied("ACCESS_ERROR", "Não foi possível validar seu acesso.");
   }
 
   if (!profileResult.data) {
-    return accessDenied("PROFILE_NOT_FOUND", "Seu acesso ainda nao esta disponivel.");
+    return accessDenied("PROFILE_NOT_FOUND", "Seu acesso ainda não está disponível.");
   }
 
   const membershipsResult = await supabase
@@ -95,17 +97,17 @@ export async function resolveServerAccessContext(): Promise<AccessResolution> {
     .returns<MembershipRow[]>();
 
   if (membershipsResult.error) {
-    return accessDenied("ACCESS_ERROR", "Nao foi possivel validar seu acesso.");
+    return accessDenied("ACCESS_ERROR", "Não foi possível validar seu acesso.");
   }
 
   const activeMemberships = membershipsResult.data ?? [];
 
   if (activeMemberships.length === 0) {
-    return accessDenied("NO_ACTIVE_TENANT", "Seu acesso esta inativo. Entre em contato com o suporte.");
+    return accessDenied("NO_ACTIVE_TENANT", "Seu acesso está inativo. Entre em contato com o suporte.");
   }
 
   if (activeMemberships.length > 1) {
-    return accessDenied("MULTIPLE_TENANTS_UNSUPPORTED", "Nao foi possivel escolher a empresa automaticamente.");
+    return accessDenied("MULTIPLE_TENANTS_UNSUPPORTED", "Não foi possível escolher a empresa automaticamente.");
   }
 
   const membership = activeMemberships[0];
@@ -117,15 +119,19 @@ export async function resolveServerAccessContext(): Promise<AccessResolution> {
     .maybeSingle();
 
   if (tenantResult.error) {
-    return accessDenied("ACCESS_ERROR", "Nao foi possivel validar sua empresa.");
+    return accessDenied("ACCESS_ERROR", "Não foi possível validar sua empresa.");
   }
 
   if (!tenantResult.data) {
-    return accessDenied("NO_ACTIVE_TENANT", "Seu acesso esta inativo. Entre em contato com o suporte.");
+    return accessDenied("TENANT_INVALID", "Seu acesso está inativo. Entre em contato com o suporte.");
+  }
+
+  if (tenantResult.data.status === "past_due" || tenantResult.data.status === "cancelled") {
+    return accessDenied("TENANT_ACCESS_ENDED", "Seu período de acesso terminou.");
   }
 
   if (!ACTIVE_TENANT_STATUSES.has(tenantResult.data.status)) {
-    return accessDenied("TENANT_INACTIVE", "Seu acesso esta inativo. Entre em contato com o suporte.");
+    return accessDenied("TENANT_INACTIVE", "Seu acesso está inativo. Entre em contato com o suporte.");
   }
 
   return {

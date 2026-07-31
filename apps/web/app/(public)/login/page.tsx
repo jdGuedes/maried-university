@@ -1,27 +1,32 @@
-import { ShieldCheck } from "lucide-react";
-import { LogoMark } from "@/components/brand";
-import { Alert } from "@/components/feedback";
-import { Panel, StatusBadge } from "@/components/ui";
+import type { Metadata } from "next";
+import { AuthLayout, LoginForm } from "@/components/auth";
+import { authMessages } from "@/lib/auth/validation";
+import { getSafeRedirectPath } from "@/lib/auth/redirects";
 
-export default function LoginPlaceholderPage() {
+export const metadata: Metadata = {
+  title: "Entrar | MARIED UNIVERSITY",
+  description: "Acesso seguro à MARIED UNIVERSITY."
+};
+
+type LoginPageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+const statusMessages: Record<string, string> = {
+  "password-updated": authMessages.resetSuccess,
+  "signed-out": "Sessão encerrada com segurança.",
+  "session-expired": "Sua sessão expirou. Entre novamente para continuar.",
+  "invalid-link": authMessages.invalidResetLink
+};
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const params = await searchParams;
+  const status = Array.isArray(params.status) ? params.status[0] : params.status;
+  const nextPath = getSafeRedirectPath(params.next);
+
   return (
-    <main className="maried-shell-preview">
-      <div className="mx-auto grid min-h-[70vh] w-full max-w-xl place-items-center">
-        <Panel className="grid gap-6 p-7 text-center">
-          <LogoMark />
-          <div>
-            <StatusBadge tone="warning">Entrega C</StatusBadge>
-            <h1 className="mt-4 text-3xl font-semibold text-[var(--maried-color-text-primary)]">Login ainda nao implementado</h1>
-            <p className="mt-3 text-sm leading-6 text-[var(--maried-color-text-secondary)]">
-              A Entrega B prepara a sessao server-side e a protecao de rotas. O formulario oficial de login fica na Entrega C.
-            </p>
-          </div>
-          <Alert title="Protecao ativa" tone="info">
-            Rotas autenticadas sem sessao validada no servidor redirecionam para esta entrada segura.
-          </Alert>
-          <ShieldCheck aria-hidden="true" className="mx-auto text-[var(--maried-color-info)]" size={28} />
-        </Panel>
-      </div>
-    </main>
+    <AuthLayout>
+      <LoginForm initialMessage={status ? statusMessages[status] ?? "" : ""} nextPath={nextPath} />
+    </AuthLayout>
   );
 }

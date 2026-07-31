@@ -1,3 +1,9 @@
 # Unit Tests
 
-Reservado para testes unitarios frontend da SPEC-002.
+Testes unitarios da SPEC-002 Entrega C cobrem validacao de e-mail, campos obrigatorios, politica local de senha, confirmacao de senha e vocabulario oficial de estados de formulario.
+
+Comando:
+
+```bash
+npm run web:test:unit
+```

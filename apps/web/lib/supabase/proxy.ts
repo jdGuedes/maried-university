@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import type { Database } from "./database.types";
 import { getSupabasePublicEnv, hasSupabasePublicEnv } from "./public-env";
 
-const AUTH_ROUTES = ["/login", "/recuperar-senha", "/redefinir-senha"];
+const AUTH_ROUTES = ["/login", "/recuperar-senha"];
 const PROTECTED_PREFIXES = ["/inicio", "/precificacao", "/estoque", "/fornecedores", "/minicursos", "/minha-conta", "/minha-assinatura"];
 
 function isProtectedPath(pathname: string) {
@@ -18,16 +18,21 @@ function safeRedirectUrl(request: NextRequest, pathname: string) {
   return new URL(pathname, request.url);
 }
 
+function noStore(response: NextResponse) {
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
+}
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
   const pathname = request.nextUrl.pathname;
 
   if (!hasSupabasePublicEnv()) {
     if (isProtectedPath(pathname)) {
-      return NextResponse.redirect(safeRedirectUrl(request, "/login"));
+      return noStore(NextResponse.redirect(safeRedirectUrl(request, "/login")));
     }
 
-    return response;
+    return noStore(response);
   }
 
   const { url, publishableKey } = getSupabasePublicEnv();
@@ -50,14 +55,16 @@ export async function updateSession(request: NextRequest) {
   const hasVerifiedSession = Boolean(data?.claims?.sub && !error);
 
   if (isProtectedPath(pathname) && !hasVerifiedSession) {
-    return NextResponse.redirect(safeRedirectUrl(request, "/login"));
+    const loginUrl = safeRedirectUrl(request, "/login");
+    loginUrl.searchParams.set("next", pathname);
+    return noStore(NextResponse.redirect(loginUrl));
   }
 
   if (isAuthPath(pathname) && hasVerifiedSession) {
-    return NextResponse.redirect(safeRedirectUrl(request, "/inicio"));
+    return noStore(NextResponse.redirect(safeRedirectUrl(request, "/inicio")));
   }
 
-  return response;
+  return noStore(response);
 }
 
 export const protectedRoutePrefixes = PROTECTED_PREFIXES;

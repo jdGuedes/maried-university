@@ -6,6 +6,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Adicionado
 
+- Entrega C da SPEC-002 implementada localmente com splash real, login por e-mail e senha, recuperacao neutra, redefinicao de senha, callback seguro, logout, allow-list de redirects, validacoes de formulario, foco acessivel e testes unitarios/integracao/E2E.
+- Vitest adicionado ao workspace web para testes unitarios e de integracao da autenticacao.
 - Entrega B da SPEC-002 implementada localmente com `@supabase/ssr`, `@supabase/supabase-js`, clientes Supabase browser/server, proxy Next.js de sessao, protecao de rotas e resolucao server-side inicial de usuario, profile, tenant, vinculo ativo e papel.
 - Rotas estruturais seguras `/login`, `/inicio` e `/acesso-negado` adicionadas para validar acesso sem implementar o fluxo visual de login da Entrega C.
 - Entrega A da SPEC-002 iniciada com workspace `apps/web`, Next.js 16, React 19, TypeScript strict, Tailwind CSS 4 e Lucide.
@@ -27,21 +29,28 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 - Aprovacao da SPEC-002 v1.1 registrada sem marcar implementacao funcional.
 - Fundacao frontend consolidada como fase documental do projeto.
-- Documentacao alinhada para registrar as Entregas A e B da SPEC-002 como concluidas localmente e apontar a Entrega C como proxima etapa.
+- Documentacao alinhada para registrar as Entregas A, B e C da SPEC-002 como concluidas localmente.
 - Imagens oficiais movidas para a versao `v1` sem alteracao visual ou funcional.
 
 ### Validacao
 
+- `npm run web:test:unit` executado com sucesso para 4 testes unitarios da Entrega C.
+- `npm run web:test:integration` executado com sucesso para 4 testes de integracao da Entrega C.
+- `npm run web:typecheck` executado com sucesso para a Entrega C.
+- `npm run web:build` executado com sucesso para a Entrega C, incluindo rotas `/auth/callback`, `/auth/resolve`, `/login`, `/recuperar-senha`, `/redefinir-senha`, `/sessao-expirada` e `/inicio`.
+- `npm run web:test:e2e` executado com sucesso para 36 testes em 6 viewports, cobrindo splash, login, recuperacao, redefinicao, rota protegida, teclado, responsividade e ausencia de segredos.
+- `npm audit --audit-level=high` reprovou por vulnerabilidades transitivas ja conhecidas em Next/PostCSS/Sharp; correcao automatica segura nao aplicada porque `npm audit fix --force` sugere downgrade quebrado para Next 9.3.3.
 - `npm run web:typecheck` executado com sucesso para a Entrega B.
 - `npm run web:build` executado com sucesso para a Entrega B, incluindo proxy e rota dinamica `/inicio`.
 - `npm run web:test:e2e` executado com sucesso para 18 testes em 6 viewports, cobrindo fundacao visual e redirecionamento de rota protegida sem sessao.
 - `npm run web:typecheck` executado com sucesso para a Entrega A.
 - `npm run web:build` executado com sucesso para a Entrega A.
 - `npm run web:test:e2e` executado com sucesso em 6 viewports oficiais: 360, 390, 768, 1024, 1366 e 1440 px.
-- `npm audit --audit-level=high` reprovou por vulnerabilidades transitivas em Next/PostCSS/Sharp; correcao automatica segura nao aplicada porque `npm audit fix --force` sugere downgrade quebrado para Next 9.3.3.
 
 ### Alterado
 
+- Documentacao do app web, Auth, testes, README, PROJECT e indice de specs atualizada para refletir a Entrega C.
+- `package.json` e `package-lock.json` atualizados para scripts e dependencia local de testes unitarios/integracao.
 - `PROJECT.md`, `README.md`, `.specs/README.md`, `CODEX_EXECUTION_PROTOCOL.md`, `ARCHITECTURE_DECISIONS.md` e documentacao do app web atualizados para refletir a Entrega B concluida localmente e a Entrega C como proxima etapa segura.
 - `package.json` e `package-lock.json` atualizados para workspaces npm e dependencias locais da fundacao frontend/Supabase SSR.
 - Migration local `core_identity_ownership_and_roles` revisada para usar `tenants.created_by` como fonte oficial do owner, helpers internos em schema privado, politicas mais restritas para `tenant_members` e bloqueio transacional por tenant na protecao do ultimo owner.
