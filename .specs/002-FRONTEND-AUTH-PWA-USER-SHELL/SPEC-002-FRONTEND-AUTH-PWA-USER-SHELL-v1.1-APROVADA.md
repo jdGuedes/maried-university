@@ -900,6 +900,7 @@ A implementacao futura so podera ser considerada concluida quando:
 - Security Gate aprovado;
 - Frontend Gate aprovado;
 - documentacao atualizada;
+- implementation log atualizado em `docs/implementation-log/`;
 - nenhum modulo de negocio implementado fora do escopo;
 - nenhuma operacao remota executada sem autorizacao.
 
@@ -912,6 +913,7 @@ Entrega A:
 - tokens;
 - assets;
 - estrutura global.
+- log de implementacao iniciado em `docs/implementation-log/` com a data real de inicio.
 
 Entrega B:
 
@@ -919,6 +921,7 @@ Entrega B:
 - sessao;
 - middleware/protecao de rotas;
 - resolucao de tenant/acesso.
+- log de implementacao atualizado antes da conclusao da entrega.
 
 Entrega C:
 
@@ -927,6 +930,7 @@ Entrega C:
 - recuperacao;
 - redefinicao;
 - logout.
+- log de implementacao atualizado antes da conclusao da entrega.
 
 Entrega D:
 
@@ -934,6 +938,7 @@ Entrega D:
 - navegacao desktop;
 - navegacao mobile;
 - dashboard estrutural.
+- log de implementacao atualizado antes da conclusao da entrega.
 
 Entrega E:
 
@@ -941,6 +946,7 @@ Entrega E:
 - offline;
 - atualizacao;
 - prompts.
+- log de implementacao atualizado antes da conclusao da entrega.
 
 Entrega F:
 
@@ -948,6 +954,7 @@ Entrega F:
 - acessibilidade;
 - comparacao visual;
 - Security Gate e Frontend Gate.
+- log de implementacao concluido com evidencias, riscos e pendencias.
 
 Esta divisao e adequada ao estado atual porque o repositorio ainda nao possui stack frontend instalada e a base de identidade acabou de ser fechada.
 

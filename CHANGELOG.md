@@ -6,6 +6,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Adicionado
 
+- Politica permanente de documentacao continua em `docs/implementation-log/`, com README de governanca e template oficial para registros por entrega.
+- Governanca de documentacao continua finalizada em `CODEX_EXECUTION_PROTOCOL.md`, `README.md`, SPEC-002 v1.1 e `docs/GOAL_MASTER.md`.
 - ADR-011 aprovando Backend First para operacoes sensiveis.
 - SPEC-002 v1.1 aprovada como contrato para fundacao frontend, autenticacao, PWA e App Shell da usuaria final.
 - Referencias visuais oficiais organizadas em `references/v1/` com governanca documental em `references/README.md`.

@@ -56,6 +56,7 @@ Fundacao Frontend
 - `SECURITY_POLICY.md`: politica permanente de seguranca.
 - `.specs/`: especificacoes aprovadas para implementacao.
 - `docs/`: documentacao oficial.
+- `docs/implementation-log/README.md`: politica permanente de registros de implementacao por entrega.
 - `references/`: referencias visuais oficiais versionadas.
 - `supabase/migrations/`: migrations versionadas.
 

@@ -455,6 +455,50 @@ Usar status:
 - FUTURO;
 - FORA DO ESCOPO.
 
+## 12.1. DOCUMENTACAO CONTINUA DE IMPLEMENTACAO
+
+Toda etapa de desenvolvimento da MARIED UNIVERSITY deve manter documentacao continua antes de ser considerada concluida.
+
+Regra permanente:
+
+> Codigo sem documentacao atualizada e registro de implementacao e implementacao incompleta.
+
+Para cada entrega, modulo, hotfix relevante, migration relevante, decisao tecnica executada separadamente, correcao pos-producao ou revisao de seguranca com alteracoes, o Codex deve criar ou atualizar um registro em:
+
+```text
+docs/implementation-log/
+```
+
+O registro deve seguir:
+
+```text
+docs/implementation-log/README.md
+docs/implementation-log/TEMPLATE.md
+```
+
+O arquivo de log deve usar a data real de inicio da execucao e o padrao:
+
+```text
+AAAA-MM-DD-spec-NNN-entrega-identificador.md
+```
+
+Antes de declarar uma tarefa concluida, o Codex deve verificar e registrar quando aplicavel:
+
+- implementacao correta;
+- testes executados ou justificativa de nao aplicabilidade;
+- revisao do diff;
+- documentacao atualizada;
+- implementation log atualizado;
+- `CHANGELOG.md` atualizado;
+- SPEC atualizada quando o contrato, evidencia ou aceite mudar;
+- ADR criado ou atualizado quando houver decisao arquitetural;
+- `ARCHITECTURE_DECISIONS.md` atualizado quando houver decisao relevante;
+- Security Gate;
+- Frontend Gate quando houver frontend;
+- riscos, pendencias e bloqueios.
+
+O Implementation Log responde como a etapa foi executada, validada e concluida. Ele nao substitui CHANGELOG, SPEC ou ADR.
+
 ---
 
 # 13. REGRA DE AUTORREVISÃO
