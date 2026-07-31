@@ -4,11 +4,11 @@
 
 **Versão do contexto:** 0.1  
 **Data de consolidação:** 29/07/2026  
-**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 em implementacao; Entregas A, B e C concluidas localmente
+**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 em implementacao; Entregas A, B, C, D e E concluidas localmente
 **Repositório oficial:** `jdGuedes/maried-university`  
 **Responsável pelo produto:** MARIED Semijoias  
 **Idioma da documentação:** Português do Brasil  
-**Etapa atual:** Revisao final e versionamento da Entrega D da SPEC-002
+**Etapa atual:** Revisao final e versionamento da Entrega E da SPEC-002
 
 ---
 
@@ -932,7 +932,7 @@ Status: concluida pela SPEC-001.
 
 ### Fase 2: Fundacao Frontend, Auth, PWA e App Shell
 
-Status: SPEC-002 v1.1 em implementacao; Entregas A, B e C concluidas localmente e Entrega D em fechamento.
+Status: SPEC-002 v1.1 em implementacao; Entregas A, B, C e D concluidas, Entrega E implementada localmente e em fechamento.
 
 Ordem oficial:
 
@@ -950,7 +950,7 @@ Fundacao Frontend
 -> Microcursos
 ```
 
-A Entrega A da SPEC-002 foi concluida localmente com fundacao frontend, tokens, assets, estrutura global e validacao E2E. A Entrega B foi concluida localmente com clientes Supabase browser/server, proxy de sessao, protecao de rotas e resolucao segura inicial de usuario, tenant e vinculo ativo. A Entrega C foi concluida com splash, login, recuperacao, redefinicao, callback seguro e logout. A Entrega D adiciona App Shell, dashboard estrutural, navegacao e areas estruturais da conta.
+A Entrega A da SPEC-002 foi concluida localmente com fundacao frontend, tokens, assets, estrutura global e validacao E2E. A Entrega B foi concluida localmente com clientes Supabase browser/server, proxy de sessao, protecao de rotas e resolucao segura inicial de usuario, tenant e vinculo ativo. A Entrega C foi concluida com splash, login, recuperacao, redefinicao, callback seguro e logout. A Entrega D adicionou App Shell, dashboard estrutural, navegacao e areas estruturais da conta. A Entrega E adiciona PWA, offline seguro, service worker, manifest, icones e cache conservador.
 
 - splash;
 - login;
@@ -988,10 +988,10 @@ Os modulos funcionais comecam somente apos a fundacao frontend estar implementad
 
 ## 29. Ponto oficial de retomada
 
-A proxima tarefa, apos o fechamento da Entrega D, e continuar a SPEC-002 sem reconstruir as fundacoes ja entregues.
+A proxima tarefa, apos o fechamento da Entrega E, e continuar a SPEC-002 sem reconstruir as fundacoes ja entregues.
 
 ```text
-SPEC-002 | Proxima entrega aprovada | Continuidade apos App Shell e Dashboard estrutural
+SPEC-002 | Entrega F | Testes, acessibilidade, performance e gates finais
 ```
 
 A ordem oficial de continuidade e:
@@ -1039,7 +1039,7 @@ Não construir uma catedral de código para resolver um anel de borboleta. A arq
 
 ## Estado da SPEC-002 em 2026-07-31
 
-A SPEC-002 esta com as Entregas A, B, C e D implementadas localmente. A Entrega D adiciona App Shell autenticado, Dashboard estrutural, navegacao desktop/mobile, Minha Conta, Minha Assinatura e estados oficiais dos modulos, sem iniciar funcionalidades internas de negocio.
+A SPEC-002 esta com as Entregas A, B, C e D concluidas e a Entrega E implementada localmente. A Entrega E adiciona PWA instalavel, manifest, icones, service worker seguro, fallback offline, prompts de instalacao/atualizacao e cache conservador, sem iniciar funcionalidades internas de negocio.
 
 Documentos permanentes de continuidade:
 

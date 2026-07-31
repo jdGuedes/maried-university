@@ -1365,3 +1365,11 @@ Esta aprovaÃ§Ã£o nÃ£o autoriza automaticamente:
 - implementaÃ§Ã£o de mÃ³dulos de negÃ³cio fora do escopo.
 
 A implementaÃ§Ã£o deverÃ¡ ocorrer em tarefa separada, respeitando o plano de entregas da seÃ§Ã£o 36, o Security Gate, o Frontend Gate e a Definition of Ready.
+
+---
+
+## Nota de implementacao - Entrega E
+
+Em 2026-07-31, a Entrega E foi implementada localmente com PWA instalavel, manifest Next.js, icones 192/512/maskable, Apple touch icon, service worker versionado, fallback offline publico, prompts controlados de instalacao/atualizacao e matriz conservadora de cache. A implementacao nao adiciona cache offline de dados autenticados, sincronizacao offline, push notifications, Stripe, OAuth, migrations, deploy ou alteracao remota.
+
+Evidencias: `docs/implementation-log/2026-07-31-spec-002-entrega-e.md` e `docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md`.

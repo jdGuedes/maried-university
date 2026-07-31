@@ -32,10 +32,25 @@ Isso significa:
 
 ## 3. Estado Atual
 
-- SPEC-001 concluida.
-- SPEC-002 v1.1 aprovada para implementacao.
-- Implementacao frontend ainda nao deve ser considerada iniciada por esta governanca documental.
-- Proxima etapa oficial: Entrega A da SPEC-002, em tarefa separada.
+O estado oficial do projeto deve ser consultado em:
+
+`docs/PROJECT_STATE.md`
+
+Este documento e atualizado ao final de cada entrega e representa a fonte oficial de verdade sobre:
+
+- SPEC atual;
+- entregas concluidas;
+- branch;
+- ultimo commit;
+- riscos;
+- pendencias;
+- proxima etapa;
+- governanca;
+- estado geral do projeto.
+
+O `GOAL_MASTER.md` contem apenas regras permanentes de execucao.
+
+O estado operacional do projeto nunca deve ser duplicado neste documento.
 
 ## 4. Ordem Oficial de Continuidade
 
@@ -75,6 +90,7 @@ Uma etapa so pode ser encerrada quando houver, quando aplicavel:
 - documentacao atualizada;
 - registro em `docs/implementation-log/`;
 - `CHANGELOG.md` atualizado;
+- `docs/PROJECT_STATE.md` atualizado;
 - SPEC atualizada quando aplicavel;
 - ADR criado ou atualizado quando houver decisao arquitetural;
 - `ARCHITECTURE_DECISIONS.md` atualizado quando necessario;
@@ -82,16 +98,20 @@ Uma etapa so pode ser encerrada quando houver, quando aplicavel:
 - Frontend Gate quando houver frontend;
 - riscos e pendencias registrados.
 
-Codigo sem documentacao e implementation log deve ser tratado como implementacao incompleta.
+Codigo sem documentacao e sem implementation log deve ser tratado como implementacao incompleta.
 
 ## 7. Fontes Relacionadas
 
 - `PROJECT.md`
+- `README.md`
 - `ARCHITECTURE_DECISIONS.md`
 - `SECURITY_POLICY.md`
 - `CODEX_EXECUTION_PROTOCOL.md`
 - `FRONTEND_DESIGN_SYSTEM.md`
 - `MVP_INITIAL_SCOPE_UPDATED.md`
 - `.specs/`
+- `docs/PROJECT_STATE.md`
+- `docs/GOAL_FRAMEWORK.md`
+- `docs/IMPLEMENTATION_RULES.md`
 - `docs/implementation-log/README.md`
 - `CHANGELOG.md`

@@ -25,3 +25,7 @@ Esses arquivos reduzem repeticao nos proximos Goals. Eles nao substituem `PROJEC
 A pasta `docs/implementation-log/` registra como cada entrega foi executada, validada, revisada e encerrada.
 
 Toda alteracao relevante deve manter um registro de implementacao atualizado antes de ser considerada concluida. Codigo sem documentacao e evidencia de validacao deve ser tratado como implementacao incompleta.
+
+## Padroes de desenvolvimento
+
+- docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md: politica operacional de PWA, cache conservador, offline seguro, instalacao e atualizacao controlada.

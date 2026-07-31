@@ -1,19 +1,32 @@
-import { Download } from "lucide-react";
-import { Button, Panel } from "@/components/ui";
+"use client";
 
-export function PWAInstallPrompt() {
+import { Download, X } from "lucide-react";
+import { Button } from "@/components/ui";
+
+type PWAInstallPromptProps = {
+  onInstall: () => void;
+  onDismiss: () => void;
+};
+
+export function PWAInstallPrompt({ onInstall, onDismiss }: PWAInstallPromptProps) {
   return (
-    <Panel as="article" className="p-5">
-      <div className="flex items-start gap-3">
-        <Download aria-hidden="true" className="mt-1 text-[var(--maried-color-brand-primary)]" size={20} />
-        <div className="grid gap-3">
-          <div>
-            <h3 className="m-0 text-base font-semibold text-[var(--maried-color-text-primary)]">Instalacao PWA</h3>
-            <p className="m-0 mt-1 text-sm leading-6 text-[var(--maried-color-text-secondary)]">Contrato visual para prompt futuro, sem acionar instalacao nesta entrega.</p>
-          </div>
-          <Button disabled size="sm" variant="secondary">Instalar depois</Button>
+    <section aria-label="Instalar aplicativo" className="pwa-card">
+      <div className="pwa-card__icon" aria-hidden="true">
+        <Download size={18} />
+      </div>
+      <div className="pwa-card__content">
+        <h2>Instalar MARIED</h2>
+        <p>Abra a plataforma em modo aplicativo quando este dispositivo oferecer suporte.</p>
+        <div className="pwa-card__actions">
+          <Button size="sm" onClick={onInstall} type="button">
+            <Download aria-hidden="true" size={16} />
+            Instalar
+          </Button>
+          <Button aria-label="Fechar aviso de instalacao" size="sm" variant="ghost" onClick={onDismiss} type="button">
+            <X aria-hidden="true" size={16} />
+          </Button>
         </div>
       </div>
-    </Panel>
+    </section>
   );
 }

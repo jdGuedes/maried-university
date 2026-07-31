@@ -6,6 +6,10 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Adicionado
 
+- Entrega E da SPEC-002 implementada localmente com manifest Next.js, icones PWA 192/512/maskable, Apple touch icon, service worker versionado, fallback offline publico, prompts controlados de instalacao/atualizacao, estado offline/reconectado e matriz conservadora de cache.
+- Documentacao PWA criada em `docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md`.
+- Testes unitarios, integracao e E2E adicionados para manifest, service worker, cache seguro, instalacao simulada, fallback offline e Cache Storage.
+
 - Entrega C da SPEC-002 implementada localmente com splash real, login por e-mail e senha, recuperacao neutra, redefinicao de senha, callback seguro, logout, allow-list de redirects, validacoes de formulario, foco acessivel e testes unitarios/integracao/E2E.
 - Vitest adicionado ao workspace web para testes unitarios e de integracao da autenticacao.
 - Entrega B da SPEC-002 implementada localmente com `@supabase/ssr`, `@supabase/supabase-js`, clientes Supabase browser/server, proxy Next.js de sessao, protecao de rotas e resolucao server-side inicial de usuario, profile, tenant, vinculo ativo e papel.
@@ -34,6 +38,13 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Validacao
 
+- `npm run web:test:unit` executado com sucesso para 15 testes unitarios apos a Entrega E.
+- `npm run web:test:integration` executado com sucesso para 11 testes de integracao apos a Entrega E.
+- `npm run web:typecheck` executado com sucesso apos a Entrega E.
+- `npm run web:build` executado com sucesso apos a Entrega E, incluindo `/manifest.webmanifest` e `/offline` estaticos.
+- `npm run web:test:e2e` executado com sucesso para 78 testes em 6 viewports apos a Entrega E.
+- E2E PWA isolado executado com sucesso para 30 testes em 6 viewports, cobrindo manifest, icones, instalacao simulada, service worker, Cache Storage e fallback offline.
+
 - `npm run web:test:unit` executado com sucesso para 4 testes unitarios da Entrega C.
 - `npm run web:test:integration` executado com sucesso para 4 testes de integracao da Entrega C.
 - `npm run web:typecheck` executado com sucesso para a Entrega C.
@@ -48,6 +59,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 - `npm run web:test:e2e` executado com sucesso em 6 viewports oficiais: 360, 390, 768, 1024, 1366 e 1440 px.
 
 ### Alterado
+
+- `README.md`, `apps/web/README.md`, `docs/PROJECT_STATE.md`, `docs/GOAL_MASTER.md`, `ARCHITECTURE_DECISIONS.md` e documentacao PWA atualizados para refletir a Entrega E.
 
 - Documentacao do app web, Auth, testes, README, PROJECT e indice de specs atualizada para refletir a Entrega C.
 - `package.json` e `package-lock.json` atualizados para scripts e dependencia local de testes unitarios/integracao.

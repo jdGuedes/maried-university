@@ -4,7 +4,7 @@
 **Projeto:** MARIED UNIVERSITY
 **Status:** ATIVO
 **VersÃ£o:** 1.0
-**Ãšltima atualizaÃ§Ã£o:** 30/07/2026
+**Ultima atualizacao:** 31/07/2026
 **ResponsÃ¡vel:** Product Owner da MARIED UNIVERSITY
 **AplicaÃ§Ã£o:** obrigatÃ³ria como Ã­ndice de consulta para Codex, ChatGPT, agentes e desenvolvedores
 
@@ -88,7 +88,7 @@ Quando uma nova decisÃ£o relevante for aprovada:
 | DEC-015 | Next.js App Router | IMPLEMENTADO NA ENTREGA A | SPEC-002, apps/web/app/ |
 | DEC-016 | Design tokens semanticos | IMPLEMENTADO PARCIALMENTE NA ENTREGA A | SPEC-002 v1.1, apps/web/styles/tokens.css |
 | DEC-017 | Claymorphism funcional | APROVADO | FRONTEND_DESIGN_SYSTEM.md |
-| DEC-018 | PWA conservadora | APROVADO PARA IMPLEMENTAÃ‡ÃƒO | SPEC-002 v1.1 |
+| DEC-018 | PWA conservadora | IMPLEMENTADO NA ENTREGA E | SPEC-002 v1.1, docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md |
 | DEC-019 | Feature Flags centralizadas | IMPLEMENTADO COMO CONTRATO ESTRUTURAL | SPEC-002 v1.1, apps/web/lib/modules/navigation.ts |
 | DEC-020 | Performance Budget | APROVADO PARA IMPLEMENTAÃ‡ÃƒO | SPEC-002 v1.1 |
 | DEC-021 | NavegaÃ§Ã£o Ãºnica por experiÃªncia | APROVADO | SPEC-002 |
@@ -124,7 +124,6 @@ Quando uma nova decisÃ£o relevante for aprovada:
 | PEND-003 | Valores finais das cores do Brand Kit | Tokens |
 | PEND-004 | EstratÃ©gia final de rate limiting | Login |
 | PEND-005 | Infraestrutura persistente de auditoria | SeguranÃ§a |
-| PEND-006 | EstratÃ©gia final de PWA conforme stack real | Frontend |
 | PEND-007 | PolÃ­tica final de assinatura durante login | Acesso |
 | PEND-008 | NormalizaÃ§Ã£o LF/CRLF | RepositÃ³rio |
 | PEND-009 | PreÃ§os oficiais dos planos | Comercial |

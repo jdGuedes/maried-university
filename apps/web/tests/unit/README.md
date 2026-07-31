@@ -7,3 +7,7 @@ Comando:
 ```bash
 npm run web:test:unit
 ```
+
+## SPEC-002 Entrega E
+
+Inclui testes unitarios para matriz de cache PWA, rotas sensiveis, versionamento de cache e estados de conexao/instalacao/atualizacao.

@@ -1,3 +1,5 @@
-# Rota Offline
+# Offline Route
 
-Diretorio reservado para fallback offline futuro. Entrega A criou apenas contratos visuais e manifest inicial.
+Rota publica `/offline` implementada na SPEC-002 Entrega E.
+
+A pagina e segura para cache persistente porque nao exibe profile, tenant, role, assinatura, modulo, token, cookie ou dado pessoal. Ela informa a falta de conexao e oferece tentativa manual de reconexao.

@@ -7,3 +7,7 @@ Comando:
 ```bash
 npm run web:test:integration
 ```
+
+## SPEC-002 Entrega E
+
+Inclui contratos de manifest, icones existentes e service worker: allow-list segura, Network Only para rotas sensiveis e atualizacao controlada.

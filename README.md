@@ -9,12 +9,13 @@ Ecossistema SaaS modular para iniciantes e pequenos negocios do segmento de semi
 - Entrega A da SPEC-002 concluida, commitada e enviada: fundacao frontend, tokens, assets, estrutura global, componentes-base e validacao E2E.
 - Entrega B da SPEC-002 concluida, commitada e enviada: clientes Supabase browser/server, sessao server-side, protecao de rotas e resolucao segura inicial de acesso.
 - Entrega C da SPEC-002 concluida, commitada e enviada: splash, login, recuperacao, redefinicao, callback seguro, logout, validacoes de formulario e testes unit/integration/E2E.
-- Entrega D da SPEC-002 implementada localmente: App Shell autenticado, dashboard estrutural, navegacao desktop/mobile, Minha Conta, Minha Assinatura, estados oficiais de modulos, estados de acesso e governanca permanente.
+- Entrega D da SPEC-002 concluida, commitada e enviada: App Shell autenticado, dashboard estrutural, navegacao desktop/mobile, Minha Conta, Minha Assinatura, estados oficiais de modulos, estados de acesso e governanca permanente.
+- Entrega E da SPEC-002 implementada localmente: PWA instalavel, manifest, icones, service worker seguro, fallback offline, prompts de instalacao/atualizacao e matriz de cache conservadora.
 - Nenhuma implementacao funcional dos modulos do MVP comecou ainda.
 
 ## Fase atual
 
-O projeto esta no fechamento da Entrega D da SPEC-002. A proxima etapa recomendada e a Entrega E da SPEC-002, sem reconstruir as Entregas A, B, C ou D.
+O projeto esta no fechamento da Entrega E da SPEC-002. A proxima etapa recomendada e a Entrega F da SPEC-002, sem reconstruir as Entregas A, B, C, D ou E.
 
 Ordem oficial das proximas entregas:
 
@@ -76,4 +77,4 @@ A SPEC vigente para a proxima implementacao e:
 
 ## Proximo passo
 
-Concluir commit e push da Entrega D. Depois disso, iniciar a proxima entrega aprovada da SPEC-002 sem reconstruir fundacoes e sem implementar modulos fora de ordem.
+Concluir commit e push da Entrega E. Depois disso, iniciar a Entrega F da SPEC-002, focada em testes, acessibilidade, performance e gates finais.

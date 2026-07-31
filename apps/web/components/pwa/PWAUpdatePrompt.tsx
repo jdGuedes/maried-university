@@ -1,19 +1,34 @@
-import { RefreshCw } from "lucide-react";
-import { Button, Panel } from "@/components/ui";
+"use client";
 
-export function PWAUpdatePrompt() {
+import { RefreshCw, X } from "lucide-react";
+import { Button } from "@/components/ui";
+
+type PWAUpdatePromptProps = {
+  activating?: boolean;
+  version?: string;
+  onUpdate: () => void;
+  onDismiss: () => void;
+};
+
+export function PWAUpdatePrompt({ activating = false, version, onUpdate, onDismiss }: PWAUpdatePromptProps) {
   return (
-    <Panel as="article" className="p-5">
-      <div className="flex items-start gap-3">
-        <RefreshCw aria-hidden="true" className="mt-1 text-[var(--maried-color-info)]" size={20} />
-        <div className="grid gap-3">
-          <div>
-            <h3 className="m-0 text-base font-semibold text-[var(--maried-color-text-primary)]">Atualizacao disponivel</h3>
-            <p className="m-0 mt-1 text-sm leading-6 text-[var(--maried-color-text-secondary)]">Contrato visual para atualizacao futura sem service worker funcional nesta entrega.</p>
-          </div>
-          <Button disabled size="sm" variant="secondary">Atualizar depois</Button>
+    <section aria-label="Atualizacao disponivel" className="pwa-card pwa-card--update">
+      <div className="pwa-card__icon" aria-hidden="true">
+        <RefreshCw size={18} />
+      </div>
+      <div className="pwa-card__content">
+        <h2>Atualizacao disponivel</h2>
+        <p>{version ? `Nova versao pronta: ${version}.` : "Uma nova versao esta pronta."} Atualize quando estiver seguro recarregar a tela.</p>
+        <div className="pwa-card__actions">
+          <Button disabled={activating} size="sm" onClick={onUpdate} type="button">
+            <RefreshCw aria-hidden="true" size={16} />
+            {activating ? "Atualizando" : "Atualizar"}
+          </Button>
+          <Button aria-label="Adiar atualizacao" disabled={activating} size="sm" variant="ghost" onClick={onDismiss} type="button">
+            <X aria-hidden="true" size={16} />
+          </Button>
         </div>
       </div>
-    </Panel>
+    </section>
   );
 }

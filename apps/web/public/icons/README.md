@@ -1,5 +1,15 @@
-# Icones PWA
+# PWA Icons
 
-O manifest inicial existe para reservar o contrato PWA, mas os icones finais ainda dependem de extracao/otimizacao validada do Brand Kit.
+Icones finais gerados na SPEC-002 Entrega E sem alterar as referencias oficiais em `references/v1/`.
 
-Enquanto os icones finais nao forem gerados e validados, o campo `icons` do manifest permanece vazio para evitar registrar placeholder como asset oficial.
+## Arquivos
+
+- `favicon.svg`: favicon vetorial simples com a marca M.
+- `apple-touch-icon.png`: 180x180.
+- `maried-icon-192.png`: 192x192.
+- `maried-icon-512.png`: 512x512.
+- `maried-maskable-512.png`: 512x512 com margem segura para maskable.
+
+## Origem
+
+Os arquivos usam a marca tipografica M e tokens visuais oficiais da Entrega A. Nao sao copias nem edicoes das imagens oficiais de referencia.
