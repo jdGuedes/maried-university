@@ -1,0 +1,10 @@
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+.env*.local
+.env
+
+test-results/
+playwright-report/
+blob-report/

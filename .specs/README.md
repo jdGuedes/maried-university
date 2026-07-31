@@ -27,10 +27,10 @@ Cada SPEC deve conter:
 
 ## Proxima implementacao
 
-A proxima tarefa e implementar a Entrega A da SPEC-002:
+A Entrega A da SPEC-002 foi concluida localmente. A proxima tarefa e preparar a Entrega B da SPEC-002:
 
-- auditoria do repositorio;
-- verificacao das versoes reais;
-- tokens;
-- assets;
-- estrutura global.
+- Supabase browser/server;
+- sessao server-side;
+- protecao de rotas;
+- resolucao segura de usuario, tenant e vinculo ativo;
+- ausencia de segredos no browser.

@@ -1,0 +1,67 @@
+:root {
+  color-scheme: light;
+
+  --maried-color-brand-primary: #a87935;
+  --maried-color-brand-primary-strong: #7c5526;
+  --maried-color-brand-secondary: #d8b36a;
+  --maried-color-brand-copper: #b56f4a;
+  --maried-color-brand-tech: #315f77;
+
+  --maried-color-bg-page: #f8f4ed;
+  --maried-color-bg-soft: #efe6d8;
+  --maried-color-surface-base: #fffaf2;
+  --maried-color-surface-raised: rgba(255, 250, 242, 0.86);
+  --maried-color-surface-strong: #ffffff;
+
+  --maried-color-text-primary: #2b241c;
+  --maried-color-text-secondary: #6d5f50;
+  --maried-color-text-inverse: #fffaf2;
+  --maried-color-border-subtle: rgba(95, 75, 51, 0.16);
+  --maried-color-border-strong: rgba(95, 75, 51, 0.32);
+  --maried-color-focus: #315f77;
+
+  --maried-color-success: #2f7d57;
+  --maried-color-info: #315f77;
+  --maried-color-warning: #ad6b1f;
+  --maried-color-danger: #aa3f3a;
+  --maried-color-special: #7650a6;
+
+  --maried-gradient-page: radial-gradient(circle at top left, rgba(216, 179, 106, 0.28), transparent 36%), linear-gradient(135deg, #fffaf2 0%, #f8f4ed 48%, #efe6d8 100%);
+  --maried-gradient-primary: linear-gradient(135deg, #d8b36a 0%, #a87935 52%, #7c5526 100%);
+  --maried-gradient-tech: linear-gradient(135deg, rgba(49, 95, 119, 0.14), rgba(216, 179, 106, 0.18));
+
+  --maried-font-sans: var(--font-maried-sans), Arial, Helvetica, sans-serif;
+  --maried-font-display: var(--font-maried-display), Georgia, "Times New Roman", serif;
+
+  --maried-space-1: 0.25rem;
+  --maried-space-2: 0.5rem;
+  --maried-space-3: 0.75rem;
+  --maried-space-4: 1rem;
+  --maried-space-5: 1.25rem;
+  --maried-space-6: 1.5rem;
+  --maried-space-8: 2rem;
+  --maried-space-10: 2.5rem;
+  --maried-space-12: 3rem;
+  --maried-space-16: 4rem;
+  --maried-space-20: 5rem;
+
+  --maried-radius-sm: 0.5rem;
+  --maried-radius-md: 0.75rem;
+  --maried-radius-lg: 1rem;
+  --maried-radius-xl: 1.375rem;
+  --maried-radius-2xl: 1.75rem;
+  --maried-radius-full: 9999px;
+
+  --maried-shadow-soft: 0 18px 40px rgba(80, 56, 32, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  --maried-shadow-raised: 0 24px 70px rgba(80, 56, 32, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  --maried-shadow-focus: 0 0 0 4px rgba(49, 95, 119, 0.18);
+
+  --maried-z-base: 0;
+  --maried-z-header: 20;
+  --maried-z-overlay: 40;
+  --maried-z-modal: 50;
+  --maried-duration-fast: 150ms;
+  --maried-duration-base: 220ms;
+  --maried-duration-panel: 320ms;
+  --maried-ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+}

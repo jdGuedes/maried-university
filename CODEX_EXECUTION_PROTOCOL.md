@@ -576,13 +576,13 @@ A SPEC vigente e:
 .specs/002-FRONTEND-AUTH-PWA-USER-SHELL/SPEC-002-FRONTEND-AUTH-PWA-USER-SHELL-v1.1-APROVADA.md
 ```
 
-O Codex deve iniciar pela Entrega A da SPEC-002:
+A Entrega A da SPEC-002 foi concluida localmente. O Codex deve preparar a Entrega B da SPEC-002 quando autorizado:
 
-- auditoria do repositorio;
-- verificacao das versoes reais;
-- tokens;
-- assets;
-- estrutura global.
+- Supabase browser/server;
+- sessao server-side;
+- protecao de rotas;
+- resolucao segura de usuario, tenant e vinculo ativo;
+- ausencia de segredos no browser.
 
 O Codex deve respeitar integralmente:
 

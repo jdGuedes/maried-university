@@ -4,11 +4,11 @@
 
 **Versão do contexto:** 0.1  
 **Data de consolidação:** 29/07/2026  
-**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 aprovada para implementacao
+**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 em implementacao; Entrega A concluida localmente
 **Repositório oficial:** `jdGuedes/maried-university`  
 **Responsável pelo produto:** MARIED Semijoias  
 **Idioma da documentação:** Português do Brasil  
-**Etapa atual:** Implementacao da Entrega A da SPEC-002
+**Etapa atual:** Preparacao da Entrega B da SPEC-002
 
 ---
 
@@ -339,7 +339,7 @@ Entregas consolidadas:
 Nenhuma migration da SPEC-001 deve ser aplicada no Supabase remoto sem autorizacao explicita.
 ---
 
-## 11. Estado do reposit�rio
+## 11. Estado do reposit�rio
 
 - **Repositório:** `jdGuedes/maried-university`
 - **Branch principal:** `main`
@@ -932,7 +932,7 @@ Status: concluida pela SPEC-001.
 
 ### Fase 2: Fundacao Frontend, Auth, PWA e App Shell
 
-Status: SPEC-002 v1.1 aprovada para implementacao.
+Status: SPEC-002 v1.1 em implementacao; Entrega A concluida localmente e Entrega B e a proxima etapa.
 
 Ordem oficial:
 
@@ -950,13 +950,13 @@ Fundacao Frontend
 -> Microcursos
 ```
 
-A proxima tarefa e implementar a Entrega A da SPEC-002:
+A Entrega A da SPEC-002 foi concluida localmente com fundacao frontend, tokens, assets, estrutura global e validacao E2E. A proxima tarefa e preparar a Entrega B da SPEC-002:
 
-- auditoria do repositorio;
-- verificacao das versoes reais;
-- tokens;
-- assets;
-- estrutura global.
+- Supabase browser/server;
+- sessao server-side;
+- protecao de rotas;
+- resolucao segura de usuario, tenant e vinculo ativo;
+- ausencia de segredos no browser.
 
 ### Fase 3: Modulos funcionais do MVP
 
@@ -987,10 +987,10 @@ Os modulos funcionais comecam somente apos a fundacao frontend estar implementad
 
 ## 29. Ponto oficial de retomada
 
-A proxima tarefa e implementar a Entrega A da SPEC-002 aprovada:
+A proxima tarefa e implementar a Entrega B da SPEC-002 aprovada:
 
 ```text
-SPEC-002 | Entrega A | Fundacao Frontend, tokens, assets e estrutura global
+SPEC-002 | Entrega B | Supabase browser/server, sessao e acesso
 ```
 
 A ordem oficial de continuidade e:

@@ -1,4 +1,16 @@
 {
+  "name": "maried-university",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "web:dev": "npm run dev -w apps/web",
+    "web:build": "npm run build -w apps/web",
+    "web:typecheck": "npm run typecheck -w apps/web",
+    "web:test:e2e": "npm run test:e2e -w apps/web"
+  },
   "devDependencies": {
     "supabase": "^2.110.0"
   }

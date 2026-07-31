@@ -1,0 +1,13 @@
+{
+  "name": "MARIED UNIVERSITY",
+  "short_name": "MARIED",
+  "description": "Aplicacao web da MARIED UNIVERSITY.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8f4ed",
+  "theme_color": "#a87935",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity", "education"],
+  "icons": []
+}

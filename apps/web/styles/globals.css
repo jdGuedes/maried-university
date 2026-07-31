@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--maried-color-bg-page);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--maried-gradient-page);
+  color: var(--maried-color-text-primary);
+  font-family: var(--maried-font-sans);
+  letter-spacing: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--maried-color-focus);
+  outline-offset: 3px;
+  box-shadow: var(--maried-shadow-focus);
+}
+
+::selection {
+  background: rgba(216, 179, 106, 0.42);
+}
+
+.maried-shell-preview {
+  min-height: 100vh;
+  padding: clamp(1rem, 3vw, 3rem);
+}
+
+
+.maried-shell-preview :where(h1, h2, h3, p, span, a, button, label, pre) {
+  overflow-wrap: anywhere;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

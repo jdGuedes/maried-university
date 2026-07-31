@@ -84,12 +84,12 @@ Quando uma nova decisÃ£o relevante for aprovada:
 | DEC-011 | Backend First | IMPLEMENTADO COMO REGRA | ADR-011, SECURITY_POLICY.md |
 | DEC-012 | RLS obrigatÃ³ria | IMPLEMENTADO PARCIALMENTE | SECURITY_POLICY.md |
 | DEC-013 | ProteÃ§Ã£o do Ãºltimo owner | IMPLEMENTADO NA FUNDAÃ‡ÃƒO | SPEC-001 |
-| DEC-014 | TypeScript strict | APROVADO | PROJECT.md |
-| DEC-015 | Next.js App Router | APROVADO PARA IMPLEMENTAÃ‡ÃƒO | SPEC-002 |
-| DEC-016 | Design tokens semÃ¢nticos | APROVADO PARA IMPLEMENTAÃ‡ÃƒO | SPEC-002 v1.1 |
+| DEC-014 | TypeScript strict | IMPLEMENTADO NA ENTREGA A | PROJECT.md, apps/web/tsconfig.json |
+| DEC-015 | Next.js App Router | IMPLEMENTADO NA ENTREGA A | SPEC-002, apps/web/app/ |
+| DEC-016 | Design tokens semanticos | IMPLEMENTADO PARCIALMENTE NA ENTREGA A | SPEC-002 v1.1, apps/web/styles/tokens.css |
 | DEC-017 | Claymorphism funcional | APROVADO | FRONTEND_DESIGN_SYSTEM.md |
 | DEC-018 | PWA conservadora | APROVADO PARA IMPLEMENTAÃ‡ÃƒO | SPEC-002 v1.1 |
-| DEC-019 | Feature Flags centralizadas | APROVADO PARA IMPLEMENTAÃ‡ÃƒO | SPEC-002 v1.1 |
+| DEC-019 | Feature Flags centralizadas | IMPLEMENTADO COMO CONTRATO ESTRUTURAL | SPEC-002 v1.1, apps/web/lib/modules/navigation.ts |
 | DEC-020 | Performance Budget | APROVADO PARA IMPLEMENTAÃ‡ÃƒO | SPEC-002 v1.1 |
 | DEC-021 | NavegaÃ§Ã£o Ãºnica por experiÃªncia | APROVADO | SPEC-002 |
 | DEC-022 | Sem modal sobre modal | APROVADO | SPEC-002 v1.1 |
@@ -100,7 +100,7 @@ Quando uma nova decisÃ£o relevante for aprovada:
 | DEC-027 | ReferÃªncias visuais versionadas | IMPLEMENTADO | references/v1/ |
 | DEC-028 | ZIP original preservado | IMPLEMENTADO | references/archive/ |
 | DEC-029 | Mobile e desktop desde a origem | APROVADO | FRONTEND_DESIGN_SYSTEM.md |
-| DEC-030 | Componentes compartilhados | APROVADO PARA IMPLEMENTAÃ‡ÃƒO | SPEC-002 |
+| DEC-030 | Componentes compartilhados | IMPLEMENTADO PARCIALMENTE NA ENTREGA A | SPEC-002, apps/web/components/ |
 | DEC-031 | Dinheiro em decimal, nunca float | APROVADO | PROJECT.md, SECURITY_POLICY.md |
 | DEC-032 | Soft delete para histÃ³ricos | APROVADO | PROJECT.md |
 | DEC-033 | Auditoria de aÃ§Ãµes crÃ­ticas | APROVADO | SECURITY_POLICY.md |
