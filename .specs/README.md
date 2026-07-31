@@ -27,10 +27,10 @@ Cada SPEC deve conter:
 
 ## Proxima implementacao
 
-A Entrega A da SPEC-002 foi concluida localmente. A proxima tarefa e preparar a Entrega B da SPEC-002:
+As Entregas A e B da SPEC-002 foram concluidas localmente. A proxima tarefa e preparar a Entrega C da SPEC-002:
 
-- Supabase browser/server;
-- sessao server-side;
-- protecao de rotas;
-- resolucao segura de usuario, tenant e vinculo ativo;
-- ausencia de segredos no browser.
+- splash;
+- login;
+- recuperacao de senha;
+- redefinicao de senha;
+- logout seguro.

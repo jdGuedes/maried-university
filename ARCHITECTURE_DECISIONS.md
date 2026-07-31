@@ -80,7 +80,7 @@ Quando uma nova decisÃ£o relevante for aprovada:
 | DEC-007 | PrecificaÃ§Ã£o como primeiro mÃ³dulo funcional | APROVADO | ADR-007, MVP |
 | DEC-008 | ProduÃ§Ã£o e Banho separado | FUTURO | ADR-008 |
 | DEC-009 | HistÃ³rico congelado | APROVADO | ADR-009 |
-| DEC-010 | Supabase + Stripe + Vercel + GitHub | APROVADO | ADR-010 |
+| DEC-010 | Supabase + Stripe + Vercel + GitHub | IMPLEMENTADO PARCIALMENTE | ADR-010, SPEC-002 Entrega B |
 | DEC-011 | Backend First | IMPLEMENTADO COMO REGRA | ADR-011, SECURITY_POLICY.md |
 | DEC-012 | RLS obrigatÃ³ria | IMPLEMENTADO PARCIALMENTE | SECURITY_POLICY.md |
 | DEC-013 | ProteÃ§Ã£o do Ãºltimo owner | IMPLEMENTADO NA FUNDAÃ‡ÃƒO | SPEC-001 |

@@ -15,7 +15,7 @@ test.describe("SPEC-002 Entrega A frontend foundation", () => {
 
     await expect(page).toHaveTitle(/MARIED UNIVERSITY/);
     await expect(page.getByRole("heading", { name: /Tokens, assets e estrutura global/i })).toBeVisible();
-    await expect(page.getByText(/Entrega A/i).first()).toBeVisible();
+    await expect(page.getByText(/Entrega B/i).first()).toBeVisible();
     await expect(page.getByRole("heading", { name: /Sem autoridade no browser/i })).toBeVisible();
 
     const overflow = await page.evaluate(() => ({
@@ -51,5 +51,27 @@ test.describe("SPEC-002 Entrega A frontend foundation", () => {
     }
 
     await page.screenshot({ path: `test-results/${testInfo.project.name}-foundation.png`, fullPage: true });
+  });
+});
+test.describe("SPEC-002 Entrega B access foundation", () => {
+  test("redirects protected routes to the safe login placeholder when no server session exists", async ({ page }) => {
+    await page.goto("/inicio", { waitUntil: "networkidle" });
+
+    await expect(page).toHaveURL(/\/login$/);
+    await expect(page.getByRole("heading", { name: /Login ainda nao implementado/i })).toBeVisible();
+    await expect(page.getByText(/rotas autenticadas sem sessao validada no servidor/i)).toBeVisible();
+
+    const html = await page.content();
+    for (const secret of forbiddenClientSecrets) {
+      expect(html, `${secret} must not appear in login placeholder HTML`).not.toContain(secret);
+    }
+  });
+
+  test("keeps the login placeholder public and explicit about Entrega C scope", async ({ page }) => {
+    await page.goto("/login", { waitUntil: "networkidle" });
+
+    await expect(page.getByRole("heading", { name: /Login ainda nao implementado/i })).toBeVisible();
+    await expect(page.getByText(/A Entrega B prepara a sessao server-side/i)).toBeVisible();
+    await expect(page.getByText(/O formulario oficial de login fica na Entrega C/i)).toBeVisible();
   });
 });

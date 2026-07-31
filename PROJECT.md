@@ -4,11 +4,11 @@
 
 **Versão do contexto:** 0.1  
 **Data de consolidação:** 29/07/2026  
-**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 em implementacao; Entrega A concluida localmente
+**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 em implementacao; Entregas A e B concluidas localmente
 **Repositório oficial:** `jdGuedes/maried-university`  
 **Responsável pelo produto:** MARIED Semijoias  
 **Idioma da documentação:** Português do Brasil  
-**Etapa atual:** Preparacao da Entrega B da SPEC-002
+**Etapa atual:** Preparacao da Entrega C da SPEC-002
 
 ---
 
@@ -932,7 +932,7 @@ Status: concluida pela SPEC-001.
 
 ### Fase 2: Fundacao Frontend, Auth, PWA e App Shell
 
-Status: SPEC-002 v1.1 em implementacao; Entrega A concluida localmente e Entrega B e a proxima etapa.
+Status: SPEC-002 v1.1 em implementacao; Entregas A e B concluidas localmente e Entrega C e a proxima etapa.
 
 Ordem oficial:
 
@@ -950,13 +950,14 @@ Fundacao Frontend
 -> Microcursos
 ```
 
-A Entrega A da SPEC-002 foi concluida localmente com fundacao frontend, tokens, assets, estrutura global e validacao E2E. A proxima tarefa e preparar a Entrega B da SPEC-002:
+A Entrega A da SPEC-002 foi concluida localmente com fundacao frontend, tokens, assets, estrutura global e validacao E2E. A Entrega B foi concluida localmente com clientes Supabase browser/server, proxy de sessao, protecao de rotas e resolucao segura inicial de usuario, tenant e vinculo ativo. A proxima tarefa e preparar a Entrega C da SPEC-002:
 
-- Supabase browser/server;
-- sessao server-side;
-- protecao de rotas;
-- resolucao segura de usuario, tenant e vinculo ativo;
-- ausencia de segredos no browser.
+- splash;
+- login;
+- recuperacao de senha;
+- redefinicao de senha;
+- logout seguro;
+- mensagens neutras e validacao server-side.
 
 ### Fase 3: Modulos funcionais do MVP
 
@@ -987,10 +988,10 @@ Os modulos funcionais comecam somente apos a fundacao frontend estar implementad
 
 ## 29. Ponto oficial de retomada
 
-A proxima tarefa e implementar a Entrega B da SPEC-002 aprovada:
+A proxima tarefa e implementar a Entrega C da SPEC-002 aprovada:
 
 ```text
-SPEC-002 | Entrega B | Supabase browser/server, sessao e acesso
+SPEC-002 | Entrega C | Splash, login, recuperacao, redefinicao e logout
 ```
 
 A ordem oficial de continuidade e:

@@ -16,7 +16,7 @@ export default function Home() {
           <LogoMark />
           <div className="flex flex-wrap items-center gap-3">
             <StatusBadge tone="info">SPEC-002</StatusBadge>
-            <StatusBadge tone="warning">Entrega A</StatusBadge>
+            <StatusBadge tone="success">Entrega B</StatusBadge>
             <IconButton icon={ShieldCheck} label="Seguranca backend first considerada" />
           </div>
         </header>
@@ -29,7 +29,7 @@ export default function Home() {
                 Tokens, assets e estrutura global para a MARIED UNIVERSITY.
               </h1>
               <p className="mt-5 max-w-2xl text-base leading-7 text-[var(--maried-color-text-secondary)] md:text-lg">
-                Esta entrega prepara a base visual e tecnica antes de autenticacao funcional, App Shell autenticado, PWA completa ou modulos de negocio.
+                As Entregas A e B preparam a base visual, os clientes Supabase browser/server, a sessao server-side e a protecao inicial de rotas antes do login visual, PWA completa ou modulos de negocio.
               </p>
             </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -123,7 +123,7 @@ export default function Home() {
         <Panel>
           <AppShellFrame sidebar={<Sidebar items={navigationItems} />} topbar={<Topbar />} mobileNavigation={<MobileNavigation items={navigationItems} />}>
             <div className="grid gap-5">
-              <PageHeader eyebrow="Preview estrutural" title="Shell unico da usuaria final" actions={<StatusBadge tone="warning">sem auth funcional</StatusBadge>} />
+              <PageHeader eyebrow="Preview estrutural seguro" title="Shell unico da usuaria final" actions={<StatusBadge tone="warning">auth visual futura</StatusBadge>} />
               <div className="grid gap-4 lg:grid-cols-2">
                 <ModuleCard description="Destino estrutural preparado sem regra de precificacao." state="COMING_SOON" title="Precificacao" />
                 <ModuleCard description="Destino estrutural preparado sem dados de estoque." state="COMING_SOON" title="Estoque" />
@@ -140,7 +140,7 @@ export default function Home() {
                 <Input id="foundation-email" placeholder="nome@empresa.com" type="email" />
               </Field>
               <Checkbox label="Manter sessao neste dispositivo" disabled />
-              <FormMessage tone="neutral">Validacao final e envio seguro ficam para as Entregas B e C.</FormMessage>
+              <FormMessage tone="neutral">Validacao final de credenciais e envio seguro ficam para a Entrega C.</FormMessage>
             </div>
           </Panel>
           <Panel>

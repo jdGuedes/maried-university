@@ -6,6 +6,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Adicionado
 
+- Entrega B da SPEC-002 implementada localmente com `@supabase/ssr`, `@supabase/supabase-js`, clientes Supabase browser/server, proxy Next.js de sessao, protecao de rotas e resolucao server-side inicial de usuario, profile, tenant, vinculo ativo e papel.
+- Rotas estruturais seguras `/login`, `/inicio` e `/acesso-negado` adicionadas para validar acesso sem implementar o fluxo visual de login da Entrega C.
 - Entrega A da SPEC-002 iniciada com workspace `apps/web`, Next.js 16, React 19, TypeScript strict, Tailwind CSS 4 e Lucide.
 - Tokens visuais semanticos, contratos estruturais de modulos/feature flags e componentes-base minimos, incluindo primitivas de formulario, estados globais de feedback e contratos estruturais de App Shell, overlays e prompts PWA, criados em `apps/web`.
 - Manifest PWA inicial, documentacao de assets de marca e manifesto tipado de assets oficiais/pendentes preparados sem editar imagens oficiais.
@@ -24,12 +26,15 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 ### Versao documental
 
 - Aprovacao da SPEC-002 v1.1 registrada sem marcar implementacao funcional.
-- Fundacao frontend consolidada como proxima fase documental do projeto.
-- Documentacao alinhada para registrar a Entrega A da SPEC-002 como concluida localmente e apontar a Entrega B como proxima etapa.
+- Fundacao frontend consolidada como fase documental do projeto.
+- Documentacao alinhada para registrar as Entregas A e B da SPEC-002 como concluidas localmente e apontar a Entrega C como proxima etapa.
 - Imagens oficiais movidas para a versao `v1` sem alteracao visual ou funcional.
 
 ### Validacao
 
+- `npm run web:typecheck` executado com sucesso para a Entrega B.
+- `npm run web:build` executado com sucesso para a Entrega B, incluindo proxy e rota dinamica `/inicio`.
+- `npm run web:test:e2e` executado com sucesso para 18 testes em 6 viewports, cobrindo fundacao visual e redirecionamento de rota protegida sem sessao.
 - `npm run web:typecheck` executado com sucesso para a Entrega A.
 - `npm run web:build` executado com sucesso para a Entrega A.
 - `npm run web:test:e2e` executado com sucesso em 6 viewports oficiais: 360, 390, 768, 1024, 1366 e 1440 px.
@@ -37,9 +42,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Alterado
 
-- `PROJECT.md`, `README.md`, `.specs/README.md` e `CODEX_EXECUTION_PROTOCOL.md` atualizados para refletir a Entrega A concluida localmente e a Entrega B como proxima etapa segura.
-
-- `package.json` e `package-lock.json` atualizados para workspaces npm e dependencias locais da fundacao frontend.
+- `PROJECT.md`, `README.md`, `.specs/README.md`, `CODEX_EXECUTION_PROTOCOL.md`, `ARCHITECTURE_DECISIONS.md` e documentacao do app web atualizados para refletir a Entrega B concluida localmente e a Entrega C como proxima etapa segura.
+- `package.json` e `package-lock.json` atualizados para workspaces npm e dependencias locais da fundacao frontend/Supabase SSR.
 - Migration local `core_identity_ownership_and_roles` revisada para usar `tenants.created_by` como fonte oficial do owner, helpers internos em schema privado, politicas mais restritas para `tenant_members` e bloqueio transacional por tenant na protecao do ultimo owner.
 - Documentacao do estado local da migration ainda nao aplicada no Supabase.
 - Validacao local descartavel da SPEC-001 registrada como aprovada com dois ciclos de `db reset --local` e dois ciclos do teste SQL transacional.

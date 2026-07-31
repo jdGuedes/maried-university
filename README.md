@@ -7,11 +7,12 @@ Ecossistema SaaS modular para iniciantes e pequenos negocios do segmento de semi
 - SPEC-001 concluida: fundacao tecnica de identidade, ownership, papeis, RLS e isolamento multitenant validada localmente.
 - SPEC-002 v1.1 aprovada: fundacao frontend, autenticacao, PWA e App Shell da usuaria final.
 - Entrega A da SPEC-002 concluida localmente: fundacao frontend, tokens, assets, estrutura global, componentes-base e validacao E2E.
+- Entrega B da SPEC-002 concluida localmente: clientes Supabase browser/server, sessao server-side, protecao de rotas e resolucao segura inicial de acesso.
 - Nenhuma implementacao funcional dos modulos do MVP comecou ainda.
 
 ## Fase atual
 
-O projeto esta pronto para preparar a Entrega B da SPEC-002, sem iniciar modulos funcionais.
+O projeto esta pronto para preparar a Entrega C da SPEC-002, sem iniciar modulos funcionais.
 
 Ordem oficial das proximas entregas:
 
@@ -70,4 +71,4 @@ A SPEC vigente para a proxima implementacao e:
 
 ## Proximo passo
 
-Preparar a Entrega B da SPEC-002: Supabase browser/server, sessao server-side, protecao de rotas e resolucao segura de usuario, tenant e vinculo ativo.
+Preparar a Entrega C da SPEC-002: splash, login, recuperacao, redefinicao e logout seguros sobre a base server-side da Entrega B.

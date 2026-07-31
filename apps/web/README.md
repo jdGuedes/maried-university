@@ -2,7 +2,7 @@
 
 Aplicacao web/PWA da MARIED UNIVERSITY.
 
-Estado atual: Entrega A da SPEC-002 em implementacao, limitada a fundacao frontend, tokens, assets, estrutura global e componentes-base minimos.
+Estado atual: Entregas A e B da SPEC-002 concluidas localmente. O app possui fundacao frontend, componentes-base, clientes Supabase browser/server, proxy de sessao, protecao de rotas e resolucao server-side inicial de acesso.
 
 Fora do escopo desta entrega:
 
@@ -16,7 +16,7 @@ Fora do escopo desta entrega:
 
 ## Estrutura reservada
 
-A Entrega A cria grupos e pastas para as proximas entregas da SPEC-002. READMEs em rotas, libs e testes sao contratos de organizacao, nao implementacao funcional.
+As Entregas A e B criam a base visual e a base segura de acesso para as proximas entregas da SPEC-002. READMEs em rotas, libs e testes continuam como contratos de organizacao quando a funcionalidade ainda for futura.
 
 ## Validacoes locais
 
@@ -28,4 +28,4 @@ npm run web:build
 npm run web:test:e2e
 ```
 
-O teste E2E usa Playwright local para validar a superficie estrutural da Entrega A em 360, 390, 768, 1024, 1366 e 1440 px. Artefatos de teste ficam em `test-results/` e `playwright-report/`, ignorados pelo Git.
+O teste E2E usa Playwright local para validar a superficie estrutural e a protecao inicial de rotas em 360, 390, 768, 1024, 1366 e 1440 px. Artefatos de teste ficam em `test-results/` e `playwright-report/`, ignorados pelo Git.
