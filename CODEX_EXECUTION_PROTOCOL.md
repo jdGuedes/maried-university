@@ -524,35 +524,43 @@ Uma recomendação objetiva.
 
 # 15. TAREFA ATUAL
 
-A tarefa atual é revisar exclusivamente a segurança da SPEC-001.
+A tarefa atual e implementar a SPEC-002 apos aprovacao documental.
 
-O Codex deve continuar até concluir:
+A SPEC vigente e:
 
-- correção da migration;
-- proteção de owner;
-- proteção de admin;
-- proteção do último owner;
-- proteção de `tenant_id`;
-- proteção de `user_id`;
-- funções privadas;
-- prevenção de recursão de RLS;
-- testes ampliados;
-- ADR Backend First;
-- atualização de documentação;
-- revisão final.
+```text
+.specs/002-FRONTEND-AUTH-PWA-USER-SHELL/SPEC-002-FRONTEND-AUTH-PWA-USER-SHELL-v1.1-APROVADA.md
+```
+
+O Codex deve iniciar pela Entrega A da SPEC-002:
+
+- auditoria do repositorio;
+- verificacao das versoes reais;
+- tokens;
+- assets;
+- estrutura global.
+
+O Codex deve respeitar integralmente:
+
+- Backend First;
+- Security Gate;
+- Frontend Gate;
+- Definition of Ready da SPEC-002;
+- ausencia de segredos no frontend;
+- validacao server-side de sessao, usuario, tenant e vinculo;
+- RLS como defesa obrigatoria.
 
 O Codex deve parar antes de:
 
+- implementar modulos funcionais fora da SPEC-002;
+- criar migration;
 - aplicar migration no Supabase;
 - configurar OAuth;
 - configurar Stripe;
 - configurar webhook;
 - configurar Vercel;
-- criar interface;
-- implementar Precificador;
 - fazer deploy;
 - fazer merge.
-
 ---
 
 # 16. COMANDO OPERACIONAL PARA O CODEX

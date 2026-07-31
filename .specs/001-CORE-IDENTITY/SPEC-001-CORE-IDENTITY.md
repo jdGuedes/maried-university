@@ -1,6 +1,6 @@
 # SPEC-001 | Fundação de Identidade e Multitenancy
 
-**Status:** RASCUNHO PARA REVISÃO
+**Status:** CONCLUIDA
 
 ## Objetivo
 
@@ -27,3 +27,8 @@ Fechar a Fase 1 de identidade e isolamento multiempresa.
 ## Critério principal
 
 Usuário A não pode consultar, editar ou excluir dados do tenant B, mesmo conhecendo UUIDs.
+## Resultado
+
+A SPEC-001 foi concluida, validada localmente, commitada e enviada na branch de trabalho. A fundacao tecnica esta pronta para ser consumida pela SPEC-002.
+
+Nenhuma migration deve ser aplicada no Supabase remoto sem autorizacao explicita.

@@ -4,11 +4,11 @@
 
 **Versão do contexto:** 0.1  
 **Data de consolidação:** 29/07/2026  
-**Status do produto:** Fundação técnica iniciada  
+**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 aprovada para implementacao
 **Repositório oficial:** `jdGuedes/maried-university`  
 **Responsável pelo produto:** MARIED Semijoias  
 **Idioma da documentação:** Português do Brasil  
-**Primeiro módulo:** Precificador Inteligente  
+**Etapa atual:** Implementacao da Entrega A da SPEC-002
 
 ---
 
@@ -94,7 +94,7 @@ As mensalidades por módulo devem ser acessíveis, preferencialmente abaixo de R
 - Vercel;
 - GitHub;
 - Codex;
-- primeiro MVP com Precificador Inteligente.
+- MVP atual com Fundacao Frontend, Autenticacao, Splash, Login, PWA e App Shell antes dos modulos funcionais.
 
 ### Fora do escopo atual
 
@@ -321,22 +321,25 @@ Ela criou:
 - `tenants_select_members`;
 - `tenant_members_select_members`.
 
-### Pendência crítica
+### Estado da SPEC-001
 
-Ainda deve ser implementado e testado:
+A fundacao tecnica da SPEC-001 foi concluida, validada localmente, commitada e enviada na branch de trabalho.
 
-- trigger para criar perfil ao cadastrar usuário no Supabase Auth;
-- trigger ou função segura para tornar o criador da empresa `owner`;
-- função `has_tenant_role`;
-- políticas seguras para gestão de membros;
-- testes de isolamento entre duas empresas;
-- advisors de segurança e performance.
+Entregas consolidadas:
 
-Não considerar a tentativa anterior de migration ampla como aplicada. Ela falhou por conexão.
+- baseline local reproduzivel de `core_identity_and_tenants`;
+- migration `core_identity_ownership_and_roles` preparada localmente;
+- trigger de perfil automatico;
+- owner automatico ao criar tenant;
+- funcao `has_tenant_role`;
+- politicas seguras para gestao de membros;
+- teste SQL de isolamento entre dois usuarios e dois tenants;
+- validacao local descartavel aprovada com dois ciclos de reset e teste.
 
+Nenhuma migration da SPEC-001 deve ser aplicada no Supabase remoto sem autorizacao explicita.
 ---
 
-## 11. Estado do repositório
+## 11. Estado do reposit�rio
 
 - **Repositório:** `jdGuedes/maried-university`
 - **Branch principal:** `main`
@@ -905,7 +908,7 @@ Parar e registrar a dúvida antes de decidir sozinho quando ela afetar:
 - **ADR-004:** motores internos compartilhados;
 - **ADR-005:** marketplace fora do escopo;
 - **ADR-006:** monólito modular;
-- **ADR-007:** Precificador como primeiro módulo;
+- **ADR-007:** Precificador como modulo funcional historicamente aprovado, agora posicionado apos a Fundacao Frontend pela SPEC-002;
 - **ADR-008:** Produção e Banho separado;
 - **ADR-009:** histórico congelado;
 - **ADR-010:** Supabase + Stripe + Vercel + GitHub.
@@ -915,84 +918,98 @@ Parar e registrar a dúvida antes de decidir sozinho quando ela afetar:
 
 ## 28. Roadmap
 
-### Fase 1: Identidade e multitenancy
+### Fase 1: Fundacao tecnica e multitenancy
 
-- perfil automático;
-- owner automático;
-- papéis;
-- gestão de membros;
+Status: concluida pela SPEC-001.
+
+- perfil automatico;
+- owner automatico;
+- papeis;
+- gestao de membros;
 - RLS;
 - testes de isolamento;
-- advisors.
+- validacao local descartavel.
 
-### Fase 2: SaaS comercial
+### Fase 2: Fundacao Frontend, Auth, PWA e App Shell
 
-- módulos;
-- planos;
-- assinaturas;
-- acesso;
-- Stripe;
-- webhooks.
+Status: SPEC-002 v1.1 aprovada para implementacao.
 
-### Fase 3: Núcleo
+Ordem oficial:
 
-- produtos;
-- categorias;
-- fornecedores;
-- galvânicas;
-- arquivos.
+```text
+Fundacao Frontend
+-> Autenticacao
+-> Splash
+-> Login
+-> PWA
+-> App Shell
+-> Dashboard estrutural
+-> Precificacao Inteligente
+-> Controle de Estoque
+-> Fornecedores
+-> Microcursos
+```
 
-### Fase 4: Precificador
+A proxima tarefa e implementar a Entrega A da SPEC-002:
 
-- ENGINE-001;
-- ENGINE-002;
-- histórico;
-- auditoria;
-- testes.
+- auditoria do repositorio;
+- verificacao das versoes reais;
+- tokens;
+- assets;
+- estrutura global.
 
-### Fase 5: Interface
+### Fase 3: Modulos funcionais do MVP
 
-- landing;
-- login;
-- onboarding;
-- dashboard;
-- Precificador responsivo.
+Os modulos funcionais comecam somente apos a fundacao frontend estar implementada e validada:
 
-### Fase 6: Piloto
+- Precificacao Inteligente;
+- Controle de Estoque;
+- Fornecedores;
+- Microcursos.
+
+### Fase 4: Central Administrativa e SaaS comercial
+
+- shell da Central Administrativa;
+- usuarios;
+- planos e assinaturas;
+- controle de acesso;
+- Stripe e webhooks somente com SPEC propria aprovada.
+
+### Fase 5: Piloto
 
 - Vercel;
-- domínio;
+- dominio;
 - observabilidade;
-- usuários piloto;
+- usuarios piloto;
 - ajustes com uso real.
 
 ---
 
 ## 29. Ponto oficial de retomada
 
-A próxima tarefa de banco é:
+A proxima tarefa e implementar a Entrega A da SPEC-002 aprovada:
 
 ```text
-core_identity_ownership_and_roles
+SPEC-002 | Entrega A | Fundacao Frontend, tokens, assets e estrutura global
 ```
 
-Ela deve incluir:
-
-- trigger de criação de perfil;
-- owner automático ao criar tenant;
-- função `has_tenant_role`;
-- políticas de gestão de membros;
-- testes SQL de isolamento;
-- advisors de segurança e performance.
-
-Não iniciar Stripe, interface ou Precificador antes de fechar e testar a Fase 1.
-
-Após isso, criar a especificação detalhada:
+A ordem oficial de continuidade e:
 
 ```text
-ENGINE-001 | Motor de Custos e Precificação
+Fundacao Frontend
+-> Autenticacao
+-> Splash
+-> Login
+-> PWA
+-> App Shell
+-> Dashboard estrutural
+-> Precificacao Inteligente
+-> Controle de Estoque
+-> Fornecedores
+-> Microcursos
 ```
 
+Nao iniciar Precificacao Inteligente, Controle de Estoque, Fornecedores, Microcursos, Stripe, OAuth, Vercel ou deploy antes de concluir e validar a fundacao definida pela SPEC-002.
 ---
 
 ## 30. Definition of Done

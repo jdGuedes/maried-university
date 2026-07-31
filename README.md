@@ -1,37 +1,72 @@
 # MARIED UNIVERSITY
 
-Ecossistema SaaS modular para iniciantes e pequenos negócios do segmento de semijoias e folheados.
+Ecossistema SaaS modular para iniciantes e pequenos negocios do segmento de semijoias e folheados.
 
-## Estado atual
+## Estado Atual do Projeto
 
-Projeto em fase de fundação técnica e documental.
+- SPEC-001 concluida: fundacao tecnica de identidade, ownership, papeis, RLS e isolamento multitenant validada localmente.
+- SPEC-002 v1.1 aprovada: fundacao frontend, autenticacao, PWA e App Shell da usuaria final.
+- Implementacao da SPEC-002 ainda nao iniciada.
+- Nenhuma implementacao funcional dos modulos do MVP comecou ainda.
 
-## Princípios
+## Fase atual
 
-- Uma conta, vários módulos.
+O projeto esta documentalmente pronto para iniciar a implementacao da Entrega A da SPEC-002.
+
+Ordem oficial das proximas entregas:
+
+```text
+Fundacao Frontend
+-> Autenticacao
+-> Splash
+-> Login
+-> PWA
+-> App Shell
+-> Dashboard estrutural
+-> Precificacao Inteligente
+-> Controle de Estoque
+-> Fornecedores
+-> Microcursos
+```
+
+## Principios
+
+- Uma conta, varios modulos.
 - Tudo conectado tecnicamente e separado comercialmente.
 - Banco central multitenant.
-- Regras reutilizáveis em motores internos.
-- Primeiro módulo: Precificador Inteligente.
-- Sem marketplace ou expansão para outros segmentos nesta fase.
+- Regras reutilizaveis em motores internos.
+- Fundacao frontend antes de modulos funcionais.
+- Sem marketplace ou expansao para outros segmentos nesta fase.
 
 ## Stack aprovada
 
 - Next.js com App Router
 - TypeScript
 - Supabase PostgreSQL, Auth e Storage
-- Stripe Checkout e Billing
-- Vercel
+- Stripe Checkout e Billing, em fase futura propria
+- Vercel, em fase futura propria
 - GitHub
 - Codex e ChatGPT
 
 ## Arquivos principais
 
 - `PROJECT.md`: contexto permanente do projeto.
-- `docs/`: documentação oficial.
-- `.specs/`: especificações aprovadas para implementação.
+- `MVP_INITIAL_SCOPE_UPDATED.md`: escopo funcional e visual oficial do MVP.
+- `FRONTEND_DESIGN_SYSTEM.md`: sistema visual oficial.
+- `SECURITY_POLICY.md`: politica permanente de seguranca.
+- `.specs/`: especificacoes aprovadas para implementacao.
+- `docs/`: documentacao oficial.
+- `references/`: referencias visuais oficiais versionadas.
 - `supabase/migrations/`: migrations versionadas.
 
-## Próximo passo
+## SPEC vigente
 
-Finalizar a Fase 1 de identidade e multitenancy no Supabase antes de iniciar telas, Stripe ou o Precificador.
+A SPEC vigente para a proxima implementacao e:
+
+```text
+.specs/002-FRONTEND-AUTH-PWA-USER-SHELL/SPEC-002-FRONTEND-AUTH-PWA-USER-SHELL-v1.1-APROVADA.md
+```
+
+## Proximo passo
+
+Implementar a Entrega A da SPEC-002: auditoria do repositorio, verificacao das versoes reais, tokens, assets e estrutura global.

@@ -1243,3 +1243,9 @@ O efeito visual deve encantar sem transformar a interface em enfeite.
 A tecnologia deve aparecer no acabamento.
 
 A facilidade deve aparecer no uso.
+
+---
+
+# 36. REFERENCIAS VISUAIS OFICIAIS
+
+As referencias visuais oficiais aprovadas ficam em `references/v1/` e devem ser usadas como contrato de fidelidade visual junto deste Design System.

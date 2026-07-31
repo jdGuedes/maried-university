@@ -7,8 +7,20 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 ### Adicionado
 
 - ADR-011 aprovando Backend First para operacoes sensiveis.
+- SPEC-002 v1.1 aprovada como contrato para fundacao frontend, autenticacao, PWA e App Shell da usuaria final.
+- Referencias visuais oficiais organizadas em `references/v1/` com governanca documental em `references/README.md`.
+- Pastas documentais `references/brand/`, `references/futuras/` e `references/archive/` preparadas sem criar assets novos.
+- ZIP original `references/archive/MARIED_MVP_SPEC_v2.zip` preservado como fonte imutavel de auditoria.
 - Baseline local reproduzivel `20260730000100_core_identity_and_tenants.sql` criada a partir do schema publico remoto para permitir resets locais limpos antes da SPEC-001.
 - Teste SQL transacional ampliado para cobrir isolamento, papeis, membros inativos e protecao do ultimo owner ativo da SPEC-001.
+
+
+### Versao documental
+
+- Aprovacao da SPEC-002 v1.1 registrada sem marcar implementacao funcional.
+- Fundacao frontend consolidada como proxima fase documental do projeto.
+- Documentacao alinhada para apontar a Entrega A da SPEC-002 como proximo passo.
+- Imagens oficiais movidas para a versao `v1` sem alteracao visual ou funcional.
 
 ### Alterado
 
