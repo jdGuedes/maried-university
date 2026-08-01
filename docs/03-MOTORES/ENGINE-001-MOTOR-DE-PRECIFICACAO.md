@@ -1,37 +1,78 @@
-# ENGINE-001 | Motor de Custos e PrecificaÃ§Ã£o
+# ENGINE-001 | Motor de Custos e Precificacao
 
-**Status:** EM ELABORAÃ‡ÃƒO
+**Status:** IMPLEMENTADO PARCIALMENTE - SPEC-003 Entrega A
 
 ## Objetivo
 
-Centralizar o cÃ¡lculo de custo tÃ©cnico, custo real, preÃ§o tÃ©cnico, preÃ§o sugerido e preÃ§o aprovado.
+Centralizar o calculo de custo tecnico, custo real, preco tecnico, preco sugerido e preco aprovado.
 
-## Escopo inicial
+## Entrega A implementada
 
-- peÃ§a bruta;
-- ouro;
-- prata;
-- verniz;
-- custos adicionais;
-- perdas;
-- rateios;
-- margem;
-- comissÃ£o;
-- imposto;
-- taxas;
-- arredondamento;
-- histÃ³rico.
+A Entrega A da SPEC-003 criou o nucleo matematico puro em `packages/pricing-engine`.
 
-## Regra crÃ­tica
+Escopo implementado:
 
-Nenhum mÃ³dulo pode duplicar as fÃ³rmulas deste motor.
+- custo base;
+- frete sem frete, unitario e total rateado por quantidade;
+- perda fixa;
+- perda percentual sobre custos diretos da unidade;
+- custo total protegido;
+- preco de equilibrio;
+- lucro fixo desejado;
+- acrescimo sobre custo;
+- margem liquida desejada;
+- preco tecnico;
+- preco sugerido por arredondamento;
+- preco aprovado manual;
+- lucro bruto;
+- lucro liquido;
+- margem liquida real;
+- alertas matematicos;
+- erros matematicos tipados;
+- snapshot matematico sem tenant, usuario ou sessao.
 
-## Teste obrigatÃ³rio
+## Precisao
 
-5 milÃ©simos de ouro + 3 de mÃ£o de obra, cotaÃ§Ã£o de R$ 600,00 e peso de 1,20 g deve resultar em R$ 5,76 de custo de ouro.
+O motor usa somente:
+
+- `bigint` em centavos para dinheiro;
+- `bigint` em basis points para percentuais.
+
+O pacote nao usa `number`, `float`, `double`, `Math`, `parseFloat` ou `Number`.
+
+## Regra critica
+
+Nenhum modulo pode duplicar as formulas deste motor.
+
+## Testes
+
+Comandos locais validados na Entrega A:
+
+```bash
+npm run pricing:test
+npm run pricing:typecheck
+npm run pricing:build
+npm run pricing:lint
+```
+
+Resultado inicial da Entrega A: 23 testes matematicos aprovados em 1 arquivo.
+
+## Fora do escopo da Entrega A
+
+- backend oficial;
+- banco;
+- migrations;
+- RLS;
+- historico salvo;
+- UI;
+- React;
+- Next.js routes;
+- Supabase local ou remoto;
+- Stripe;
+- OAuth;
+- deploy.
 
 ## SPEC relacionada
 
 - SPEC-003 Precificador Inteligente: `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
-- Status: aprovada para implementacao.
-- Esta documentacao continua como visao do motor; a SPEC-003 detalha formulas, validacoes, perfis, seguranca, RLS e testes para implementacao futura.
+- Status: Entrega A implementada; proximas entregas devem adicionar backend, banco/RLS e interface somente com autorizacao explicita.

@@ -11,7 +11,11 @@
     "web:typecheck": "npm run typecheck -w apps/web",
     "web:test:e2e": "npm run test:e2e -w apps/web",
     "web:test:unit": "npm run test:unit -w apps/web",
-    "web:test:integration": "npm run test:integration -w apps/web"
+    "web:test:integration": "npm run test:integration -w apps/web",
+    "pricing:build": "npm run build -w packages/pricing-engine",
+    "pricing:typecheck": "npm run typecheck -w packages/pricing-engine",
+    "pricing:lint": "npm run lint -w packages/pricing-engine",
+    "pricing:test": "npm run test -w packages/pricing-engine"
   },
   "devDependencies": {
     "supabase": "^2.110.0"

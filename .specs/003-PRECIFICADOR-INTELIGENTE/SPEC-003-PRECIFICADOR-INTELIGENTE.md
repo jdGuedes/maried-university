@@ -438,6 +438,7 @@ preco_minimo_recomendado = (CT + TF) / (1 - TP - ML)
 ```
 
 Quando `TP + ML >= 1`, o denominador e invalido e o calculo deve ser bloqueado.
+
 ### 10.10. Formula correta do ganho
 
 E proibido usar:
@@ -1113,7 +1114,7 @@ RESULTADO:
 READY
 ```
 
-Status atual: READY PARA IMPLEMENTACAO DA ENTREGA A. A aprovacao e documental; nenhuma implementacao funcional foi iniciada.
+Status atual: ENTREGA A IMPLEMENTADA LOCALMENTE. A aprovacao documental permanece como contrato para as entregas futuras; backend, banco, RLS e UI ainda dependem de autorizacao explicita.
 
 ## 37. Definition of Done
 
@@ -1245,10 +1246,10 @@ Para esta meta documental: APROVADO PARA ESPECIFICACAO. Comparacao visual direta
 
 Entrega A: modelo matematico, contratos e testes puros.
 
-- criar motor puro em pacote/domain adequado;
-- implementar validadores;
-- cobrir formulas e centavos;
-- sem banco e sem UI funcional.
+- criar motor puro em pacote/domain adequado; CONCLUIDO na Entrega A em `packages/pricing-engine`;
+- implementar validadores; CONCLUIDO na Entrega A;
+- cobrir formulas e centavos; CONCLUIDO na Entrega A com testes matematicos;
+- sem banco e sem UI funcional; preservado na Entrega A.
 
 Entrega B: banco, migrations, RLS e backend.
 

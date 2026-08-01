@@ -9,12 +9,13 @@ Ultima atualizacao: 2026-08-01
 - HEAD antes da Entrega F: `04e974f feat(pwa): implement spec 002 secure offline foundation`.
 - SPEC atual: SPEC-003 Precificador Inteligente v1.0 aprovada para implementacao.
 - Entregas concluidas: SPEC-001; SPEC-002 Entregas A, B, C, D, E e F.
-- Entrega atual: revisao e aprovacao documental da SPEC-003 do Precificador Inteligente.
-- Proxima etapa recomendada: Entrega A da SPEC-003, limitada a motor matematico, contratos e testes puros.
+- Entrega atual: SPEC-003 Entrega A implementada localmente.
+- Proxima etapa recomendada: Entrega B da SPEC-003, limitada a backend, banco, migrations, RLS e testes de isolamento, somente apos autorizacao explicita.
 
 ## Implementacoes Existentes
 
-- SPEC-003 do Precificador Inteligente existe como contrato documental aprovado em .specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md; nao ha implementacao funcional, migration ou banco do Precificador.
+- SPEC-003 do Precificador Inteligente existe como contrato documental aprovado em `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
+- Entrega A da SPEC-003 implementada em `packages/pricing-engine` com motor matematico puro, contratos tipados e testes matematicos, sem UI, banco, migration, Supabase ou persistencia.
 - Frontend Next.js 16 com App Router, React 19, TypeScript strict, Tailwind CSS 4 e Lucide.
 - Tokens visuais oficiais em `apps/web/styles/tokens.css` e contratos em `apps/web/lib/design/tokens.ts`.
 - Supabase browser/server clients com `@supabase/ssr`.
@@ -32,6 +33,16 @@ Ultima atualizacao: 2026-08-01
 - `apps/web/lib/modules/navigation.ts`: navegacao, estados oficiais e feature flags estruturais.
 - `apps/web/lib/pwa/cache-policy.ts`: matriz conservadora de cache PWA, incluindo bloqueio para headers `authorization`, `apikey` e `x-client-info`.
 - `apps/web/public/sw.js`: service worker estatico versionado com allow-list de assets seguros.
+- `packages/pricing-engine/src`: contratos e motor matematico puro do Precificador Inteligente, usando `bigint` em centavos e basis points.
+
+## Ultimos Resultados Locais da SPEC-003 Entrega A
+
+- `npm run pricing:test`: aprovado, 23 testes em 1 arquivo.
+- `npm run pricing:typecheck`: aprovado.
+- `npm run pricing:build`: aprovado.
+- `npm run pricing:lint`: aprovado.
+- Varredura `rg -n "\bnumber\b|Math\.|parseFloat|Number\(" packages\pricing-engine\src packages\pricing-engine\tests`: sem ocorrencias.
+- Nenhuma UI, migration, Supabase, persistencia, Stripe, OAuth ou deploy foi executado.
 
 ## Ultimos Resultados Locais da Entrega F
 
@@ -58,6 +69,7 @@ Status: aprovado com ressalvas.
 - Service role e segredos nao aparecem no app/browser.
 - Cache PWA nao persiste rotas autenticadas, Auth, APIs, Supabase, requests com `Authorization`, `apikey` ou `x-client-info`, profile, tenant ou dados de modulo.
 - Sem Stripe, OAuth, Supabase remoto, migration, deploy ou merge.
+- Entrega A da SPEC-003 preserva Backend First: o motor puro nao decide tenant, usuario, papel, sessao ou permissao; esses controles ficam para backend/RLS em entrega futura.
 - Ressalva: `npm audit --audit-level=high` permanece reprovado por dependencias transitivas conhecidas.
 
 ## Frontend Gate
@@ -73,6 +85,7 @@ Status: aprovado com ressalvas.
 ## Riscos Restantes
 
 - Reavaliar vulnerabilidades transitivas Next/PostCSS/Sharp quando houver patch seguro da stack atual.
+- Implementar a Entrega B da SPEC-003 com backend oficial, migrations, RLS, isolamento entre tenants e testes SQL/integracao antes de qualquer salvamento real de precificacao.
 - Criar harness seguro de usuario de teste para validar login real ate `/inicio` e shell autenticada com dados controlados.
 - Executar Lighthouse PWA em pipeline ou ambiente aprovado.
 - Validar instalacao PWA real e update real entre builds em homologacao.
@@ -82,12 +95,13 @@ Status: aprovado com ressalvas.
 
 - Nenhum deploy.
 - Nenhum merge.
-- Nenhuma migration local/remota criada para a Entrega F.
+- Nenhuma migration local/remota criada para a Entrega F ou para a SPEC-003 Entrega A.
 - Nenhuma migration aplicada.
 - Nenhuma alteracao no Supabase remoto.
 - Nenhum Stripe.
 - Nenhum OAuth.
 - Nenhuma tag ou release.
+
 ## Leitura Obrigatoria Para o Proximo Goal
 
 - `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`
@@ -102,9 +116,11 @@ Status: aprovado com ressalvas.
 - `FRONTEND_DESIGN_SYSTEM.md`
 - SPEC-002 v1.1 concluida com ressalvas
 - SPEC-003 aprovada para implementacao
+- `docs/implementation-log/2026-08-01-spec-003-entrega-a.md`
+- `packages/pricing-engine/README.md`
 - Logs das Entregas A, B, C, D, E e F
 - `CHANGELOG.md`
 - `docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md`
 
 ## Nao Reconstruir
-- Tokens, assets oficiais, Supabase clients, proxy, guards, contratos de acesso, auth flows, App Shell, navegacao estrutural, estados oficiais de modulo, componentes-base existentes e estrategia PWA/cache segura.
+- Tokens, assets oficiais, Supabase clients, proxy, guards, contratos de acesso, auth flows, App Shell, navegacao estrutural, estados oficiais de modulo, componentes-base existentes, estrategia PWA/cache segura e motor matematico puro da SPEC-003 Entrega A.
