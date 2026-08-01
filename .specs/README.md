@@ -23,7 +23,7 @@ Cada SPEC deve conter:
 | Codigo | Titulo | Status | Responsabilidade | Arquivo |
 |---|---|---|---|---|
 | SPEC-001 | Fundacao de Identidade e Multitenancy | CONCLUIDA | Fundacao tecnica de identidade, tenants, ownership, papeis, RLS e isolamento local validado | `001-CORE-IDENTITY/SPEC-001-CORE-IDENTITY.md` |
-| SPEC-002 | Frontend Foundation, Authentication, PWA and User App Shell | EM IMPLEMENTACAO | Fundacao frontend, autenticacao, PWA, App Shell, navegacao e dashboard estrutural da usuaria final | `002-FRONTEND-AUTH-PWA-USER-SHELL/SPEC-002-FRONTEND-AUTH-PWA-USER-SHELL-v1.1-APROVADA.md` |
+| SPEC-002 | Frontend Foundation, Authentication, PWA and User App Shell | CONCLUIDA COM RESSALVAS | Fundacao frontend, autenticacao, PWA, App Shell, navegacao, dashboard estrutural e gates finais da usuaria final | `002-FRONTEND-AUTH-PWA-USER-SHELL/SPEC-002-FRONTEND-AUTH-PWA-USER-SHELL-v1.1-APROVADA.md` |
 
 ## Estado da SPEC-002
 
@@ -31,8 +31,9 @@ Cada SPEC deve conter:
 - Entrega B concluida, commitada e enviada.
 - Entrega C concluida, commitada e enviada com splash, login, recuperacao, redefinicao, callback seguro, logout e testes.
 - Entrega D concluida, commitada e enviada com App Shell, dashboard estrutural, navegacao desktop/mobile, Minha Conta, Minha Assinatura e estados oficiais de modulos.
-- Entrega E implementada localmente com PWA, offline seguro, service worker, manifest, icones, instalacao, atualizacao e cache conservador.
+- Entrega E concluida com PWA, offline seguro, service worker, manifest, icones, instalacao simulada, atualizacao controlada e cache conservador.
+- Entrega F concluida localmente com testes finais, acessibilidade, responsividade, performance, bundle, seguranca, Security Gate e Frontend Gate.
 
 ## Proxima implementacao
 
-A proxima tarefa deve ser a Entrega F da SPEC-002, sem reconstruir as Entregas A, B, C, D ou E e sem iniciar modulos de negocio fora de ordem.
+A proxima tarefa deve criar SPEC propria para o Precificador Inteligente. Nenhum modulo funcional deve ser iniciado sem SPEC aprovada.

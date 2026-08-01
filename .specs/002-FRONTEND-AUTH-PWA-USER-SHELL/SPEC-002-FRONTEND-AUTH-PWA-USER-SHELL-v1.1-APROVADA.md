@@ -1,6 +1,6 @@
 # SPEC-002 | Frontend Foundation, Authentication, PWA and User App Shell
 
-**Status:** APROVADA PARA IMPLEMENTACAO
+**Status:** CONCLUIDA COM RESSALVAS
 
 ## 1. Identificacao
 
@@ -9,7 +9,7 @@
 | Codigo | SPEC-002 |
 | Titulo | Frontend Foundation, Authentication, PWA and User App Shell |
 | Versao | 1.1 |
-| Status | APROVADA PARA IMPLEMENTACAO |
+| Status | CONCLUIDA COM RESSALVAS |
 | Data | 2026-07-30 |
 | Responsavel de produto | Product Owner da MARIED UNIVERSITY |
 | Dependencia | SPEC-001 concluida, validada localmente e enviada no commit `973b18ea1b576442ae3ff52528fa94421aff8696` |
@@ -1373,3 +1373,14 @@ A implementaÃ§Ã£o deverÃ¡ ocorrer em tarefa separada, respeitando o plano 
 Em 2026-07-31, a Entrega E foi implementada localmente com PWA instalavel, manifest Next.js, icones 192/512/maskable, Apple touch icon, service worker versionado, fallback offline publico, prompts controlados de instalacao/atualizacao e matriz conservadora de cache. A implementacao nao adiciona cache offline de dados autenticados, sincronizacao offline, push notifications, Stripe, OAuth, migrations, deploy ou alteracao remota.
 
 Evidencias: `docs/implementation-log/2026-07-31-spec-002-entrega-e.md` e `docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md`.
+---
+
+## Nota de implementacao - Entrega F
+
+Em 2026-08-01, a Entrega F executou a validacao final local da SPEC-002. Foram executados testes unitarios, integracao, typecheck, build, E2E completo em 6 viewports, E2E PWA isolado, auditoria de dependencias, varredura de segredos, verificacao de links Markdown, zero-byte, bundle, screenshots e gates finais.
+
+Correcao realizada dentro do escopo: `apps/web/lib/pwa/cache-policy.ts` passou a tratar `apikey` e `x-client-info` como headers sensiveis, alinhando o contrato tipado ao service worker. O teste unitario correspondente foi ampliado.
+
+Resultado: SPEC-002 concluida com ressalvas. As ressalvas restantes sao: `npm audit --audit-level=high` reprova por vulnerabilidades transitivas conhecidas em Next/PostCSS/Sharp; `npm audit fix --force` sugere downgrade quebrado para Next 9.3.3 e nao foi aplicado; Lighthouse PWA nao foi executado por ausencia de ferramenta local aprovada; login real ate dashboard autenticado, instalacao PWA real e update real entre builds dependem de ambiente/harness seguro de homologacao.
+
+Evidencia principal: `docs/implementation-log/2026-08-01-spec-002-entrega-f.md`.

@@ -27,7 +27,13 @@ describe("PWA cache policy", () => {
     expect(getCacheDecision("http://localhost/api/profile")).toMatchObject({ cacheable: false, category: "api", strategy: "NETWORK_ONLY" });
     expect(isSupabaseUrl(new URL("https://example.supabase.co/auth/v1/token"))).toBe(true);
     expect(getCacheDecision("https://example.supabase.co/rest/v1/profiles")).toMatchObject({ cacheable: false, category: "supabase", strategy: "NETWORK_ONLY" });
-    expect(getCacheDecision("http://localhost/icons/maried-icon-512.png", { method: "GET", headers: new Headers({ authorization: "Bearer token" }) })).toMatchObject({ cacheable: false, category: "authenticated", strategy: "NETWORK_ONLY" });
+    for (const headers of [
+      new Headers({ authorization: "Bearer token" }),
+      new Headers({ apikey: "public-or-secret-key" }),
+      new Headers({ "x-client-info": "supabase-js-web" })
+    ]) {
+      expect(getCacheDecision("http://localhost/icons/maried-icon-512.png", { method: "GET", headers })).toMatchObject({ cacheable: false, category: "authenticated", strategy: "NETWORK_ONLY" });
+    }
     expect(getCacheDecision("http://localhost/icons/maried-icon-512.png", { method: "POST", headers: new Headers() })).toMatchObject({ cacheable: false, strategy: "NETWORK_ONLY" });
   });
 

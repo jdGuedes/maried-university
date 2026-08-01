@@ -57,13 +57,13 @@ export function getCacheDecision(input: string | URL, request?: Pick<Request, "m
     };
   }
 
-  if (request?.headers?.has("authorization")) {
+  if (request?.headers?.has("authorization") || request?.headers?.has("apikey") || request?.headers?.has("x-client-info")) {
     return {
       cacheable: false,
       category: "authenticated",
       persistence: "none",
       strategy: "NETWORK_ONLY",
-      reason: "Requests with Authorization may contain authenticated data."
+      reason: "Requests with sensitive Auth or Supabase client headers may contain authenticated data."
     };
   }
 

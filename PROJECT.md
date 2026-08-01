@@ -4,11 +4,11 @@
 
 **Versão do contexto:** 0.1  
 **Data de consolidação:** 29/07/2026  
-**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 em implementacao; Entregas A, B, C, D e E concluidas localmente
+**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 concluida com ressalvas; Entregas A, B, C, D, E e F concluidas localmente
 **Repositório oficial:** `jdGuedes/maried-university`  
 **Responsável pelo produto:** MARIED Semijoias  
 **Idioma da documentação:** Português do Brasil  
-**Etapa atual:** Revisao final e versionamento da Entrega E da SPEC-002
+**Etapa atual:** Fechamento da SPEC-002 Entrega F concluido localmente; proxima fase deve preparar SPEC propria do Precificador Inteligente
 
 ---
 
@@ -932,7 +932,7 @@ Status: concluida pela SPEC-001.
 
 ### Fase 2: Fundacao Frontend, Auth, PWA e App Shell
 
-Status: SPEC-002 v1.1 em implementacao; Entregas A, B, C e D concluidas, Entrega E implementada localmente e em fechamento.
+Status: SPEC-002 v1.1 concluida com ressalvas. Entregas A, B, C, D, E e F concluidas localmente, com gates finais executados e riscos residuais documentados.
 
 Ordem oficial:
 
@@ -950,7 +950,7 @@ Fundacao Frontend
 -> Microcursos
 ```
 
-A Entrega A da SPEC-002 foi concluida localmente com fundacao frontend, tokens, assets, estrutura global e validacao E2E. A Entrega B foi concluida localmente com clientes Supabase browser/server, proxy de sessao, protecao de rotas e resolucao segura inicial de usuario, tenant e vinculo ativo. A Entrega C foi concluida com splash, login, recuperacao, redefinicao, callback seguro e logout. A Entrega D adicionou App Shell, dashboard estrutural, navegacao e areas estruturais da conta. A Entrega E adiciona PWA, offline seguro, service worker, manifest, icones e cache conservador.
+A Entrega A da SPEC-002 concluiu fundacao frontend, tokens, assets, estrutura global e validacao E2E. A Entrega B concluiu clientes Supabase browser/server, proxy de sessao, protecao de rotas e resolucao segura inicial de usuario, tenant e vinculo ativo. A Entrega C concluiu splash, login, recuperacao, redefinicao, callback seguro e logout. A Entrega D adicionou App Shell, dashboard estrutural, navegacao e areas estruturais da conta. A Entrega E adicionou PWA, offline seguro, service worker, manifest, icones e cache conservador. A Entrega F executou validacao final, acessibilidade, responsividade, performance, bundle, seguranca e gates finais, com ressalvas documentadas.
 
 - splash;
 - login;
@@ -988,10 +988,10 @@ Os modulos funcionais comecam somente apos a fundacao frontend estar implementad
 
 ## 29. Ponto oficial de retomada
 
-A proxima tarefa, apos o fechamento da Entrega E, e continuar a SPEC-002 sem reconstruir as fundacoes ja entregues.
+A proxima tarefa, apos o fechamento da SPEC-002, e preparar uma SPEC propria para o Precificador Inteligente antes de qualquer implementacao funcional.
 
 ```text
-SPEC-002 | Entrega F | Testes, acessibilidade, performance e gates finais
+Proxima SPEC | Precificador Inteligente | Escopo, regras, dados, testes e criterios antes da implementacao
 ```
 
 A ordem oficial de continuidade e:
@@ -1010,7 +1010,7 @@ Fundacao Frontend
 -> Microcursos
 ```
 
-Nao iniciar Precificacao Inteligente, Controle de Estoque, Fornecedores, Microcursos, Stripe, OAuth, Vercel ou deploy antes de concluir e validar a fundacao definida pela SPEC-002.
+Nao iniciar Precificacao Inteligente, Controle de Estoque, Fornecedores, Microcursos, Stripe, OAuth, Vercel ou deploy sem SPEC propria aprovada para a proxima fase.
 ---
 
 ## 30. Definition of Done
@@ -1037,12 +1037,15 @@ A prioridade é entregar um MVP simples, confiável e seguro.
 
 Não construir uma catedral de código para resolver um anel de borboleta. A arquitetura deve ser sólida, mas o produto precisa continuar leve para o iniciante e sustentável para uma equipe pequena.
 
-## Estado da SPEC-002 em 2026-07-31
+## Estado da SPEC-002 em 2026-08-01
 
-A SPEC-002 esta com as Entregas A, B, C e D concluidas e a Entrega E implementada localmente. A Entrega E adiciona PWA instalavel, manifest, icones, service worker seguro, fallback offline, prompts de instalacao/atualizacao e cache conservador, sem iniciar funcionalidades internas de negocio.
+A SPEC-002 esta concluida com ressalvas. As Entregas A, B, C, D, E e F foram implementadas, validadas localmente, documentadas e mantiveram fora do escopo os modulos funcionais, Stripe, OAuth, migrations, Supabase remoto e deploy.
+
+Ressalvas ativas: `npm audit --audit-level=high` reprova por vulnerabilidades transitivas conhecidas em Next/PostCSS/Sharp; Lighthouse PWA nao foi executado por ausencia de ferramenta local aprovada; login real ate dashboard autenticado, instalacao PWA real e update real entre builds dependem de ambiente/harness seguro de homologacao.
 
 Documentos permanentes de continuidade:
 
 - `docs/PROJECT_STATE.md`
 - `docs/GOAL_FRAMEWORK.md`
 - `docs/IMPLEMENTATION_RULES.md`
+- `docs/implementation-log/2026-08-01-spec-002-entrega-f.md`

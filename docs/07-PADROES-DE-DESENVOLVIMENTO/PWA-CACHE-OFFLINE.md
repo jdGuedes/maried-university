@@ -1,6 +1,6 @@
 # PWA, Cache e Offline Seguro
 
-Documento operacional da SPEC-002 Entrega E.
+Documento operacional da SPEC-002 Entrega E, revisado na Entrega F.
 
 ## Objetivo
 
@@ -29,7 +29,7 @@ A PWA da MARIED UNIVERSITY permite instalacao, fallback offline e atualizacao co
 ## Regras de Seguranca
 
 - Nao cachear `/inicio`, `/minha-conta`, `/minha-assinatura`, `/precificacao`, `/estoque`, `/fornecedores` ou `/minicursos`.
-- Nao cachear `/auth/*`, `/api/*`, callback, Supabase REST/Auth/RPC ou requests com `Authorization`, `apikey` ou `x-client-info`.
+- Nao cachear `/auth/*`, `/api/*`, callback, Supabase REST/Auth/RPC ou requests com `Authorization`, `apikey` ou `x-client-info`. O contrato tipado e o service worker tratam esses headers como sensiveis.
 - Nao usar IndexedDB, background sync, push notifications, fila offline ou sincronizacao offline nesta entrega.
 - Atualizacao da PWA so recarrega a pagina apos acao explicita da usuaria no prompt.
 - Caches antigos com prefixo `maried-university` sao removidos no `activate`.
@@ -49,6 +49,6 @@ A PWA da MARIED UNIVERSITY permite instalacao, fallback offline e atualizacao co
 
 ## Limites Conhecidos
 
-- Lighthouse PWA nao foi executado nesta entrega por nao haver dependencia/script local instalado.
+- Lighthouse PWA nao foi executado na Entrega F por nao haver dependencia/script local instalado e por nao ser seguro adicionar dependencia pesada apenas para pontuacao. Validar em pipeline ou homologacao futura.
 - Instalacao real em sistemas operacionais especificos deve ser validada em homologacao futura.
 - Nao ha cache offline de dados de negocio por decisao de seguranca.

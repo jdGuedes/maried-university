@@ -2,9 +2,9 @@
 
 Aplicacao web/PWA da MARIED UNIVERSITY.
 
-Estado atual: Entregas A, B, C, D e E da SPEC-002 implementadas localmente. O app possui fundacao frontend, componentes-base, clientes Supabase browser/server, proxy de sessao, protecao de rotas, resolucao server-side inicial de acesso, fluxos de autenticacao, App Shell autenticado estrutural e PWA segura.
+Estado atual: Entregas A, B, C, D, E e F da SPEC-002 concluidas localmente. O app possui fundacao frontend, componentes-base, clientes Supabase browser/server, proxy de sessao, protecao de rotas, resolucao server-side inicial de acesso, fluxos de autenticacao, App Shell autenticado estrutural, PWA segura e gates finais executados com ressalvas documentadas.
 
-Implementado ate a Entrega E:
+Implementado ate a Entrega F:
 
 - layout autenticado unico em `app/(app)/layout.tsx`;
 - App Shell com sidebar desktop, topbar, menu da usuaria e navegacao mobile;
@@ -20,7 +20,8 @@ Implementado ate a Entrega E:
 - service worker versionado em public/sw.js;
 - fallback publico /offline;
 - prompts controlados de instalacao e atualizacao;
-- matriz conservadora de cache em lib/pwa/cache-policy.ts.
+- matriz conservadora de cache em lib/pwa/cache-policy.ts;
+- validacao final da fundacao frontend com unit, integration, typecheck, build, E2E em 6 viewports, audit, segredos, bundle e screenshots nao vazios.
 
 Fora do escopo desta entrega:
 

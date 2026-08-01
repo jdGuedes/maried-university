@@ -90,7 +90,7 @@ Quando uma nova decisÃ£o relevante for aprovada:
 | DEC-017 | Claymorphism funcional | APROVADO | FRONTEND_DESIGN_SYSTEM.md |
 | DEC-018 | PWA conservadora | IMPLEMENTADO NA ENTREGA E | SPEC-002 v1.1, docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md |
 | DEC-019 | Feature Flags centralizadas | IMPLEMENTADO COMO CONTRATO ESTRUTURAL | SPEC-002 v1.1, apps/web/lib/modules/navigation.ts |
-| DEC-020 | Performance Budget | APROVADO PARA IMPLEMENTAÃ‡ÃƒO | SPEC-002 v1.1 |
+| DEC-020 | Performance Budget | VALIDADO COM RESSALVAS NA ENTREGA F | SPEC-002 v1.1, log Entrega F |
 | DEC-021 | NavegaÃ§Ã£o Ãºnica por experiÃªncia | APROVADO | SPEC-002 |
 | DEC-022 | Sem modal sobre modal | APROVADO | SPEC-002 v1.1 |
 | DEC-023 | Estados oficiais de mÃ³dulos | APROVADO | SPEC-002 v1.1 |
