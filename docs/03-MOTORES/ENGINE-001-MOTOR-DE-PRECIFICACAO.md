@@ -1,6 +1,6 @@
 # ENGINE-001 | Motor de Custos e Precificacao
 
-**Status:** IMPLEMENTADO PARCIALMENTE - SPEC-003 Entrega A
+**Status:** IMPLEMENTADO PARCIALMENTE - SPEC-003 Entregas A e B
 
 ## Objetivo
 
@@ -30,6 +30,22 @@ Escopo implementado:
 - alertas matematicos;
 - erros matematicos tipados;
 - snapshot matematico sem tenant, usuario ou sessao.
+
+
+## Entrega B implementada localmente
+
+A Entrega B adicionou a camada server-side e a persistencia local do Precificador, mantendo o motor puro como fonte oficial das formulas.
+
+Escopo implementado:
+
+- DTO server-side em `apps/web/lib/pricing/dto.ts` para normalizar centavos e basis points como `bigint`;
+- servico `apps/web/lib/pricing/service.ts` que resolve contexto no servidor, exige papel `owner` ou `admin`, carrega perfis comerciais ativos do tenant e chama `calculatePricing`;
+- persistencia atomica via RPC transacional no PostgreSQL local;
+- snapshots de entrada, resultado, perfis comerciais e versoes historicas;
+- migration local `supabase/migrations/20260801214320_spec_003_pricing_persistence.sql` com RLS por tenant;
+- testes SQL de isolamento e testes de integracao server-side.
+
+A camada server-side nao duplica formulas: toda formacao oficial de preco continua em `packages/pricing-engine`.
 
 ## Precisao
 
@@ -75,4 +91,4 @@ Resultado inicial da Entrega A: 23 testes matematicos aprovados em 1 arquivo.
 ## SPEC relacionada
 
 - SPEC-003 Precificador Inteligente: `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
-- Status: Entrega A implementada; proximas entregas devem adicionar backend, banco/RLS e interface somente com autorizacao explicita.
+- Status: Entregas A e B implementadas localmente; proximas entregas devem adicionar interface funcional somente com autorizacao explicita. Nenhuma migration da SPEC-003 foi aplicada no Supabase remoto.

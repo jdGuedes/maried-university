@@ -4,11 +4,11 @@
 
 **Versão do contexto:** 0.1  
 **Data de consolidação:** 29/07/2026  
-**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 concluida com ressalvas; SPEC-003 do Precificador Inteligente aprovada para implementacao documental
+**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 concluida com ressalvas; SPEC-003 Entregas A e B implementadas localmente
 **Repositório oficial:** `jdGuedes/maried-university`  
 **Responsável pelo produto:** MARIED Semijoias  
 **Idioma da documentação:** Português do Brasil  
-**Etapa atual:** SPEC-003 v1.0 aprovada para implementacao; proxima fase deve iniciar a Entrega A com motor matematico, contratos e testes puros
+**Etapa atual:** SPEC-003 Entrega B implementada localmente; proxima fase autorizavel e a Entrega C da interface funcional inicial do Precificador
 
 ---
 
@@ -988,10 +988,10 @@ Os modulos funcionais comecam somente apos a fundacao frontend estar implementad
 
 ## 29. Ponto oficial de retomada
 
-A proxima tarefa e criar o Goal da Entrega A da SPEC-003 para motor matematico, contratos e testes puros, sem iniciar UI funcional, migrations, Supabase remoto, Stripe, OAuth ou deploy.
+A proxima tarefa autorizavel e criar o Goal da Entrega C da SPEC-003 para interface funcional inicial do Precificador, consumindo o backend local da Entrega B, sem Supabase remoto, Stripe, OAuth ou deploy.
 
 ```text
-SPEC-003 | Precificador Inteligente | v1.0 aprovada para implementacao; proxima etapa e Entrega A
+SPEC-003 | Precificador Inteligente | Entregas A e B implementadas localmente; proxima etapa autorizavel e Entrega C
 ```
 
 A ordem oficial de continuidade e:
@@ -1010,7 +1010,7 @@ Fundacao Frontend
 -> Microcursos
 ```
 
-Nao iniciar Precificacao Inteligente, Controle de Estoque, Fornecedores, Microcursos, Stripe, OAuth, Vercel ou deploy sem SPEC propria aprovada para a proxima fase.
+Nao iniciar Controle de Estoque, Fornecedores, Microcursos, Stripe, OAuth, Vercel, deploy ou alteracao remota sem SPEC propria aprovada para a proxima fase. A Entrega C da SPEC-003 depende de autorizacao explicita.
 ---
 
 ## 30. Definition of Done

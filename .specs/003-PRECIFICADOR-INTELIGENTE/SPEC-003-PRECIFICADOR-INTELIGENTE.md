@@ -1114,7 +1114,7 @@ RESULTADO:
 READY
 ```
 
-Status atual: ENTREGA A IMPLEMENTADA LOCALMENTE. A aprovacao documental permanece como contrato para as entregas futuras; backend, banco, RLS e UI ainda dependem de autorizacao explicita.
+Status atual: ENTREGAS A E B IMPLEMENTADAS LOCALMENTE. A aprovacao documental permanece como contrato para as entregas futuras; UI funcional ainda depende de autorizacao explicita. Nenhuma migration da SPEC-003 foi aplicada no Supabase remoto.
 
 ## 37. Definition of Done
 
@@ -1251,13 +1251,14 @@ Entrega A: modelo matematico, contratos e testes puros.
 - cobrir formulas e centavos; CONCLUIDO na Entrega A com testes matematicos;
 - sem banco e sem UI funcional; preservado na Entrega A.
 
-Entrega B: banco, migrations, RLS e backend.
+Entrega B: banco, migrations, RLS e backend. CONCLUIDA localmente em 2026-08-01.
 
-- criar migrations;
-- criar policies;
-- criar server actions/route handlers;
-- testar dois usuarios e dois tenants;
-- sem frontend completo.
+- migrations locais criadas;
+- policies e RLS por tenant criadas;
+- servico server-side e wrappers transacionais criados;
+- teste SQL com dois usuarios e dois tenants executado localmente;
+- sem frontend completo;
+- sem aplicacao no Supabase remoto.
 
 Entrega C: formulario e calculo simples.
 
@@ -1313,4 +1314,4 @@ Ela nao autoriza automaticamente:
 - merge;
 - alteracao direta na `main`.
 
-A proxima etapa autorizavel e criar o Goal da Entrega A: motor matematico, contratos e testes puros, sem banco e sem UI funcional ate nova tarefa explicita.
+A proxima etapa autorizavel e criar o Goal da Entrega C: interface funcional inicial do Precificador, consumindo o backend local da Entrega B, sem Supabase remoto, Stripe, OAuth ou deploy ate nova tarefa explicita.

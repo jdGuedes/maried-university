@@ -9,13 +9,14 @@ Ultima atualizacao: 2026-08-01
 - HEAD antes da Entrega F: `04e974f feat(pwa): implement spec 002 secure offline foundation`.
 - SPEC atual: SPEC-003 Precificador Inteligente v1.0 aprovada para implementacao.
 - Entregas concluidas: SPEC-001; SPEC-002 Entregas A, B, C, D, E e F.
-- Entrega atual: SPEC-003 Entrega A implementada localmente.
-- Proxima etapa recomendada: Entrega B da SPEC-003, limitada a backend, banco, migrations, RLS e testes de isolamento, somente apos autorizacao explicita.
+- Entrega atual: SPEC-003 Entrega B implementada localmente.
+- Proxima etapa recomendada: Entrega C da SPEC-003, limitada a interface funcional inicial do Precificador, somente apos autorizacao explicita.
 
 ## Implementacoes Existentes
 
 - SPEC-003 do Precificador Inteligente existe como contrato documental aprovado em `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
 - Entrega A da SPEC-003 implementada em `packages/pricing-engine` com motor matematico puro, contratos tipados e testes matematicos, sem UI, banco, migration, Supabase ou persistencia.
+- Entrega B da SPEC-003 implementada localmente com migration de persistencia, RLS por tenant, wrappers transacionais, servico server-side oficial e testes SQL/integracao, sem UI funcional e sem alteracao remota.
 - Frontend Next.js 16 com App Router, React 19, TypeScript strict, Tailwind CSS 4 e Lucide.
 - Tokens visuais oficiais em `apps/web/styles/tokens.css` e contratos em `apps/web/lib/design/tokens.ts`.
 - Supabase browser/server clients com `@supabase/ssr`.
@@ -35,6 +36,25 @@ Ultima atualizacao: 2026-08-01
 - `apps/web/public/sw.js`: service worker estatico versionado com allow-list de assets seguros.
 - `packages/pricing-engine/src`: contratos e motor matematico puro do Precificador Inteligente, usando `bigint` em centavos e basis points.
 
+
+## Ultimos Resultados Locais da SPEC-003 Entrega B
+
+- `docker version`, `docker info`, `docker context ls`, `npx supabase --version` e `npx supabase status`: ambiente local validado com Docker Desktop Linux Engine e Supabase CLI `2.110.0`.
+- `npx supabase db reset --local`: aprovado em banco local descartavel apos a migration `20260801214320_spec_003_pricing_persistence.sql`.
+- `tests/sql/spec_003_pricing_persistence_isolation.sql`: aprovado contra PostgreSQL local do Supabase e finalizado com `ROLLBACK`.
+- `npx supabase db lint --local`: aprovado sem erros de schema.
+- `npm run pricing:test`: aprovado, 23 testes.
+- `npm run web:test:integration`: aprovado, 19 testes.
+- `npm run pricing:typecheck`: aprovado.
+- `npm run web:typecheck`: aprovado.
+- `npm run pricing:lint`: aprovado.
+- `npm run web:build`: aprovado.
+
+Ressalvas:
+
+- `npx supabase status` imprime credenciais locais descartaveis da CLI; elas nao foram registradas na documentacao.
+- `npm audit --audit-level=high` permanece herdado com 3 vulnerabilidades high transitivas conhecidas.
+- Nenhuma migration da SPEC-003 foi aplicada no Supabase remoto.
 ## Ultimos Resultados Locais da SPEC-003 Entrega A
 
 - `npm run pricing:test`: aprovado, 23 testes em 1 arquivo.
@@ -85,7 +105,7 @@ Status: aprovado com ressalvas.
 ## Riscos Restantes
 
 - Reavaliar vulnerabilidades transitivas Next/PostCSS/Sharp quando houver patch seguro da stack atual.
-- Implementar a Entrega B da SPEC-003 com backend oficial, migrations, RLS, isolamento entre tenants e testes SQL/integracao antes de qualquer salvamento real de precificacao.
+- Iniciar a Entrega C da SPEC-003 somente com autorizacao explicita, consumindo o backend local da Entrega B e sem alterar Supabase remoto.
 - Criar harness seguro de usuario de teste para validar login real ate `/inicio` e shell autenticada com dados controlados.
 - Executar Lighthouse PWA em pipeline ou ambiente aprovado.
 - Validar instalacao PWA real e update real entre builds em homologacao.
@@ -95,7 +115,7 @@ Status: aprovado com ressalvas.
 
 - Nenhum deploy.
 - Nenhum merge.
-- Nenhuma migration local/remota criada para a Entrega F ou para a SPEC-003 Entrega A.
+- Nenhuma migration da SPEC-003 aplicada no Supabase remoto.
 - Nenhuma migration aplicada.
 - Nenhuma alteracao no Supabase remoto.
 - Nenhum Stripe.
@@ -117,6 +137,7 @@ Status: aprovado com ressalvas.
 - SPEC-002 v1.1 concluida com ressalvas
 - SPEC-003 aprovada para implementacao
 - `docs/implementation-log/2026-08-01-spec-003-entrega-a.md`
+- `docs/implementation-log/2026-08-01-spec-003-entrega-b.md`
 - `packages/pricing-engine/README.md`
 - Logs das Entregas A, B, C, D, E e F
 - `CHANGELOG.md`

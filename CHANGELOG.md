@@ -6,6 +6,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Adicionado
 
+- SPEC-003 Entrega B implementada localmente com migration de persistencia do Precificador, RLS por tenant, funcoes transacionais server-side, teste SQL de isolamento e servico server-side que reutiliza `packages/pricing-engine` para o calculo oficial.
+- Teste de integracao server-side do Precificador adicionado para validar DTO bigint, ignorar tenant/valores derivados manipulados, bloquear papeis nao aprovados e persistir via RPC transacional.
 - SPEC-003 v1.0 do Precificador Inteligente aprovada para implementacao documental, incorporando decisoes do Product Owner sobre perda percentual, frete MVP, taxas por tenant/perfil, permissoes, preco de equilibrio, estados, duplicacao, aprovacao, exclusao/inativacao e modelo de dados futuro.
 - Implementation log da revisao e aprovacao da SPEC-003 criado em `docs/implementation-log/2026-08-01-spec-003-revisao-aprovacao.md`.
 - SPEC-003 do Precificador Inteligente criada como proposta para aprovacao, documentando regras de negocio, formulas, perfis comerciais, modelo de dados proposto, RLS, seguranca, testes, criterios de aceite, pendencias de produto e plano de implementacao futuro, sem implementacao funcional.
@@ -43,6 +45,10 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Validacao
 
+- SPEC-003 Entrega B: `npx supabase db reset --local` executado com sucesso em banco local descartavel; migrations aplicadas: `20260730000100`, `20260730000236`, `20260801214320`.
+- SPEC-003 Entrega B: `tests/sql/spec_003_pricing_persistence_isolation.sql` executado com sucesso contra PostgreSQL local do Supabase e finalizado com `ROLLBACK`.
+- SPEC-003 Entrega B: `npx supabase db lint --local` executado sem erros de schema apos correcao de warning.
+- SPEC-003 Entrega B: `npm run pricing:test` aprovado com 23 testes; `npm run web:test:integration` aprovado com 19 testes; `npm run pricing:typecheck`, `npm run web:typecheck`, `npm run pricing:lint` e `npm run web:build` aprovados.
 - `npm run web:test:unit` executado com sucesso para 15 testes apos a Entrega F.
 - `npm run web:test:integration` executado com sucesso para 11 testes apos a Entrega F.
 - `npm run web:typecheck` executado com sucesso apos a Entrega F.
@@ -57,6 +63,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Alterado
 
+- `apps/web/package.json` e `package-lock.json` atualizados para declarar o workspace `@maried-university/pricing-engine` como dependencia do app web, permitindo reutilizacao server-side do motor oficial sem duplicar formulas.
+- Documentacao de banco, estado do projeto e motor de precificacao atualizada para registrar a Entrega B como camada local de persistencia/backend ainda nao aplicada no Supabase remoto.
 - `apps/web/lib/pwa/cache-policy.ts` alinhado ao service worker para tratar `apikey` e `x-client-info` como headers sensiveis e Network Only.
 - Teste unitario de cache PWA ampliado para cobrir headers sensiveis do Supabase.
 - `PROJECT.md`, `README.md`, `.specs/README.md`, SPEC-002, `docs/PROJECT_STATE.md`, `ARCHITECTURE_DECISIONS.md`, `apps/web/README.md` e documentacao PWA atualizados para refletir SPEC-002 concluida com ressalvas.
