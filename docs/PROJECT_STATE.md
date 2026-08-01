@@ -7,13 +7,14 @@ Ultima atualizacao: 2026-08-01
 - Projeto: MARIED UNIVERSITY.
 - Branch: `agent/initial-project-foundation`.
 - HEAD antes da Entrega F: `04e974f feat(pwa): implement spec 002 secure offline foundation`.
-- SPEC atual: SPEC-002 v1.1 concluida com ressalvas.
+- SPEC atual: SPEC-003 Precificador Inteligente criada como proposta para aprovacao.
 - Entregas concluidas: SPEC-001; SPEC-002 Entregas A, B, C, D, E e F.
-- Entrega atual: fechamento final local da SPEC-002.
-- Proxima etapa recomendada: criar SPEC propria para o Precificador Inteligente antes de qualquer implementacao funcional.
+- Entrega atual: criacao documental da SPEC-003 do Precificador Inteligente.
+- Proxima etapa recomendada: revisao humana e aprovacao da SPEC-003 antes de qualquer implementacao funcional.
 
 ## Implementacoes Existentes
 
+- SPEC-003 do Precificador Inteligente existe como proposta documental em .specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md; nao ha implementacao funcional, migration ou banco do Precificador.
 - Frontend Next.js 16 com App Router, React 19, TypeScript strict, Tailwind CSS 4 e Lucide.
 - Tokens visuais oficiais em `apps/web/styles/tokens.css` e contratos em `apps/web/lib/design/tokens.ts`.
 - Supabase browser/server clients com `@supabase/ssr`.
@@ -87,9 +88,10 @@ Status: aprovado com ressalvas.
 - Nenhum Stripe.
 - Nenhum OAuth.
 - Nenhuma tag ou release.
-
 ## Leitura Obrigatoria Para o Proximo Goal
 
+- `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`
+- `docs/implementation-log/2026-08-01-spec-003-precificador-criacao.md`
 - `PROJECT.md`
 - `docs/PROJECT_STATE.md`
 - `docs/GOAL_FRAMEWORK.md`
@@ -98,10 +100,10 @@ Status: aprovado com ressalvas.
 - `CODEX_EXECUTION_PROTOCOL.md`
 - `FRONTEND_DESIGN_SYSTEM.md`
 - SPEC-002 v1.1 concluida com ressalvas
+- SPEC-003 proposta para aprovacao
 - Logs das Entregas A, B, C, D, E e F
 - `CHANGELOG.md`
 - `docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md`
 
 ## Nao Reconstruir
-
 - Tokens, assets oficiais, Supabase clients, proxy, guards, contratos de acesso, auth flows, App Shell, navegacao estrutural, estados oficiais de modulo, componentes-base existentes e estrategia PWA/cache segura.

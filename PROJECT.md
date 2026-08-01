@@ -4,11 +4,11 @@
 
 **Versão do contexto:** 0.1  
 **Data de consolidação:** 29/07/2026  
-**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 concluida com ressalvas; Entregas A, B, C, D, E e F concluidas localmente
+**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 concluida com ressalvas; SPEC-003 do Precificador Inteligente criada como proposta para aprovacao
 **Repositório oficial:** `jdGuedes/maried-university`  
 **Responsável pelo produto:** MARIED Semijoias  
 **Idioma da documentação:** Português do Brasil  
-**Etapa atual:** Fechamento da SPEC-002 Entrega F concluido localmente; proxima fase deve preparar SPEC propria do Precificador Inteligente
+**Etapa atual:** SPEC-003 do Precificador Inteligente proposta; proxima fase deve revisar/aprovar a SPEC antes de implementar
 
 ---
 
@@ -988,10 +988,10 @@ Os modulos funcionais comecam somente apos a fundacao frontend estar implementad
 
 ## 29. Ponto oficial de retomada
 
-A proxima tarefa, apos o fechamento da SPEC-002, e preparar uma SPEC propria para o Precificador Inteligente antes de qualquer implementacao funcional.
+A proxima tarefa, apos a criacao da SPEC-003, e revisar e aprovar a SPEC do Precificador Inteligente antes de qualquer implementacao funcional.
 
 ```text
-Proxima SPEC | Precificador Inteligente | Escopo, regras, dados, testes e criterios antes da implementacao
+SPEC-003 | Precificador Inteligente | Proposta documental criada; requer revisao e aprovacao antes da implementacao
 ```
 
 A ordem oficial de continuidade e:

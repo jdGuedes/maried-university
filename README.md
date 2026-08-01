@@ -12,11 +12,11 @@ Ecossistema SaaS modular para iniciantes e pequenos negocios do segmento de semi
 - Entrega D da SPEC-002 concluida, commitada e enviada: App Shell autenticado, dashboard estrutural, navegacao desktop/mobile, Minha Conta, Minha Assinatura, estados oficiais de modulos, estados de acesso e governanca permanente.
 - Entrega E da SPEC-002 concluida, commitada e enviada: PWA instalavel, manifest, icones, service worker seguro, fallback offline, prompts de instalacao/atualizacao e matriz de cache conservadora.
 - Entrega F da SPEC-002 concluida localmente: testes finais, acessibilidade, responsividade, performance, bundle, seguranca, Security Gate e Frontend Gate, com ressalvas documentadas.
-- Nenhuma implementacao funcional dos modulos do MVP comecou ainda.
+- SPEC-003 do Precificador Inteligente criada como proposta para aprovacao; nenhuma implementacao funcional dos modulos do MVP comecou ainda.
 
 ## Fase atual
 
-O projeto esta no fechamento final da SPEC-002. A proxima etapa recomendada e preparar uma SPEC propria para o Precificador Inteligente, sem iniciar implementacao funcional antes da aprovacao documental.
+O projeto concluiu a SPEC-002 com ressalvas e criou a SPEC-003 do Precificador Inteligente como proposta para aprovacao. A proxima etapa recomendada e revisao humana da SPEC-003, sem iniciar implementacao funcional antes da aprovacao documental.
 
 Ordem oficial das proximas entregas:
 
@@ -78,4 +78,4 @@ A SPEC vigente para a proxima implementacao e:
 
 ## Proximo passo
 
-Preparar a proxima SPEC do Precificador Inteligente. Nao iniciar Precificador, Estoque, Fornecedores, Microcursos, Stripe, OAuth, migrations ou deploy sem tarefa propria aprovada.
+Revisar e aprovar a SPEC-003 do Precificador Inteligente. Nao iniciar Precificador, Estoque, Fornecedores, Microcursos, Stripe, OAuth, migrations ou deploy sem SPEC aprovada e tarefa propria.

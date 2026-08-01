@@ -26,6 +26,10 @@ A pasta `docs/implementation-log/` registra como cada entrega foi executada, val
 
 Toda alteracao relevante deve manter um registro de implementacao atualizado antes de ser considerada concluida. Codigo sem documentacao e evidencia de validacao deve ser tratado como implementacao incompleta.
 
+## Specs documentais recentes
+
+- .specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md: proposta documental do Precificador Inteligente, aguardando revisao/aprovacao antes de implementacao.
+
 ## Padroes de desenvolvimento
 
 - docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md: politica operacional de PWA, cache conservador, offline seguro, instalacao e atualizacao controlada.

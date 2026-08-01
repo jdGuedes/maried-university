@@ -6,6 +6,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Adicionado
 
+- SPEC-003 do Precificador Inteligente criada como proposta para aprovacao, documentando regras de negocio, formulas, perfis comerciais, modelo de dados proposto, RLS, seguranca, testes, criterios de aceite, pendencias de produto e plano de implementacao futuro, sem implementacao funcional.
+- Implementation log documental da criacao da SPEC-003 criado em docs/implementation-log/2026-08-01-spec-003-precificador-criacao.md.
 - Entrega F da SPEC-002 concluida localmente com validacao final da fundacao frontend, acessibilidade, responsividade, performance, bundle, varredura de segredos, Security Gate e Frontend Gate.
 - Implementation log da Entrega F criado em `docs/implementation-log/2026-08-01-spec-002-entrega-f.md`.
 - Entrega E da SPEC-002 implementada com manifest Next.js, icones PWA 192/512/maskable, Apple touch icon, service worker versionado, fallback offline publico, prompts controlados de instalacao/atualizacao, estado offline/reconectado e matriz conservadora de cache.
