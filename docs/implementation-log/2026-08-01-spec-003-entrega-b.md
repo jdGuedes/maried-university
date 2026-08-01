@@ -319,3 +319,62 @@ Continuam proibidos sem nova autorizacao:
 - OAuth;
 - deploy;
 - merge.
+
+## Definition of Done
+
+Resultado: CONCLUIDA.
+
+- [x] Auditoria concluida.
+- [x] Definition of Ready = READY apos Docker/Supabase local reativados.
+- [x] Implementation log criado antes da primeira alteracao funcional e preservado durante bloqueios/retomada.
+- [x] Modelo de dados implementado localmente.
+- [x] Migration local criada: `20260801214320_spec_003_pricing_persistence.sql`.
+- [x] `db reset --local` aprovado em banco descartavel.
+- [x] RLS implementada nas tabelas do Precificador.
+- [x] Politicas testadas com SQL transacional.
+- [x] Isolamento entre dois tenants testado.
+- [x] Servico server-side implementado.
+- [x] Motor `packages/pricing-engine` reutilizado, sem duplicacao de formulas.
+- [x] DTO bigint seguro implementado.
+- [x] Calculo oficial server-side implementado.
+- [x] Persistencia de snapshot implementada.
+- [x] Status `RASCUNHO`, `CALCULADA`, `APROVADA` e `INATIVA` implementados.
+- [x] Duplicacao implementada via `duplicate_pricing_calculation_tx`.
+- [x] Inativacao implementada via `inactivate_pricing_calculation_tx`.
+- [x] Exclusao protegida: somente rascunho sem versao consolidada pode ser excluido fisicamente.
+- [x] Transacoes implementadas por wrappers RPC no PostgreSQL.
+- [x] Testes SQL aprovados.
+- [x] Testes de integracao aprovados.
+- [x] Testes do motor aprovados.
+- [x] Typecheck aprovado.
+- [x] Build aprovado.
+- [x] Lint aprovado.
+- [x] Security Gate preenchido.
+- [x] Documentacao atualizada.
+- [x] `PROJECT_STATE.md` atualizado.
+- [x] `CHANGELOG.md` atualizado.
+- [x] Diff revisado.
+- [x] Varredura de segredos realizada.
+- [x] Nenhuma UI funcional criada.
+- [x] Nenhuma alteracao remota executada.
+- [x] Commit criado.
+- [x] Push realizado.
+- [x] Working tree limpa apos push.
+- [x] Relatorio final produzido na conversa.
+- [x] CONTEXTO PARA O PROXIMO GOAL produzido.
+
+Ressalva: `npm audit --audit-level=high` permanece reprovado por vulnerabilidades high transitivas herdadas de Next/PostCSS/Sharp; nao foi aplicado `npm audit fix --force` porque sugere downgrade quebrado.
+
+## Commit e Push
+
+Commit funcional da Entrega B:
+
+- SHA: `52a0f12`
+- Mensagem: `feat(pricing): implement secure server persistence`
+- Branch: `agent/initial-project-foundation`
+- Push: enviado para `origin/agent/initial-project-foundation`
+
+Fechamento documental posterior:
+
+- Motivo: registrar explicitamente a Definition of Done e dados de commit/push no implementation log apos auditoria final contra o Goal original.
+- Escopo: documentacao apenas, sem alteracao funcional, sem migration adicional e sem acesso remoto ao Supabase.
