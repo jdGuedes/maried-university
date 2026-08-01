@@ -4,7 +4,7 @@
 **Projeto:** MARIED UNIVERSITY
 **Status:** ATIVO
 **VersÃ£o:** 1.0
-**Ultima atualizacao:** 31/07/2026
+**Ultima atualizacao:** 2026-08-01
 **ResponsÃ¡vel:** Product Owner da MARIED UNIVERSITY
 **AplicaÃ§Ã£o:** obrigatÃ³ria como Ã­ndice de consulta para Codex, ChatGPT, agentes e desenvolvedores
 
@@ -112,6 +112,9 @@ Quando uma nova decisÃ£o relevante for aprovada:
 | DEC-039 | Perfis comerciais por canal | APROVADO | MVP_INITIAL_SCOPE_UPDATED.md |
 | DEC-040 | CÃ¡lculos histÃ³ricos preservados por snapshot | APROVADO | PROJECT.md |
 | DEC-041 | Documentacao continua de implementacao | APROVADO | docs/implementation-log/ |
+| DEC-042 | SPEC-003 v1.0 do Precificador Inteligente aprovada para implementacao | APROVADO | SPEC-003 |
+| DEC-043 | Preco de equilibrio bloqueia prejuizo calculado no Precificador | APROVADO | SPEC-003 |
+| DEC-044 | Perfis comerciais do Precificador gerenciados por owner/admin | APROVADO | SPEC-003, member_role |
 
 ---
 
@@ -128,6 +131,9 @@ Quando uma nova decisÃ£o relevante for aprovada:
 | PEND-008 | NormalizaÃ§Ã£o LF/CRLF | RepositÃ³rio |
 | PEND-009 | PreÃ§os oficiais dos planos | Comercial |
 | PEND-010 | ConfiguraÃ§Ã£o Stripe | Pagamentos |
+| PEND-011 | Regra final para usuarios com multiplos tenants no Precificador | Auth/App Shell/Precificador |
+| PEND-012 | Percentuais reais por tenant e perfil comercial | Precificador |
+| PEND-013 | Parametros comerciais recomendados pela MARIED UNIVERSITY | Produto/Comercial |
 
 ---
 
@@ -177,6 +183,7 @@ Entrega F
 Testes, acessibilidade, performance e gates
 
 Depois:
+SPEC-003 Entrega A - motor matematico, contratos e testes puros
 PrecificaÃ§Ã£o Inteligente
 Estoque
 Fornecedores

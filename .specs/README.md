@@ -24,7 +24,7 @@ Cada SPEC deve conter:
 |---|---|---|---|---|
 | SPEC-001 | Fundacao de Identidade e Multitenancy | CONCLUIDA | Fundacao tecnica de identidade, tenants, ownership, papeis, RLS e isolamento local validado | `001-CORE-IDENTITY/SPEC-001-CORE-IDENTITY.md` |
 | SPEC-002 | Frontend Foundation, Authentication, PWA and User App Shell | CONCLUIDA COM RESSALVAS | Fundacao frontend, autenticacao, PWA, App Shell, navegacao, dashboard estrutural e gates finais da usuaria final | `002-FRONTEND-AUTH-PWA-USER-SHELL/SPEC-002-FRONTEND-AUTH-PWA-USER-SHELL-v1.1-APROVADA.md` |
-| SPEC-003 | Precificador Inteligente | PROPOSTA PARA APROVACAO | Contrato documental do modulo de precificacao: regras, formulas, perfis, dados, seguranca, RLS, testes e plano futuro, sem implementacao funcional | `003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md` |
+| SPEC-003 | Precificador Inteligente | APROVADA PARA IMPLEMENTACAO | Contrato documental do modulo de precificacao: regras, formulas, perfis, dados, seguranca, RLS, testes e plano futuro, sem implementacao funcional | `003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md` |
 
 ## Estado da SPEC-002
 
@@ -37,4 +37,4 @@ Cada SPEC deve conter:
 
 ## Proxima etapa
 
-A SPEC-003 do Precificador Inteligente foi criada como proposta documental. Nenhum modulo funcional deve ser iniciado antes da aprovacao explicita da SPEC-003 e da resolucao ou aceite das pendencias de produto registradas.
+A SPEC-003 do Precificador Inteligente foi aprovada como versao 1.0. A proxima etapa e a Entrega A, limitada a motor matematico, contratos e testes puros; UI funcional, migrations, Supabase remoto, Stripe, OAuth e deploy continuam dependendo de tarefas proprias.

@@ -12,11 +12,11 @@ Ecossistema SaaS modular para iniciantes e pequenos negocios do segmento de semi
 - Entrega D da SPEC-002 concluida, commitada e enviada: App Shell autenticado, dashboard estrutural, navegacao desktop/mobile, Minha Conta, Minha Assinatura, estados oficiais de modulos, estados de acesso e governanca permanente.
 - Entrega E da SPEC-002 concluida, commitada e enviada: PWA instalavel, manifest, icones, service worker seguro, fallback offline, prompts de instalacao/atualizacao e matriz de cache conservadora.
 - Entrega F da SPEC-002 concluida localmente: testes finais, acessibilidade, responsividade, performance, bundle, seguranca, Security Gate e Frontend Gate, com ressalvas documentadas.
-- SPEC-003 do Precificador Inteligente criada como proposta para aprovacao; nenhuma implementacao funcional dos modulos do MVP comecou ainda.
+- SPEC-003 do Precificador Inteligente aprovada para implementacao documental; nenhuma implementacao funcional dos modulos do MVP comecou ainda.
 
 ## Fase atual
 
-O projeto concluiu a SPEC-002 com ressalvas e criou a SPEC-003 do Precificador Inteligente como proposta para aprovacao. A proxima etapa recomendada e revisao humana da SPEC-003, sem iniciar implementacao funcional antes da aprovacao documental.
+O projeto concluiu a SPEC-002 com ressalvas e aprovou a SPEC-003 v1.0 do Precificador Inteligente. A proxima etapa recomendada e iniciar a Entrega A da SPEC-003: motor matematico, contratos e testes puros, sem UI funcional, migrations, banco remoto ou deploy.
 
 Ordem oficial das proximas entregas:
 
@@ -73,9 +73,9 @@ Fundacao Frontend
 A SPEC vigente para a proxima implementacao e:
 
 ```text
-.specs/002-FRONTEND-AUTH-PWA-USER-SHELL/SPEC-002-FRONTEND-AUTH-PWA-USER-SHELL-v1.1-APROVADA.md
+.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md
 ```
 
 ## Proximo passo
 
-Revisar e aprovar a SPEC-003 do Precificador Inteligente. Nao iniciar Precificador, Estoque, Fornecedores, Microcursos, Stripe, OAuth, migrations ou deploy sem SPEC aprovada e tarefa propria.
+Criar o Goal da Entrega A da SPEC-003 para implementar apenas o motor matematico, contratos e testes puros. Nao iniciar UI funcional, migrations, banco remoto, Stripe, OAuth ou deploy sem tarefa propria.

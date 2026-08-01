@@ -1,21 +1,21 @@
-# Módulos
+# MÃƒÂ³dulos
 
 ## Aprovados
 
 1. Precificador Inteligente.
 2. Etiquetas Express.
-3. Produção e Banho.
+3. ProduÃƒÂ§ÃƒÂ£o e Banho.
 4. Estoque Pocket.
-5. Catálogo Digital.
+5. CatÃƒÂ¡logo Digital.
 6. Financeiro Simples.
 
 ## Prioridade
 
-O primeiro MVP é o Precificador Inteligente.
+O primeiro MVP ÃƒÂ© o Precificador Inteligente.
 
-Produção e Banho será um módulo separado para manter o Precificador básico simples.
+ProduÃƒÂ§ÃƒÂ£o e Banho serÃƒÂ¡ um mÃƒÂ³dulo separado para manter o Precificador bÃƒÂ¡sico simples.
 
 ## SPEC relacionada
 
-- SPEC-003 Precificador Inteligente: proposta documental criada em `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
-- Status do modulo: planejado e especificado para revisao, ainda sem implementacao funcional.
+- SPEC-003 Precificador Inteligente: versao 1.0 aprovada em `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
+- Status do modulo: aprovado para implementacao futura por entregas, ainda sem implementacao funcional.

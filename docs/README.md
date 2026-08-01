@@ -28,7 +28,7 @@ Toda alteracao relevante deve manter um registro de implementacao atualizado ant
 
 ## Specs documentais recentes
 
-- .specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md: proposta documental do Precificador Inteligente, aguardando revisao/aprovacao antes de implementacao.
+- `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`: SPEC-003 v1.0 aprovada para implementacao do Precificador Inteligente; proxima etapa e Entrega A, sem UI funcional ou migration.
 
 ## Padroes de desenvolvimento
 

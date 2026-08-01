@@ -1,14 +1,14 @@
-# ENGINE-001 | Motor de Custos e Precificação
+# ENGINE-001 | Motor de Custos e PrecificaÃ§Ã£o
 
-**Status:** EM ELABORAÇÃO
+**Status:** EM ELABORAÃ‡ÃƒO
 
 ## Objetivo
 
-Centralizar o cálculo de custo técnico, custo real, preço técnico, preço sugerido e preço aprovado.
+Centralizar o cÃ¡lculo de custo tÃ©cnico, custo real, preÃ§o tÃ©cnico, preÃ§o sugerido e preÃ§o aprovado.
 
 ## Escopo inicial
 
-- peça bruta;
+- peÃ§a bruta;
 - ouro;
 - prata;
 - verniz;
@@ -16,22 +16,22 @@ Centralizar o cálculo de custo técnico, custo real, preço técnico, preço su
 - perdas;
 - rateios;
 - margem;
-- comissão;
+- comissÃ£o;
 - imposto;
 - taxas;
 - arredondamento;
-- histórico.
+- histÃ³rico.
 
-## Regra crítica
+## Regra crÃ­tica
 
-Nenhum módulo pode duplicar as fórmulas deste motor.
+Nenhum mÃ³dulo pode duplicar as fÃ³rmulas deste motor.
 
-## Teste obrigatório
+## Teste obrigatÃ³rio
 
-5 milésimos de ouro + 3 de mão de obra, cotação de R$ 600,00 e peso de 1,20 g deve resultar em R$ 5,76 de custo de ouro.
+5 milÃ©simos de ouro + 3 de mÃ£o de obra, cotaÃ§Ã£o de R$ 600,00 e peso de 1,20 g deve resultar em R$ 5,76 de custo de ouro.
 
 ## SPEC relacionada
 
 - SPEC-003 Precificador Inteligente: `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
-- Status: proposta para aprovacao.
+- Status: aprovada para implementacao.
 - Esta documentacao continua como visao do motor; a SPEC-003 detalha formulas, validacoes, perfis, seguranca, RLS e testes para implementacao futura.

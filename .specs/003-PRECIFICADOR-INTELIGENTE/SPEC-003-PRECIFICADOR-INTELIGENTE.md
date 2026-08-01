@@ -1,6 +1,6 @@
 # SPEC-003 | Precificador Inteligente
 
-**Status:** PROPOSTA PARA APROVACAO
+**Status:** APROVADA PARA IMPLEMENTACAO
 
 ## 1. Identificacao
 
@@ -8,14 +8,14 @@
 |---|---|
 | Codigo | SPEC-003 |
 | Titulo | Precificador Inteligente |
-| Versao | 0.1 |
-| Status | PROPOSTA PARA APROVACAO |
+| Versao | 1.0 |
+| Status | APROVADA PARA IMPLEMENTACAO |
 | Data | 2026-08-01 |
 | Responsavel de produto | Product Owner da MARIED UNIVERSITY |
 | Branch de trabalho | `agent/initial-project-foundation` |
-| Commit base | `d7e56c2 test(frontend): complete spec 002 validation gates` |
+| Commit base | `d70e056 docs(spec-003): define intelligent pricing module` |
 | Dependencias | SPEC-001 concluida; SPEC-002 concluida com ressalvas |
-| Escopo desta SPEC | Especificacao documental do modulo, sem implementacao |
+| Escopo desta SPEC | Especificacao documental aprovada do modulo, sem implementacao |
 
 Referencias obrigatorias:
 
@@ -52,7 +52,7 @@ A experiencia deve ser simples na interface e robusta nos calculos. A usuaria na
 - qual margem real sera obtida;
 - quais taxas reduzem o lucro.
 
-Esta SPEC cria o contrato para implementacao futura. Ela nao autoriza implementacao funcional, migrations, alteracao de banco, Stripe, OAuth, deploy ou Supabase remoto.
+Esta SPEC publica o contrato aprovado para implementacao futura da Entrega A. Ela nao implementa funcionalidade, nao cria migrations, nao altera banco, nao autoriza Stripe, OAuth, deploy ou Supabase remoto.
 
 ## 3. Filosofia operacional
 
@@ -212,9 +212,25 @@ Opcoes avaliadas:
 - rateio por valor;
 - valor fixo manual.
 
-Regra MVP adotada: valor fixo manual no calculo, porque e a opcao aprovada mais simples e coerente com o escopo de Calculadora/Precificacao.
+Regra MVP aprovada:
 
-Pendencia de produto: confirmar se rateio por quantidade ou por valor entrara na primeira implementacao funcional ou ficara para integracao com Estoque/Produção e Banho.
+- sem frete;
+- frete informado diretamente por peca;
+- frete total rateado pela quantidade de pecas.
+
+Formula do rateio:
+
+```text
+frete_unitario = frete_total / quantidade_de_pecas
+```
+
+Validacoes obrigatorias:
+
+- frete nao pode ser negativo;
+- quantidade deve ser maior que zero quando houver rateio;
+- divisao por zero deve ser bloqueada;
+- o sistema deve informar o frete unitario calculado;
+- rateio por valor financeiro fica fora do MVP.
 
 ### 9.5. Perdas
 
@@ -232,13 +248,14 @@ Validacoes:
 - percentual igual a 100 e permitido apenas se a regra de negocio confirmar a base e o impacto; por seguranca, a implementacao futura deve bloquear percentual de perda que torne o custo inconsistente;
 - mensagens devem explicar o campo, nao a formula interna.
 
-Pendencia de produto: base exata da perda percentual. Ate aprovacao, a SPEC recomenda documentar no contrato de implementacao que a perda percentual nao sera implementada oficialmente sem decisao da base.
+Base aprovada da perda percentual:
 
-Opcoes de base:
+```text
+base_perda = custo_peca + embalagem + tag_ou_etiqueta + frete_unitario + outros_custos
+perda_calculada = base_perda * percentual_perda
+```
 
-- apenas custo da peca;
-- todos os custos diretos;
-- outra base aprovada.
+A perda percentual incide sobre os custos diretos da unidade. Ela nao incide sobre o preco de venda e nao incide novamente sobre ela mesma.
 
 ### 9.6. Custos comerciais
 
@@ -299,12 +316,15 @@ CT = CB + P
 
 ### 10.4. Perda percentual
 
-Pendente de produto quanto a base. Formula parametrizada:
+A base aprovada da perda percentual e o conjunto de custos diretos da unidade.
 
 ```text
+base_perda = custo_peca + embalagem + tag_ou_etiqueta + frete_unitario + outros_custos
 P = base_perda * percentual_perda
 CT = CB + P
 ```
+
+A perda nao incide sobre o preco de venda e nao incide recursivamente sobre ela mesma.
 
 ### 10.5. Percentual total aplicavel
 
@@ -352,11 +372,7 @@ Formula base:
 preco_alvo = CT * (1 + A)
 ```
 
-Se houver taxas percentuais e fixas, o preco tecnico para preservar o preco alvo liquido deve ser:
-
-```text
-PV = (preco_alvo + TF) / (1 - TP)
-```
+O acrescimo define o preco tecnico inicial por custo. Depois, o motor deve calcular lucro e margem reais considerando taxas fixas, taxas percentuais, comissao e impostos. Este modo nao transforma acrescimo em margem liquida garantida.
 
 Lucro liquido real:
 
@@ -390,7 +406,39 @@ Margem liquida real:
 margem_liquida_real = LT / PV
 ```
 
-### 10.9. Formula correta do ganho
+### 10.9. Preco de equilibrio e minimo recomendado
+
+Preco de equilibrio e o menor preco que cobre todos os custos fixos e percentuais, sem lucro.
+
+```text
+preco_equilibrio = (CT + TF) / (1 - TP)
+```
+
+Validacoes:
+
+- `TP >= 1` bloqueia o calculo;
+- preco aprovado abaixo do equilibrio e bloqueado;
+- preco aprovado igual ao equilibrio e permitido apenas como lucro zero, com alerta;
+- preco aprovado acima do equilibrio e abaixo da meta desejada e permitido com alerta e confirmacao;
+- preco que atende ou supera a meta e permitido normalmente;
+- aprovacao manual nunca pode permitir prejuizo calculado.
+
+Preco minimo recomendado e o preco que cobre custos e atende ao lucro ou margem minima definida.
+
+Para lucro fixo desejado:
+
+```text
+preco_minimo_recomendado = (CT + TF + LF) / (1 - TP)
+```
+
+Para margem liquida desejada:
+
+```text
+preco_minimo_recomendado = (CT + TF) / (1 - TP - ML)
+```
+
+Quando `TP + ML >= 1`, o denominador e invalido e o calculo deve ser bloqueado.
+### 10.10. Formula correta do ganho
 
 E proibido usar:
 
@@ -408,30 +456,31 @@ A formulacao antiga deve ser tratada como historico de decisao corrigida, nao co
 
 ## 11. Ordem dos calculos
 
-1. Validar sessao, tenant, papel e modulo no servidor.
-2. Normalizar entradas monetarias para representacao segura.
-3. Validar campos obrigatorios, faixas e percentuais.
-4. Calcular custo base.
-5. Calcular perda conforme tipo aprovado.
-6. Calcular custo total.
-7. Carregar perfis comerciais aplicaveis.
-8. Para cada perfil, somar taxas fixas e percentuais.
-9. Validar denominador maior que zero.
-10. Aplicar modo de precificacao.
-11. Calcular preco tecnico.
-12. Aplicar arredondamento comercial para preco sugerido.
-13. Calcular lucro e margem reais do preco sugerido.
-14. Permitir preco aprovado pela usuaria, se dentro das regras.
-15. Recalcular lucro e margem reais do preco aprovado.
-16. Persistir snapshot.
-17. Registrar auditoria.
+1. Coletar custos diretos.
+2. Calcular frete unitario.
+3. Calcular custo base.
+4. Calcular perda.
+5. Calcular custos fixos aplicaveis.
+6. Carregar perfil comercial.
+7. Somar percentuais aplicaveis.
+8. Validar denominador.
+9. Calcular preco tecnico.
+10. Aplicar arredondamento.
+11. Calcular preco sugerido.
+12. Permitir preco aprovado.
+13. Recalcular lucro real.
+14. Recalcular margem real.
+15. Validar preco de equilibrio.
+16. Emitir alertas.
+17. Criar snapshot.
+18. Salvar historico.
 
 ## 12. Modos de precificacao
 
 | Modo | Entrada obrigatoria | Formula principal | Bloqueio |
 |---|---|---|---|
 | Lucro fixo desejado | valor de lucro > 0 | `(CT + LF + TF) / (1 - TP)` | `TP >= 1` |
-| Acrescimo sobre custo | percentual > 0 | `(CT * (1 + A) + TF) / (1 - TP)` | `TP >= 1` |
+| Acrescimo sobre custo | percentual > 0 | `CT * (1 + A)` | preco final abaixo do equilibrio |
 | Margem liquida desejada | percentual > 0 | `(CT + TF) / (1 - (ML + TP))` | `ML + TP >= 1` |
 
 ## 13. Perfis comerciais
@@ -458,12 +507,12 @@ Campos por perfil:
 | imposto | percentual, minimo 0 |
 | lucro desejado | opcional conforme modo |
 | margem desejada | opcional conforme modo |
-| preco minimo | pendente de produto |
+| preco minimo recomendado | calculado por meta de lucro ou margem |
 | arredondamento | regra configuravel |
 | estado ativo | boolean |
 | ordem de exibicao | inteiro positivo |
 
-Nao existem taxas padrao aprovadas nesta SPEC. A implementacao deve iniciar com campos configuraveis e valores vazios ou zero explicitamente confirmados pela usuaria.
+Nao existem taxas padrao universais aprovadas nesta SPEC. Taxas, impostos e comissoes devem ser configuraveis por tenant e por perfil comercial, editaveis apenas por usuarios autorizados e preservadas no snapshot. A implementacao nao deve inventar valores padrao.
 
 ## 14. Arredondamento
 
@@ -536,9 +585,12 @@ Regras:
 
 - editar calculo atual cria nova versao;
 - recalcular registra nova versao;
-- duplicar e pendente de produto;
+- duplicar cria novo registro com novo UUID, referencia opcional ao registro de origem, parametros copiados, status `RASCUNHO`, novo salvamento obrigatorio, usuario e tenant registrados, original preservado;
 - inativar preserva historico;
-- exclusao fisica so pode existir se nao houver historico dependente e for aprovada.
+- rascunho nunca aprovado e sem historico relacionado pode ser excluido;
+- calculo com historico relevante deve ser inativado;
+- precificacao aprovada nunca deve ser excluida fisicamente;
+- versoes e snapshots devem ser preservados.
 
 ## 17. Fluxos
 
@@ -574,8 +626,8 @@ Rotas propostas para implementacao futura:
 | `/precificacao/nova` | Novo calculo | Criar precificacao |
 | `/precificacao/[id]` | Detalhes | Ver registro do tenant |
 | `/precificacao/[id]/editar` | Editar criando nova versao | Papel permitido |
-| `/precificacao/perfis` | Perfis comerciais | Pendente de permissao |
-| `/precificacao/categorias` | Categorias de pecas | Pendente de permissao |
+| `/precificacao/perfis` | Perfis comerciais | `owner` e `admin` |
+| `/precificacao/categorias` | Categorias de pecas | Futuro/pendente de SPEC propria |
 
 URL direta deve revalidar sessao, tenant, vinculo, papel, modulo e RLS.
 
@@ -649,8 +701,12 @@ Campos:
 - `category_id uuid null`
 - `piece_name text not null`
 - `notes text`
-- `status text not null`
+- `status text not null` (`RASCUNHO`, `CALCULADA`, `APROVADA`, `INATIVA`)
 - `current_version_id uuid null`
+- `source_pricing_calculation_id uuid null`
+- `approved_by uuid null`
+- `approved_at timestamptz null`
+- `inactivated_at timestamptz null`
 - `created_by uuid not null`
 - `updated_by uuid`
 - `created_at timestamptz not null`
@@ -671,13 +727,28 @@ Campos:
 - `piece_cost numeric(12,2) not null`
 - `packaging_cost numeric(12,2) not null`
 - `tag_cost numeric(12,2) not null`
-- `freight_cost numeric(12,2) not null`
+- `freight_mode text not null`
+- `freight_total numeric(12,2)`
+- `freight_quantity numeric(12,4)`
+- `freight_unit numeric(12,2) not null`
 - `other_costs numeric(12,2) not null`
 - `cost_base numeric(12,2) not null`
 - `loss_type text not null`
 - `loss_value numeric(12,4) not null`
 - `loss_amount numeric(12,2) not null`
 - `cost_total numeric(12,2) not null`
+- `fixed_costs_total numeric(12,2) not null`
+- `percent_fees_total numeric(7,4) not null`
+- `break_even_price numeric(12,2) not null`
+- `minimum_recommended_price numeric(12,2)`
+- `technical_price numeric(12,2) not null`
+- `suggested_price numeric(12,2) not null`
+- `approved_price numeric(12,2)`
+- `net_profit numeric(12,2) not null`
+- `net_margin_percent numeric(7,4) not null`
+- `profile_id uuid null`
+- `profile_snapshot jsonb not null`
+- `cost_snapshot jsonb not null`
 - `desired_fixed_profit numeric(12,2)`
 - `desired_markup_percent numeric(7,4)`
 - `desired_net_margin_percent numeric(7,4)`
@@ -741,7 +812,7 @@ Politicas propostas:
 - `viewer` pode apenas consultar, se regra de produto confirmar;
 - edicao cria nova versao, nunca altera snapshot historico;
 - inativacao permitida apenas a papeis aprovados;
-- configuracao de perfis comerciais exige permissao mais alta, pendente de produto.
+- configuracao de perfis comerciais exige papel `owner` ou `admin`.
 
 RLS nao deve depender apenas de `authenticated`. Funcoes auxiliares devem evitar recursao, ter `search_path` explicito, grants minimos e justificativa se usarem `SECURITY DEFINER`.
 
@@ -764,18 +835,20 @@ Regras obrigatorias:
 
 ## 23. Permissoes
 
-Usar papeis existentes: `owner`, `admin`, `manager`, `operator`, `viewer`.
+Usar papeis existentes confirmados em `public.member_role`: `owner`, `admin`, `manager`, `operator`, `viewer`. Nao criar novo papel.
+
+OWNER (`owner`) e ADMIN (`admin`) podem criar, editar, ativar e inativar perfis comerciais, alem de criar, calcular, aprovar e inativar precificacoes no MVP. Demais papeis ficam condicionados a autorizacao futura e policies especificas; nao ha acesso novo por suposicao.
 
 | Acao | Papeis propostos | Status |
 |---|---|---|
-| criar precificacao | owner, admin, manager, operator | Proposta |
-| visualizar | owner, admin, manager, operator, viewer | Proposta |
-| editar/recalcular | owner, admin, manager, operator | Proposta |
-| aprovar preco | owner, admin, manager | Pendente de produto |
-| inativar | owner, admin, manager | Pendente de produto |
-| consultar historico | owner, admin, manager, operator, viewer | Proposta |
-| alterar perfis comerciais | owner, admin | Pendente de produto |
-| alterar configuracoes do tenant | owner | Pendente de produto |
+| criar precificacao | owner, admin | Aprovado para MVP inicial; demais papeis pendentes |
+| visualizar | owner, admin; demais papeis conforme autorizacao futura | Aprovado parcialmente |
+| editar/recalcular | owner, admin | Aprovado para MVP inicial; demais papeis pendentes |
+| aprovar preco | owner, admin | Aprovado para MVP |
+| inativar | owner, admin | Aprovado para MVP |
+| consultar historico | owner, admin; demais papeis conforme autorizacao futura | Aprovado parcialmente |
+| alterar perfis comerciais | owner, admin | Aprovado para MVP |
+| alterar configuracoes do tenant | owner | Futuro/pendente |
 
 ## 24. Backend First
 
@@ -809,6 +882,10 @@ Contratos futuros:
 - `CommercialProfileInput`: taxas e configuracoes do perfil.
 - `PricingResult`: preco tecnico, sugerido, aprovado, lucro, margem e alertas.
 - `PricingSnapshot`: parametros usados no calculo salvo.
+- `PricingStatus`: `RASCUNHO`, `CALCULADA`, `APROVADA`, `INATIVA`.
+- `source_pricing_calculation_id`: referencia opcional quando o registro for duplicado.
+- `CommercialProfileSnapshot`: perfil comercial congelado no momento do calculo.
+- `CostSnapshot`: custos diretos, frete, perdas e ajustes congelados no momento do calculo.
 
 Todos os contratos devem ser tipados e testados. Regra de negocio nao deve ficar dentro de componente React.
 
@@ -894,10 +971,10 @@ Estados de modulo:
 
 Estados de registro:
 
-- `draft`;
-- `active`;
-- `inactive`;
-- `archived`.
+- `RASCUNHO`: incompleta ou ainda nao oficial;
+- `CALCULADA`: calculo concluido, ainda nao aprovado;
+- `APROVADA`: preco aprovado por usuario autorizado, com snapshot completo;
+- `INATIVA`: registro preservado historicamente, sem uso como preco atual.
 
 ## 30. Testes matematicos
 
@@ -908,7 +985,7 @@ Matriz minima:
 | custo simples | custo 10, demais 0 | `CB=10` | `CT=10` | 0 centavo | usar float |
 | multiplos custos | 10+2+1+3+4 | soma | `CT=20` | 0 centavo | ignorar custo |
 | perda fixa | CB 20, perda 5 | `CT=25` | 25 | 0 centavo | perda negativa |
-| perda percentual | base pendente | parametrizada | Pendente | N/A | decidir base sem PO |
+| perda percentual | custos diretos 20, perda 10% | `P=20*0.10` | `P=2`, `CT=22` | 1 centavo | aplicar sobre preco de venda ou sobre a propria perda |
 | taxa fixa | CT 20, LF 10, TF 2 | `(20+10+2)` | 32 sem TP | 0 centavo | subtrair taxa fixa |
 | taxa percentual | CT 20, LF 10, TP 10% | `30/0.9` | 33,33 | 1 centavo | denominador errado |
 | comissao | TP inclui comissao | `TP=sum` | conforme entradas | 1 centavo | comissao fora do TP |
@@ -923,6 +1000,9 @@ Matriz minima:
 | negativo | custo -1 | validacao | erro | N/A | calcular negativo |
 | percentual 100% | TP 100% | bloqueio | erro | N/A | dividir por zero |
 | percentual >100% | TP 120% | bloqueio | erro | N/A | preco negativo |
+| preco manual abaixo equilibrio | aprovado menor que equilibrio | validar equilibrio | bloqueio | N/A | permitir prejuizo calculado |
+| preco manual abaixo meta | aprovado acima equilibrio e abaixo meta | recalcular LT/ML | alerta e confirmacao | 1 centavo | salvar sem alerta |
+| preco manual igual equilibrio | aprovado igual equilibrio | lucro zero | permitido com alerta | 1 centavo | tratar como lucro positivo |
 | preco manual | aprovado diferente | recalcular LT | lucro real | 1 centavo | esconder diferenca |
 | snapshot | editar perfil depois | snapshot | antigo igual | N/A | reprocessar antigo |
 | reprocessamento | nova versao | versionamento | versao +1 | N/A | sobrescrever versao |
@@ -1015,25 +1095,25 @@ Para iniciar implementacao futura:
 ```text
 DEFINITION OF READY
 
-[ ] SPEC-003 aprovada pelo Product Owner
-[ ] Pendencias bloqueadoras resolvidas ou explicitamente adiadas
-[ ] Base da perda percentual definida
-[ ] Frete MVP definido
-[ ] Permissoes de perfis comerciais definidas
-[ ] Modelo de dados aprovado
-[ ] Contratos matematicos aprovados
-[ ] Casos de teste matematicos aceitos
-[ ] UX por etapas aprovada
-[ ] Referencias visuais acessiveis
-[ ] Sem necessidade de segredo
-[ ] Sem operacao remota nao autorizada
+[x] SPEC-003 aprovada pelo Product Owner
+[x] Pendencias bloqueadoras resolvidas ou explicitamente adiadas
+[x] Base da perda percentual definida
+[x] Frete MVP definido
+[x] Permissoes de perfis comerciais definidas
+[x] Modelo de dados aprovado para implementacao futura
+[x] Contratos matematicos aprovados
+[x] Casos de teste matematicos aceitos como matriz minima
+[x] UX por etapas aprovada como direcao
+[x] Referencias visuais oficiais localizadas
+[x] Sem necessidade de segredo
+[x] Sem operacao remota nao autorizada
 
 RESULTADO:
 
-READY ou NOT READY
+READY
 ```
 
-Status atual: NOT READY PARA IMPLEMENTACAO, porque a SPEC ainda esta proposta e ha decisoes de produto pendentes. READY apenas para revisao documental.
+Status atual: READY PARA IMPLEMENTACAO DA ENTREGA A. A aprovacao e documental; nenhuma implementacao funcional foi iniciada.
 
 ## 37. Definition of Done
 
@@ -1125,10 +1205,8 @@ Para esta meta documental: APROVADO PARA ESPECIFICACAO. Comparacao visual direta
 ## 40. Riscos
 
 - `npm audit --audit-level=high` herdado da SPEC-002.
-- Base da perda percentual pendente.
-- Frete/rateio pendente.
-- Taxas, impostos e comissoes padrao pendentes.
-- Permissao de aprovacao de preco pendente.
+- Taxas, impostos e comissoes reais de cada tenant ainda dependem de configuracao real.
+- Parametros comerciais recomendados pela MARIED UNIVERSITY ainda dependem de decisao futura.
 - Regra de multiplos tenants pendente.
 - Comparacao visual pixel-perfect pendente.
 - Calculos monetarios exigem decimal/inteiro de centavos ou biblioteca decimal; nunca float.
@@ -1138,18 +1216,15 @@ Para esta meta documental: APROVADO PARA ESPECIFICACAO. Comparacao visual direta
 
 | Pendencia | Impacto | Decisao necessaria |
 |---|---|---|
-| base da perda percentual | Formula e testes | Escolher custo da peca, custo base ou outra base |
-| metodo de frete | UX e modelo | Confirmar manual, quantidade ou valor |
-| impostos padrao | Perfis | Definir ou deixar sempre manual |
-| comissoes padrao | Perfis | Definir ou deixar sempre manual |
-| taxas padrao | Perfis | Definir ou deixar sempre manual |
-| permissao para alterar perfis | RLS/backend | Owner/admin ou outro papel |
-| preco minimo | Alertas | Regra por perfil ou global |
-| multiplos tenants | Auth/App Shell | Selecionador futuro ou falha segura |
-| produto vinculado | Estoque futuro | Quando habilitar vinculo |
-| duplicacao | UX/historico | Autorizar ou deixar fora |
-| aprovacao de preco | Permissao | Quem aprova |
-| inativacao vs exclusao | Banco | Preferir inativacao com historico |
+| multiplos tenants | Auth/App Shell | Selecionador futuro ou regra transversal aprovada |
+| percentuais reais por tenant | Perfis | Cada tenant deve configurar seus proprios valores |
+| impostos reais por empresa | Perfis | Depende de regime e orientacao da empresa |
+| taxas reais de cartao | Perfis | Depende de adquirente/operadora |
+| taxas reais de marketplace | Perfis | Depende de canal utilizado |
+| integracao automatica com estoque | Estoque futuro | Definir politica antes de integrar |
+| aprovacao em multiplos niveis | Governanca futura | Fora do MVP simples |
+| parametros recomendados MARIED | Produto/comercial | Definir recomendacoes futuras sem inventar agora |
+| perfis comerciais premium | Comercial futuro | Avaliar em SPEC propria |
 
 ## 42. Matriz de rastreabilidade
 
@@ -1224,7 +1299,7 @@ Entrega F: testes finais, acessibilidade, responsividade e gates.
 
 ## 45. Aprovacao
 
-Esta SPEC esta em `PROPOSTA PARA APROVACAO`.
+Esta SPEC esta em `APROVADA PARA IMPLEMENTACAO`.
 
 Ela nao autoriza automaticamente:
 
@@ -1237,4 +1312,4 @@ Ela nao autoriza automaticamente:
 - merge;
 - alteracao direta na `main`.
 
-Para iniciar implementacao, o Product Owner deve aprovar explicitamente esta SPEC e definir ou aceitar as pendencias que bloqueiam a Entrega A.
+A proxima etapa autorizavel e criar o Goal da Entrega A: motor matematico, contratos e testes puros, sem banco e sem UI funcional ate nova tarefa explicita.

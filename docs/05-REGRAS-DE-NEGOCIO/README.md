@@ -1,18 +1,18 @@
-# Regras de Negócio
+# Regras de NegÃƒÂ³cio
 
-Esta pasta deve documentar fórmulas, fluxos, validações e comportamentos operacionais.
+Esta pasta deve documentar fÃƒÂ³rmulas, fluxos, validaÃƒÂ§ÃƒÂµes e comportamentos operacionais.
 
-Regras aprovadas não podem ser alteradas silenciosamente.
+Regras aprovadas nÃƒÂ£o podem ser alteradas silenciosamente.
 
-Mudanças em fórmulas exigem:
+MudanÃƒÂ§as em fÃƒÂ³rmulas exigem:
 
-- atualização documental;
+- atualizaÃƒÂ§ÃƒÂ£o documental;
 - testes;
 - versionamento do motor;
-- registro de decisão quando estrutural.
+- registro de decisÃƒÂ£o quando estrutural.
 
 ## Precificador Inteligente
 
-A fonte proposta para regras, formulas, validacoes, historico, seguranca e testes do Precificador Inteligente e `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
+A fonte aprovada para regras, formulas, validacoes, historico, seguranca e testes do Precificador Inteligente e `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
 
-Status: PROPOSTA PARA APROVACAO. Nao implementar formulas ou migrations antes da aprovacao explicita da SPEC-003.
+Status: APROVADA PARA IMPLEMENTACAO. A Entrega A deve implementar apenas motor matematico, contratos e testes puros; migrations e UI funcional exigem entregas proprias.
