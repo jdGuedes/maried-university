@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+﻿import { describe, expect, it } from "vitest";
 import {
   canNavigateToModule,
   getNavigationItemByHref,
@@ -38,7 +38,7 @@ describe("app shell navigation contracts", () => {
     expect(canNavigateToModule(byId.inicio)).toBe(true);
     expect(canNavigateToModule(byId["minha-conta"])).toBe(true);
     expect(canNavigateToModule(byId["minha-assinatura"])).toBe(true);
-    expect(canNavigateToModule(byId.precificacao)).toBe(false);
+    expect(canNavigateToModule(byId.precificacao)).toBe(true);
     expect(canNavigateToModule(byId.estoque)).toBe(false);
     expect(canNavigateToModule(byId.fornecedores)).toBe(false);
     expect(canNavigateToModule(byId.minicursos)).toBe(false);
@@ -47,7 +47,7 @@ describe("app shell navigation contracts", () => {
   it("keeps future modules visible as structure without enabled actions", () => {
     const futureModules = navigationItems.filter((item) => item.state === "COMING_SOON");
 
-    expect(futureModules.map((item) => item.id)).toEqual(["precificacao", "estoque", "fornecedores", "minicursos"]);
+    expect(futureModules.map((item) => item.id)).toEqual(["estoque", "fornecedores", "minicursos"]);
     expect(futureModules.every((item) => item.description.includes("futur") || item.description.includes("Porta estrutural"))).toBe(true);
     expect(futureModules.every((item) => canNavigateToModule(item) === false)).toBe(true);
   });

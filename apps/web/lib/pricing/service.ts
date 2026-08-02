@@ -1,11 +1,12 @@
-import { calculatePricing } from "@maried-university/pricing-engine";
+﻿import { calculatePricing } from "@maried-university/pricing-engine";
 import type { AccessContext } from "../access/session-context";
-import { createSupabaseServerClient } from "../supabase/server";
 import {
   buildPricingPersistencePayload,
+  toJsonSafe,
   toPricingInput,
   type CommercialProfileRow,
   type CreatePricingCalculationDto,
+  type JsonSafe,
   type PricingPersistencePayload
 } from "./dto";
 
@@ -29,6 +30,36 @@ export type PricingSupabaseClient = {
 export type CreatePricingCalculationResult = {
   pricingCalculationId: string;
   payload: PricingPersistencePayload;
+};
+
+export type PricingPreviewProfileResult = {
+  profileName: string;
+  breakEvenPriceCents: string;
+  minimumRecommendedPriceCents: string;
+  technicalPriceCents: string;
+  suggestedPriceCents: string;
+  effectivePriceCents: string;
+  grossProfitCents: string;
+  netProfitCents: string;
+  netMarginBps: string;
+  alerts: JsonSafe[];
+};
+
+export type PricingPreviewResult = {
+  pricingMode: CreatePricingCalculationDto["goal"]["mode"];
+  profileId: string;
+  profileName: string;
+  costs: {
+    pieceCostCents: string;
+    packagingCostCents: string;
+    tagCostCents: string;
+    freightUnitCents: string;
+    otherDirectCostsCents: string;
+    costBaseCents: string;
+    lossAmountCents: string;
+    costTotalCents: string;
+  };
+  result: PricingPreviewProfileResult;
 };
 
 export async function createOfficialPricingCalculation(
@@ -69,6 +100,59 @@ export async function createOfficialPricingCalculation(
   return {
     pricingCalculationId: persisted.data,
     payload
+  };
+}
+
+export async function calculateOfficialPricingPreview(
+  dto: CreatePricingCalculationDto,
+  dependencies?: {
+    accessContext?: AccessContext;
+    supabase?: PricingSupabaseClient;
+  }
+): Promise<PricingPreviewResult> {
+  const accessContext = dependencies?.accessContext ?? await loadServerAccessContext();
+
+  assertPricingManager(accessContext);
+
+  const supabase = dependencies?.supabase ?? await loadServerSupabaseClient();
+  const profileRows = await loadCommercialProfiles(supabase, accessContext.tenant.id, dto.commercialProfileIds);
+  const selectedProfileRows = profileRows.slice(0, 1);
+  const pricingInput = toPricingInput(dto, selectedProfileRows);
+  const result = calculatePricing(pricingInput);
+
+  if (!result.ok || result.results.length === 0) {
+    throw new PricingServiceError("Official pricing calculation failed validation.");
+  }
+
+  const profileResult = result.results[0];
+  const profileRow = selectedProfileRows[0];
+
+  return {
+    pricingMode: dto.goal.mode,
+    profileId: profileRow.id,
+    profileName: profileResult.profile.name,
+    costs: {
+      pieceCostCents: result.costs.pieceCost.toString(),
+      packagingCostCents: result.costs.packagingCost.toString(),
+      tagCostCents: result.costs.tagCost.toString(),
+      freightUnitCents: result.costs.freightUnit.toString(),
+      otherDirectCostsCents: result.costs.otherDirectCosts.toString(),
+      costBaseCents: result.costs.costBase.toString(),
+      lossAmountCents: result.costs.lossAmount.toString(),
+      costTotalCents: result.costs.costTotal.toString()
+    },
+    result: {
+      profileName: profileResult.profile.name,
+      breakEvenPriceCents: profileResult.breakEvenPrice.toString(),
+      minimumRecommendedPriceCents: profileResult.minimumRecommendedPrice.toString(),
+      technicalPriceCents: profileResult.technicalPrice.toString(),
+      suggestedPriceCents: profileResult.suggestedPrice.toString(),
+      effectivePriceCents: profileResult.effectivePrice.toString(),
+      grossProfitCents: profileResult.grossProfit.toString(),
+      netProfitCents: profileResult.netProfit.toString(),
+      netMarginBps: profileResult.netMarginBps.toString(),
+      alerts: profileResult.alerts.map((alert) => toJsonSafe(alert)) as JsonSafe[]
+    }
   };
 }
 

@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
+﻿import { describe, expect, it } from "vitest";
 import type { AccessContext } from "../../lib/access/session-context";
 import { PricingDtoError, parseMoneyCents, toJsonSafe, toPricingInput, type CommercialProfileRow, type CreatePricingCalculationDto } from "../../lib/pricing/dto";
-import { PricingServiceError, createOfficialPricingCalculation, type PricingSupabaseClient } from "../../lib/pricing/service";
+import { PricingServiceError, calculateOfficialPricingPreview, createOfficialPricingCalculation, type PricingSupabaseClient } from "../../lib/pricing/service";
 
 const ownerAccess: AccessContext = {
   user: {
@@ -152,6 +152,45 @@ describe("pricing server service", () => {
   });
 });
 
+
+describe("pricing server preview", () => {
+  it("calculates an official preview with the first active profile without persisting", async () => {
+    const rows: CommercialProfileRow[] = [
+      profileRows[0],
+      {
+        ...profileRows[0],
+        id: "31000000-0000-0000-0000-0000000000b2",
+        profile_key: "CARD",
+        name: "Cartao",
+        tax_bps: "2000"
+      }
+    ];
+    const supabase = createSupabaseMock(rows, "should-not-persist");
+    const result = await calculateOfficialPricingPreview(validDto, { accessContext: ownerAccess, supabase });
+
+    expect(result.profileId).toBe(profileRows[0].id);
+    expect(result.profileName).toBe("Pix");
+    expect(result.costs.costBaseCents).toBe("2000");
+    expect(result.costs.costTotalCents).toBe("2000");
+    expect(result.result.technicalPriceCents).toBe("3334");
+    expect(result.result.netProfitCents).toBe("1001");
+    expect(supabase.calls.rpcName).toBeNull();
+  });
+
+  it("keeps preview access restricted to pricing managers", async () => {
+    await expect(calculateOfficialPricingPreview(validDto, {
+      accessContext: operatorAccess,
+      supabase: createSupabaseMock(profileRows, "never")
+    })).rejects.toThrow(PricingServiceError);
+  });
+
+  it("fails safely when no active profile is available for preview", async () => {
+    await expect(calculateOfficialPricingPreview(validDto, {
+      accessContext: ownerAccess,
+      supabase: createSupabaseMock([], "never")
+    })).rejects.toThrow(PricingServiceError);
+  });
+});
 function createSupabaseMock(rows: CommercialProfileRow[], rpcResult: string): PricingSupabaseClient & {
   calls: { fromTenantId: unknown; profileIds: string[] | null; rpcName: string | null };
 } {

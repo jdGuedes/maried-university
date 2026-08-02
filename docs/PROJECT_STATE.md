@@ -1,4 +1,4 @@
-# Project State - MARIED UNIVERSITY
+﻿# Project State - MARIED UNIVERSITY
 
 Ultima atualizacao: 2026-08-01
 
@@ -9,14 +9,15 @@ Ultima atualizacao: 2026-08-01
 - HEAD antes da Entrega F: `04e974f feat(pwa): implement spec 002 secure offline foundation`.
 - SPEC atual: SPEC-003 Precificador Inteligente v1.0 aprovada para implementacao.
 - Entregas concluidas: SPEC-001; SPEC-002 Entregas A, B, C, D, E e F.
-- Entrega atual: SPEC-003 Entrega B implementada localmente.
-- Proxima etapa recomendada: Entrega C da SPEC-003, limitada a interface funcional inicial do Precificador, somente apos autorizacao explicita.
+- Entrega atual: SPEC-003 Entrega C implementada localmente.
+- Proxima etapa recomendada: Entrega D da SPEC-003, limitada a perfis comerciais, comparacao e arredondamento, somente apos autorizacao explicita.
 
 ## Implementacoes Existentes
 
 - SPEC-003 do Precificador Inteligente existe como contrato documental aprovado em `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
 - Entrega A da SPEC-003 implementada em `packages/pricing-engine` com motor matematico puro, contratos tipados e testes matematicos, sem UI, banco, migration, Supabase ou persistencia.
-- Entrega B da SPEC-003 implementada localmente com migration de persistencia, RLS por tenant, wrappers transacionais, servico server-side oficial e testes SQL/integracao, sem UI funcional e sem alteracao remota.
+- Entrega B da SPEC-003 implementada localmente com migration de persistencia, RLS por tenant, wrappers transacionais, servico server-side oficial e testes SQL/integracao, sem alteracao remota.
+- Entrega C da SPEC-003 implementada localmente com rota `/precificacao` funcional, formulario inicial, validacao BRL/percentual, preview oficial server-side, resultado guiado e testes unitarios/integracao/E2E aplicaveis, sem historico visual, edicao ou comparacao completa.
 - Frontend Next.js 16 com App Router, React 19, TypeScript strict, Tailwind CSS 4 e Lucide.
 - Tokens visuais oficiais em `apps/web/styles/tokens.css` e contratos em `apps/web/lib/design/tokens.ts`.
 - Supabase browser/server clients com `@supabase/ssr`.
@@ -35,8 +36,30 @@ Ultima atualizacao: 2026-08-01
 - `apps/web/lib/pwa/cache-policy.ts`: matriz conservadora de cache PWA, incluindo bloqueio para headers `authorization`, `apikey` e `x-client-info`.
 - `apps/web/public/sw.js`: service worker estatico versionado com allow-list de assets seguros.
 - `packages/pricing-engine/src`: contratos e motor matematico puro do Precificador Inteligente, usando `bigint` em centavos e basis points.
+- `apps/web/components/pricing`: formulario funcional inicial do Precificador.
+- `apps/web/lib/pricing/actions.ts`: Server Action de preview oficial da Entrega C.
 
 
+
+## Ultimos Resultados Locais da SPEC-003 Entrega C
+
+- `docker version`, `docker info`, `docker context ls`, `npx supabase --version` e `npx supabase status`: ambiente local validado; credenciais locais descartaveis impressas pela CLI nao foram registradas.
+- `npm run pricing:test`: aprovado, 23 testes.
+- `npm run pricing:typecheck`: aprovado.
+- `npm run pricing:build`: aprovado.
+- `npm run pricing:lint`: aprovado.
+- `npm run web:test:unit`: aprovado, 21 testes.
+- `npm run web:test:integration`: aprovado, 22 testes.
+- `npm run web:typecheck`: aprovado.
+- `npm run web:build`: aprovado, 17 rotas, `/precificacao` dinamica.
+- `npm run web:test:e2e`: aprovado, 78 testes em 6 viewports, cobrindo protecao sem sessao, ausencia de segredos e overflow nas rotas publicas/protegidas.
+- `npm run web:lint`: NAO DISPONIVEL; nao existe script no `package.json`.
+- `npm audit --audit-level=high`: reprovado por ressalva herdada de vulnerabilidades transitivas Next/PostCSS/Sharp; `npm audit fix --force` nao aplicado por sugerir downgrade quebrado.
+
+Ressalvas:
+
+- E2E autenticado da tela `/precificacao` com sessao real e perfil comercial ativo permanece NAO VALIDADO por ausencia de harness seguro.
+- Calculo oficial em sessao real depende de perfil comercial ativo do tenant; se ausente, a UI bloqueia o calculo com mensagem segura.
 ## Ultimos Resultados Locais da SPEC-003 Entrega B
 
 - `docker version`, `docker info`, `docker context ls`, `npx supabase --version` e `npx supabase status`: ambiente local validado com Docker Desktop Linux Engine e Supabase CLI `2.110.0`.
@@ -105,8 +128,8 @@ Status: aprovado com ressalvas.
 ## Riscos Restantes
 
 - Reavaliar vulnerabilidades transitivas Next/PostCSS/Sharp quando houver patch seguro da stack atual.
-- Iniciar a Entrega C da SPEC-003 somente com autorizacao explicita, consumindo o backend local da Entrega B e sem alterar Supabase remoto.
-- Criar harness seguro de usuario de teste para validar login real ate `/inicio` e shell autenticada com dados controlados.
+- Iniciar a Entrega D da SPEC-003 somente com autorizacao explicita, tratando perfis comerciais, comparacao e arredondamento sem reconstruir Entregas A, B ou C.
+- Criar harness seguro de usuario de teste para validar login real ate `/inicio`, App Shell autenticado e `/precificacao` com perfil comercial ativo controlado.
 - Executar Lighthouse PWA em pipeline ou ambiente aprovado.
 - Validar instalacao PWA real e update real entre builds em homologacao.
 - Regra de multiplos tenants permanece pendente de produto.

@@ -1,4 +1,4 @@
-export type ModuleState = "AVAILABLE" | "LOCKED" | "COMING_SOON" | "DISABLED" | "MAINTENANCE";
+﻿export type ModuleState = "AVAILABLE" | "LOCKED" | "COMING_SOON" | "DISABLED" | "MAINTENANCE";
 
 export type NavigationItemId =
   | "inicio"
@@ -48,8 +48,8 @@ export const navigationItems: NavigationItem[] = [
     label: "Precificador Inteligente",
     shortLabel: "Preco",
     href: "/precificacao",
-    state: "COMING_SOON",
-    description: "Porta estrutural para precificacao futura, sem calculos implementados."
+    state: "AVAILABLE",
+    description: "Formulario inicial do Precificador com calculo oficial server-side."
   },
   {
     id: "estoque",
@@ -102,7 +102,7 @@ export const moduleStateShowcase: Array<{ id: ModuleState; title: string; descri
 ];
 
 export const featureFlags = {
-  FEATURE_PRICING: false,
+  FEATURE_PRICING: true,
   FEATURE_STOCK: false,
   FEATURE_SUPPLIERS: false,
   FEATURE_COURSES: false,

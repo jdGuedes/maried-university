@@ -1,4 +1,4 @@
-# SPEC-003 | Precificador Inteligente
+﻿# SPEC-003 | Precificador Inteligente
 
 **Status:** APROVADA PARA IMPLEMENTACAO
 
@@ -1260,12 +1260,12 @@ Entrega B: banco, migrations, RLS e backend. CONCLUIDA localmente em 2026-08-01.
 - sem frontend completo;
 - sem aplicacao no Supabase remoto.
 
-Entrega C: formulario e calculo simples.
+Entrega C: formulario e calculo simples. CONCLUIDA localmente em 2026-08-02.
 
-- fluxo por etapas;
-- campos de custos e modo unico inicial;
-- resultado oficial vindo do backend;
-- mobile/desktop.
+- fluxo por etapas; CONCLUIDO na Entrega C;
+- campos de custos e modo inicial; CONCLUIDO na Entrega C;
+- resultado oficial vindo do backend; CONCLUIDO na Entrega C por Server Action de preview;
+- mobile/desktop; validado parcialmente por E2E protegido em 6 viewports, com E2E autenticado da tela NAO VALIDADO sem harness seguro.
 
 Entrega D: perfis comerciais e comparacao.
 
@@ -1314,4 +1314,4 @@ Ela nao autoriza automaticamente:
 - merge;
 - alteracao direta na `main`.
 
-A proxima etapa autorizavel e criar o Goal da Entrega C: interface funcional inicial do Precificador, consumindo o backend local da Entrega B, sem Supabase remoto, Stripe, OAuth ou deploy ate nova tarefa explicita.
+A proxima etapa autorizavel e criar o Goal da Entrega D: perfis comerciais, comparacao e arredondamento, sem reconstruir Entregas A, B ou C, sem Supabase remoto, Stripe, OAuth ou deploy ate nova tarefa explicita.

@@ -1,10 +1,12 @@
-# Changelog
+﻿# Changelog
 
 Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ## [Nao lancado] - 2026-07-30
 
 ### Adicionado
+
+- SPEC-003 Entrega C implementada localmente com rota `/precificacao` funcional, formulario inicial de custos/frete/perdas/modo de precificacao, Server Action de preview oficial, exibicao de resultado e testes unitarios/integracao/E2E aplicaveis.
 
 - SPEC-003 Entrega B implementada localmente com migration de persistencia do Precificador, RLS por tenant, funcoes transacionais server-side, teste SQL de isolamento e servico server-side que reutiliza `packages/pricing-engine` para o calculo oficial.
 - Teste de integracao server-side do Precificador adicionado para validar DTO bigint, ignorar tenant/valores derivados manipulados, bloquear papeis nao aprovados e persistir via RPC transacional.
@@ -45,6 +47,9 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Validacao
 
+- SPEC-003 Entrega C: `npm run pricing:test`, `pricing:typecheck`, `pricing:build`, `pricing:lint`, `web:test:unit`, `web:test:integration`, `web:typecheck`, `web:build` e `web:test:e2e` aprovados; E2E autenticado da tela permanece `NAO VALIDADO` sem harness seguro.
+- SPEC-003 Entrega C: `npm run web:lint` nao esta disponivel no workspace atual; `npm audit --audit-level=high` segue reprovado por ressalva herdada Next/PostCSS/Sharp.
+
 - SPEC-003 Entrega B: `npx supabase db reset --local` executado com sucesso em banco local descartavel; migrations aplicadas: `20260730000100`, `20260730000236`, `20260801214320`.
 - SPEC-003 Entrega B: `tests/sql/spec_003_pricing_persistence_isolation.sql` executado com sucesso contra PostgreSQL local do Supabase e finalizado com `ROLLBACK`.
 - SPEC-003 Entrega B: `npx supabase db lint --local` executado sem erros de schema apos correcao de warning.
@@ -63,6 +68,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Alterado
 
+- Navegacao do App Shell atualizada para marcar `/precificacao` como modulo disponivel, mantendo Estoque, Fornecedores e Minicursos como `COMING_SOON`.
+
 - `apps/web/package.json` e `package-lock.json` atualizados para declarar o workspace `@maried-university/pricing-engine` como dependencia do app web, permitindo reutilizacao server-side do motor oficial sem duplicar formulas.
 - Documentacao de banco, estado do projeto e motor de precificacao atualizada para registrar a Entrega B como camada local de persistencia/backend ainda nao aplicada no Supabase remoto.
 - `apps/web/lib/pwa/cache-policy.ts` alinhado ao service worker para tratar `apikey` e `x-client-info` como headers sensiveis e Network Only.
@@ -76,6 +83,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 ## [0.1.0] - 2026-07-29
 
 ### Adicionado
+
+- SPEC-003 Entrega C implementada localmente com rota `/precificacao` funcional, formulario inicial de custos/frete/perdas/modo de precificacao, Server Action de preview oficial, exibicao de resultado e testes unitarios/integracao/E2E aplicaveis.
 
 - Fundacao documental do repositorio.
 - Estrutura inicial de documentacao.

@@ -1,6 +1,6 @@
-# ENGINE-001 | Motor de Custos e Precificacao
+﻿# ENGINE-001 | Motor de Custos e Precificacao
 
-**Status:** IMPLEMENTADO PARCIALMENTE - SPEC-003 Entregas A e B
+**Status:** IMPLEMENTADO PARCIALMENTE - SPEC-003 Entregas A, B e C
 
 ## Objetivo
 
@@ -47,6 +47,20 @@ Escopo implementado:
 
 A camada server-side nao duplica formulas: toda formacao oficial de preco continua em `packages/pricing-engine`.
 
+## Entrega C implementada localmente
+
+A Entrega C adicionou a primeira experiencia visual funcional em `/precificacao`, mantendo o calculo oficial fora do componente React.
+
+Escopo implementado:
+
+- formulario inicial para identificacao, custos, frete, perdas e modo de precificacao;
+- validacao de experiencia e conversao segura de BRL para centavos;
+- Server Action de preview oficial que revalida dados e chama a camada server-side;
+- exibicao de custo base, custo total, equilibrio, preco tecnico, preco sugerido, lucro liquido, margem e alertas;
+- sem historico visual, edicao, duplicacao pela interface ou comparacao completa entre perfis.
+
+Ressalva: a jornada autenticada real com perfil comercial ativo ainda depende de harness seguro/dados locais controlados para validacao E2E completa.
+
 ## Precisao
 
 O motor usa somente:
@@ -91,4 +105,4 @@ Resultado inicial da Entrega A: 23 testes matematicos aprovados em 1 arquivo.
 ## SPEC relacionada
 
 - SPEC-003 Precificador Inteligente: `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
-- Status: Entregas A e B implementadas localmente; proximas entregas devem adicionar interface funcional somente com autorizacao explicita. Nenhuma migration da SPEC-003 foi aplicada no Supabase remoto.
+- Status: Entregas A, B e C implementadas localmente; proximas entregas devem adicionar perfis/comparacao, historico e validacoes finais somente com autorizacao explicita. Nenhuma migration da SPEC-003 foi aplicada no Supabase remoto.
