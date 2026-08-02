@@ -4,11 +4,11 @@
 
 **Versão do contexto:** 0.1  
 **Data de consolidação:** 29/07/2026  
-**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 concluida com ressalvas; SPEC-003 Entregas A, B e C implementadas localmente
+**Status do produto:** SPEC-001 concluida; SPEC-002 v1.1 concluida com ressalvas; SPEC-003 Entregas A, B, C e D implementadas e validadas localmente
 **Repositório oficial:** `jdGuedes/maried-university`  
 **Responsável pelo produto:** MARIED Semijoias  
 **Idioma da documentação:** Português do Brasil  
-**Etapa atual:** SPEC-003 Entrega C implementada localmente; proxima fase autorizavel e a Entrega D de perfis comerciais, comparacao e arredondamento do Precificador
+**Etapa atual:** SPEC-003 Entrega D validada localmente; proxima acao autorizavel e iniciar a Entrega E para salvamento, historico e edicao
 
 ---
 
@@ -988,10 +988,10 @@ Os modulos funcionais comecam somente apos a fundacao frontend estar implementad
 
 ## 29. Ponto oficial de retomada
 
-A proxima tarefa autorizavel e criar o Goal da Entrega D da SPEC-003 para perfis comerciais, comparacao e arredondamento, sem reconstruir Entregas A, B ou C, sem Supabase remoto, Stripe, OAuth ou deploy.
+A proxima tarefa autorizavel e criar o Goal da Entrega E da SPEC-003 para salvamento, historico e edicao, sem reconstruir Entregas A, B, C ou D, sem Supabase remoto, Stripe, OAuth ou deploy.
 
 ```text
-SPEC-003 | Precificador Inteligente | Entregas A, B e C implementadas localmente; proxima etapa autorizavel e Entrega D
+SPEC-003 | Precificador Inteligente | Entregas A, B, C e D implementadas e validadas localmente
 ```
 
 A ordem oficial de continuidade e:
@@ -1010,7 +1010,7 @@ Fundacao Frontend
 -> Microcursos
 ```
 
-Nao iniciar Controle de Estoque, Fornecedores, Microcursos, Stripe, OAuth, Vercel, deploy ou alteracao remota sem SPEC propria aprovada para a proxima fase. A Entrega D da SPEC-003 depende de autorizacao explicita.
+Nao iniciar Controle de Estoque, Fornecedores, Microcursos, Stripe, OAuth, Vercel, deploy ou alteracao remota sem SPEC propria aprovada para a proxima fase. A Entrega E da SPEC-003 depende de autorizacao explicita.
 ---
 
 ## 30. Definition of Done
@@ -1045,7 +1045,7 @@ A SPEC-003 esta aprovada e parcialmente implementada localmente.
 - Entrega B: backend, migrations locais, RLS, persistencia e servico server-side concluidos localmente.
 - Entrega C: rota `/precificacao`, formulario inicial, validacao BRL/percentual, Server Action de preview oficial e resultado guiado concluidos localmente.
 
-Ressalvas ativas: E2E autenticado da tela `/precificacao` com perfil comercial ativo permanece nao validado sem harness seguro; `npm audit --audit-level=high` segue reprovado por vulnerabilidades transitivas conhecidas em Next/PostCSS/Sharp; nenhuma migration da SPEC-003 foi aplicada no Supabase remoto.
+Ressalvas ativas: `npm audit --audit-level=high` segue reprovado por vulnerabilidades transitivas conhecidas em Next/PostCSS/Sharp; nenhuma migration da SPEC-003 foi aplicada no Supabase remoto; taxas comerciais sinteticas locais nao representam taxas oficiais.
 
 ## Estado da SPEC-002 em 2026-08-01
 

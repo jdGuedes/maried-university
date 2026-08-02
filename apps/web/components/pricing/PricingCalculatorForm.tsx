@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { Calculator, CheckCircle2, CircleAlert, Sparkles } from "lucide-react";
+import { ArrowDown, Calculator, CheckCircle2, CircleAlert, Sparkles, Trophy } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import { Alert } from "@/components/feedback";
 import { Button, Field, Input, StatusBadge } from "@/components/ui";
@@ -18,9 +18,15 @@ import {
   type PricingFormStatus,
   type PricingFormValues
 } from "@/lib/pricing/form";
-import type { PricingPreviewResult } from "@/lib/pricing/service";
+import type { JsonSafe } from "@/lib/pricing/dto";
+import type { PricingPreviewProfileResult, PricingPreviewResult } from "@/lib/pricing/service";
 
 type SubmitState = Extract<PricingPreviewActionResult, { ok: false }> | null;
+
+type PricingTextIssue = {
+  code: string;
+  message: string;
+};
 
 const fieldIds: Record<PricingFormField, string> = {
   pieceName: "pricing-piece-name",
@@ -38,7 +44,8 @@ const fieldIds: Record<PricingFormField, string> = {
   pricingMode: "pricing-mode",
   desiredProfit: "pricing-desired-profit",
   markupPercent: "pricing-markup-percent",
-  desiredMargin: "pricing-desired-margin"
+  desiredMargin: "pricing-desired-margin",
+  roundingRule: "pricing-rounding-rule"
 };
 
 const statusLabel: Record<PricingFormStatus, string> = {
@@ -46,8 +53,24 @@ const statusLabel: Record<PricingFormStatus, string> = {
   DIRTY: "Dados em edicao",
   INVALID: "Revise os campos",
   SUBMITTING: "Calculando",
-  SUCCESS: "Resultado oficial",
+  SUCCESS: "Comparacao oficial",
   ERROR: "Nao calculado"
+};
+
+const profileLabels: Record<PricingPreviewProfileResult["profileKey"], string> = {
+  PIX: "Pix",
+  CARD: "Cartao",
+  RESELLER: "Revendedora",
+  WHOLESALE: "Atacado",
+  MARKETPLACE: "Marketplace",
+  CUSTOM: "Personalizado"
+};
+
+const roundingLabels: Record<PricingFormValues["roundingRule"], string> = {
+  NONE: "Valor exato",
+  ENDING_90: "Final .90",
+  ENDING_99: "Final .99",
+  UP_TO_CENT: "Arredondar para cima"
 };
 
 export function PricingCalculatorForm() {
@@ -121,8 +144,8 @@ export function PricingCalculatorForm() {
       <form className="pricing-form" noValidate onSubmit={(event) => { event.preventDefault(); handleSubmit(); }}>
         <div className="pricing-form__heading">
           <div>
-            <h2>Dados para calcular</h2>
-            <p>Preencha os custos conhecidos. O resultado oficial e calculado no servidor com o primeiro perfil comercial ativo.</p>
+            <h2>Dados para comparar</h2>
+            <p>Preencha os custos uma vez. O servidor calcula todos os perfis comerciais ativos do tenant.</p>
           </div>
           <StatusBadge tone={status === "SUCCESS" ? "success" : status === "INVALID" || status === "ERROR" ? "warning" : "info"}>{statusLabel[status]}</StatusBadge>
         </div>
@@ -249,6 +272,30 @@ export function PricingCalculatorForm() {
           {values.pricingMode === "NET_MARGIN" ? <PercentageField field="desiredMargin" label="Margem liquida desejada" values={values} errors={fieldErrors} refs={inputRefs} onChange={updateValue} /> : null}
         </section>
 
+        <section className="pricing-section" aria-labelledby="pricing-rounding-title">
+          <div className="pricing-section__heading">
+            <span>6</span>
+            <div>
+              <h3 id="pricing-rounding-title">Arredondamento</h3>
+              <p>A regra escolhida e validada no servidor e aplicada a todos os perfis nesta simulacao.</p>
+            </div>
+          </div>
+          <RadioGroup
+            columns="four"
+            legend="Regra de arredondamento"
+            name="roundingRule"
+            options={[
+              { value: "NONE", label: roundingLabels.NONE },
+              { value: "ENDING_90", label: roundingLabels.ENDING_90 },
+              { value: "ENDING_99", label: roundingLabels.ENDING_99 },
+              { value: "UP_TO_CENT", label: roundingLabels.UP_TO_CENT }
+            ]}
+            value={values.roundingRule}
+            onChange={(value) => updateValue("roundingRule", value)}
+          />
+          {fieldErrors.roundingRule ? <p className="pricing-inline-error">{fieldErrors.roundingRule}</p> : null}
+        </section>
+
         {submitError ? (
           <Alert title="Calculo nao concluido" tone={submitError.code === "CONFIGURATION_REQUIRED" ? "warning" : submitError.code === "ACCESS_DENIED" ? "danger" : "warning"}>
             {submitError.message}
@@ -257,14 +304,14 @@ export function PricingCalculatorForm() {
 
         <div className="pricing-actions">
           <Button disabled={isPending} size="lg" type="submit">
-            {isPending ? "Calculando" : "Gerar preco"}
+            {isPending ? "Calculando" : "Comparar perfis"}
             <Calculator aria-hidden="true" size={18} />
           </Button>
           {resultStale ? <span className="pricing-stale">Resultado anterior desatualizado pelos novos dados.</span> : null}
         </div>
       </form>
 
-      <PricingResultPanel result={result} stale={resultStale} />
+      <PricingComparison result={result} stale={resultStale} />
     </div>
   );
 }
@@ -328,7 +375,8 @@ function PercentageField({ errors, field, label, onChange, refs, values }: {
   );
 }
 
-function RadioGroup({ legend, name, onChange, options, value }: {
+function RadioGroup({ columns = "three", legend, name, onChange, options, value }: {
+  columns?: "three" | "four";
   legend: string;
   name: string;
   onChange: (value: string) => void;
@@ -336,7 +384,7 @@ function RadioGroup({ legend, name, onChange, options, value }: {
   value: string;
 }) {
   return (
-    <fieldset className="pricing-options">
+    <fieldset className="pricing-options" data-columns={columns}>
       <legend>{legend}</legend>
       <div>
         {options.map((option) => (
@@ -350,67 +398,133 @@ function RadioGroup({ legend, name, onChange, options, value }: {
   );
 }
 
-function PricingResultPanel({ result, stale }: { result: PricingPreviewResult | null; stale: boolean }) {
+function PricingComparison({ result, stale }: { result: PricingPreviewResult | null; stale: boolean }) {
   if (!result) {
     return (
       <aside className="pricing-result" aria-labelledby="pricing-result-title">
         <div className="pricing-result__empty">
           <Sparkles aria-hidden="true" size={24} />
-          <h2 id="pricing-result-title">Resultado oficial</h2>
-          <p>O preco sugerido aparecera aqui depois que o servidor validar a sessao, o tenant, o papel, o perfil comercial e os dados informados.</p>
+          <h2 id="pricing-result-title">Comparacao oficial</h2>
+          <p>Os precos por Pix, Cartao, Revendedora, Atacado, Marketplace e Personalizado aparecem aqui depois que o servidor validar sessao, tenant, papel, perfis ativos e dados informados.</p>
         </div>
       </aside>
     );
   }
 
+  const bestProfile = findBestProfile(result.profiles);
+  const profilesWithIssues = result.profiles.filter((profile) => profileIssues(profile).length > 0).length;
+
   return (
     <aside className="pricing-result" aria-labelledby="pricing-result-title" aria-live="polite">
       <div className="pricing-result__topline">
         <div>
-          <p>{result.profileName}</p>
-          <h2 id="pricing-result-title">{formatCentsToBrl(result.result.suggestedPriceCents)}</h2>
+          <p>Perfil mais lucrativo</p>
+          <h2 id="pricing-result-title">{bestProfile ? profileLabels[bestProfile.profileKey] : "Comparacao"}</h2>
         </div>
-        <StatusBadge tone={stale ? "warning" : "success"}>{stale ? "Desatualizado" : "Oficial"}</StatusBadge>
+        <StatusBadge tone={stale ? "warning" : profilesWithIssues > 0 ? "warning" : "success"}>{stale ? "Desatualizado" : "Backend"}</StatusBadge>
       </div>
+
+      {bestProfile ? (
+        <div className="pricing-hero-summary">
+          <Trophy aria-hidden="true" size={20} />
+          <div>
+            <span>Lucro liquido estimado</span>
+            <strong>{formatCentsToBrl(bestProfile.netProfitCents)}</strong>
+          </div>
+          <div>
+            <span>Preco aprovado nesta simulacao</span>
+            <strong>{formatCentsToBrl(bestProfile.effectivePriceCents)}</strong>
+          </div>
+        </div>
+      ) : null}
 
       <div className="pricing-result__metrics">
-        <Metric label="Lucro liquido" value={formatCentsToBrl(result.result.netProfitCents)} tone="success" />
-        <Metric label="Margem liquida" value={formatBpsToPercent(result.result.netMarginBps)} />
         <Metric label="Custo total" value={formatCentsToBrl(result.costs.costTotalCents)} />
-        <Metric label="Equilibrio" value={formatCentsToBrl(result.result.breakEvenPriceCents)} />
+        <Metric label="Perda" value={formatCentsToBrl(result.costs.lossAmountCents)} />
+        <Metric label="Perfis ativos" value={result.profiles.length.toString()} />
+        <Metric label="Arredondamento" value={roundingLabels[result.roundingRule]} />
       </div>
 
-      <div className="pricing-breakdown">
-        <h3>Detalhes do calculo</h3>
-        <dl>
-          <BreakdownRow label="Custo da peca" value={formatCentsToBrl(result.costs.pieceCostCents)} />
-          <BreakdownRow label="Embalagem" value={formatCentsToBrl(result.costs.packagingCostCents)} />
-          <BreakdownRow label="Etiqueta ou tag" value={formatCentsToBrl(result.costs.tagCostCents)} />
-          <BreakdownRow label="Frete unitario" value={formatCentsToBrl(result.costs.freightUnitCents)} />
-          <BreakdownRow label="Outros custos" value={formatCentsToBrl(result.costs.otherDirectCostsCents)} />
-          <BreakdownRow label="Custo base" value={formatCentsToBrl(result.costs.costBaseCents)} />
-          <BreakdownRow label="Perda" value={formatCentsToBrl(result.costs.lossAmountCents)} />
-          <BreakdownRow label="Preco tecnico" value={formatCentsToBrl(result.result.technicalPriceCents)} />
-          <BreakdownRow label="Preco sugerido" value={formatCentsToBrl(result.result.suggestedPriceCents)} />
-        </dl>
+      <div className="pricing-comparison-grid" aria-label="Comparacao por perfil comercial">
+        {result.profiles.map((profile) => (
+          <CommercialProfileCard best={bestProfile?.profileId === profile.profileId} key={profile.profileId || profile.profileKey} profile={profile} />
+        ))}
       </div>
-
-      {result.result.alerts.length > 0 ? (
-        <div className="pricing-result__alerts">
-          <CircleAlert aria-hidden="true" size={18} />
-          <span>O calculo retornou alertas. Revise os detalhes antes de usar este preco.</span>
-        </div>
-      ) : (
-        <div className="pricing-result__alerts pricing-result__alerts--ok">
-          <CheckCircle2 aria-hidden="true" size={18} />
-          <span>Calculo concluido sem alertas do motor.</span>
-        </div>
-      )}
     </aside>
   );
 }
 
-function Metric({ label, tone, value }: { label: string; tone?: "success"; value: string }) {
+function CommercialProfileCard({ best, profile }: { best: boolean; profile: PricingPreviewProfileResult }) {
+  const issues = profileIssues(profile);
+  const approvedPrice = profile.approvedPriceCents ?? profile.effectivePriceCents;
+
+  return (
+    <article className="pricing-profile-card" data-best={best}>
+      <div className="pricing-profile-card__header">
+        <div>
+          <p>{profileLabels[profile.profileKey]}</p>
+          <h3>{formatCentsToBrl(approvedPrice)}</h3>
+        </div>
+        <StatusBadge tone={issues.length > 0 ? "warning" : best ? "success" : "info"}>{best ? "Maior lucro" : issues.length > 0 ? "Alerta" : "Ok"}</StatusBadge>
+      </div>
+
+      <div className="pricing-price-flow" aria-label={`Fluxo de preco para ${profileLabels[profile.profileKey]}`}>
+        <PriceStep label="Tecnico" value={formatCentsToBrl(profile.technicalPriceCents)} />
+        <ArrowDown aria-hidden="true" size={16} />
+        <PriceStep label="Sugerido" value={formatCentsToBrl(profile.suggestedPriceCents)} />
+        <ArrowDown aria-hidden="true" size={16} />
+        <PriceStep label="Aprovado" value={formatCentsToBrl(approvedPrice)} />
+      </div>
+
+      <div className="pricing-profile-card__metrics">
+        <Metric label="Lucro liquido" tone={BigInt(profile.netProfitCents) > 0n ? "success" : "warning"} value={formatCentsToBrl(profile.netProfitCents)} />
+        <Metric label="Margem liquida" tone={BigInt(profile.netMarginBps) >= 1000n ? "success" : "warning"} value={formatBpsToPercent(profile.netMarginBps)} />
+        <Metric label="Equilibrio" value={formatCentsToBrl(profile.breakEvenPriceCents)} />
+        <Metric label="Minimo" value={formatCentsToBrl(profile.minimumRecommendedPriceCents)} />
+      </div>
+
+      <div className="pricing-profile-card__rounding">
+        <span>Arredondamento</span>
+        <strong>{roundingLabels[profile.roundingRule]}</strong>
+      </div>
+
+      <PricingAlertList issues={issues} />
+    </article>
+  );
+}
+
+function PriceStep({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="pricing-price-step">
+      <span>{label}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}
+
+function PricingAlertList({ issues }: { issues: PricingTextIssue[] }) {
+  if (issues.length === 0) {
+    return (
+      <div className="pricing-result__alerts pricing-result__alerts--ok">
+        <CheckCircle2 aria-hidden="true" size={18} />
+        <span>Sem alertas para este perfil.</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="pricing-result__alerts">
+      <CircleAlert aria-hidden="true" size={18} />
+      <ul>
+        {issues.map((issue) => (
+          <li key={`${issue.code}-${issue.message}`}>{issue.message}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Metric({ label, tone, value }: { label: string; tone?: "success" | "warning"; value: string }) {
   return (
     <div className="pricing-metric" data-tone={tone ?? "neutral"}>
       <span>{label}</span>
@@ -419,11 +533,65 @@ function Metric({ label, tone, value }: { label: string; tone?: "success"; value
   );
 }
 
-function BreakdownRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt>{label}</dt>
-      <dd>{value}</dd>
-    </div>
-  );
+function findBestProfile(profiles: PricingPreviewProfileResult[]): PricingPreviewProfileResult | null {
+  return profiles.reduce<PricingPreviewProfileResult | null>((best, current) => {
+    if (!best) {
+      return current;
+    }
+
+    const currentProfit = BigInt(current.netProfitCents);
+    const bestProfit = BigInt(best.netProfitCents);
+    if (currentProfit !== bestProfit) {
+      return currentProfit > bestProfit ? current : best;
+    }
+
+    return BigInt(current.netMarginBps) > BigInt(best.netMarginBps) ? current : best;
+  }, null);
+}
+
+function profileIssues(profile: PricingPreviewProfileResult): PricingTextIssue[] {
+  const issues = [...jsonIssues(profile.errors), ...jsonIssues(profile.alerts)];
+
+  if (BigInt(profile.suggestedPriceCents) < BigInt(profile.breakEvenPriceCents)) {
+    issues.push({ code: "SUGGESTED_BELOW_BREAK_EVEN", message: "O preco sugerido nao cobre o custo total deste perfil." });
+  }
+
+  if (BigInt(profile.suggestedPriceCents) < BigInt(profile.minimumRecommendedPriceCents)) {
+    issues.push({ code: "SUGGESTED_BELOW_TARGET", message: "O preco sugerido esta abaixo da meta definida para este perfil." });
+  }
+
+  if (BigInt(profile.netProfitCents) <= 0n) {
+    issues.push({ code: "INSUFFICIENT_PROFIT", message: "Lucro insuficiente para este perfil." });
+  }
+
+  if (BigInt(profile.netMarginBps) < 1000n) {
+    issues.push({ code: "LOW_MARGIN", message: "Margem muito baixa para este perfil." });
+  }
+
+  return deduplicateIssues(issues);
+}
+
+function jsonIssues(items: JsonSafe[]): PricingTextIssue[] {
+  return items.flatMap((item) => {
+    if (!item || typeof item !== "object" || Array.isArray(item)) {
+      return [];
+    }
+
+    const maybeIssue = item as Record<string, JsonSafe>;
+    const code = typeof maybeIssue.code === "string" ? maybeIssue.code : "ENGINE_ISSUE";
+    const message = typeof maybeIssue.message === "string" ? maybeIssue.message : null;
+    return message ? [{ code, message }] : [];
+  });
+}
+
+function deduplicateIssues(issues: PricingTextIssue[]): PricingTextIssue[] {
+  const seen = new Set<string>();
+  return issues.filter((issue) => {
+    const key = `${issue.code}:${issue.message}`;
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
 }

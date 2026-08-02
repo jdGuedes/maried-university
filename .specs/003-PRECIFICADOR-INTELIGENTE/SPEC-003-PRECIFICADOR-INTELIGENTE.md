@@ -1,4 +1,4 @@
-﻿# SPEC-003 | Precificador Inteligente
+# SPEC-003 | Precificador Inteligente
 
 **Status:** APROVADA PARA IMPLEMENTACAO
 
@@ -1114,7 +1114,7 @@ RESULTADO:
 READY
 ```
 
-Status atual: ENTREGAS A E B IMPLEMENTADAS LOCALMENTE. A aprovacao documental permanece como contrato para as entregas futuras; UI funcional ainda depende de autorizacao explicita. Nenhuma migration da SPEC-003 foi aplicada no Supabase remoto.
+Status atual: ENTREGAS A, B, C E D IMPLEMENTADAS E VALIDADAS LOCALMENTE. A aprovacao documental permanece como contrato para as entregas futuras; Entrega E depende de autorizacao explicita. Nenhuma migration da SPEC-003 foi aplicada no Supabase remoto.
 
 ## 37. Definition of Done
 
@@ -1265,14 +1265,15 @@ Entrega C: formulario e calculo simples. CONCLUIDA localmente em 2026-08-02.
 - fluxo por etapas; CONCLUIDO na Entrega C;
 - campos de custos e modo inicial; CONCLUIDO na Entrega C;
 - resultado oficial vindo do backend; CONCLUIDO na Entrega C por Server Action de preview;
-- mobile/desktop; validado parcialmente por E2E protegido em 6 viewports, com E2E autenticado da tela NAO VALIDADO sem harness seguro.
+- mobile/desktop; validado por E2E protegido em 6 viewports e por E2E autenticado da tela `/precificacao` em 360, 390, 768, 1024, 1366 e 1440.
 
-Entrega D: perfis comerciais e comparacao.
+Entrega D: perfis comerciais e comparacao. IMPLEMENTADA E VALIDADA localmente em 2026-08-02.
 
-- perfis oficiais;
-- comparacao por perfil;
-- arredondamento;
-- warnings.
+- perfis oficiais ativos calculados simultaneamente pelo backend; IMPLEMENTADO.
+- comparacao por perfil na mesma pagina; IMPLEMENTADO.
+- arredondamento por simulacao server-side: valor exato, final .90, final .99 e arredondar para cima; IMPLEMENTADO.
+- warnings e alertas por perfil; IMPLEMENTADO.
+- E2E autenticado da comparacao renderizada: VALIDADO com Chrome temporario isolado, login manual do usuario, 6 perfis, arredondamento `Final .99`, alertas e screenshots em 6 viewports.
 
 Entrega E: salvamento, historico e edicao.
 
@@ -1314,4 +1315,4 @@ Ela nao autoriza automaticamente:
 - merge;
 - alteracao direta na `main`.
 
-A proxima etapa autorizavel e criar o Goal da Entrega D: perfis comerciais, comparacao e arredondamento, sem reconstruir Entregas A, B ou C, sem Supabase remoto, Stripe, OAuth ou deploy ate nova tarefa explicita.
+A proxima etapa autorizavel e criar o Goal da Entrega E: salvamento, historico e edicao, sem reconstruir Entregas A, B, C ou D, sem Supabase remoto, Stripe, OAuth ou deploy ate nova tarefa explicita.

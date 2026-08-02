@@ -1,4 +1,4 @@
-﻿import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import type { AccessContext } from "../../lib/access/session-context";
 import { PricingDtoError, parseMoneyCents, toJsonSafe, toPricingInput, type CommercialProfileRow, type CreatePricingCalculationDto } from "../../lib/pricing/dto";
 import { PricingServiceError, calculateOfficialPricingPreview, createOfficialPricingCalculation, type PricingSupabaseClient } from "../../lib/pricing/service";
@@ -154,7 +154,7 @@ describe("pricing server service", () => {
 
 
 describe("pricing server preview", () => {
-  it("calculates an official preview with the first active profile without persisting", async () => {
+  it("calculates an official preview with all active profiles without persisting", async () => {
     const rows: CommercialProfileRow[] = [
       profileRows[0],
       {
@@ -168,15 +168,52 @@ describe("pricing server preview", () => {
     const supabase = createSupabaseMock(rows, "should-not-persist");
     const result = await calculateOfficialPricingPreview(validDto, { accessContext: ownerAccess, supabase });
 
-    expect(result.profileId).toBe(profileRows[0].id);
-    expect(result.profileName).toBe("Pix");
     expect(result.costs.costBaseCents).toBe("2000");
     expect(result.costs.costTotalCents).toBe("2000");
-    expect(result.result.technicalPriceCents).toBe("3334");
-    expect(result.result.netProfitCents).toBe("1001");
+    expect(result.profiles).toHaveLength(2);
+    expect(result.profiles.map((profile) => profile.profileKey)).toEqual(["PIX", "CARD"]);
+    expect(result.profiles[0]).toMatchObject({
+      profileId: profileRows[0].id,
+      profileName: "Pix",
+      technicalPriceCents: "3334",
+      netProfitCents: "1001"
+    });
+    expect(result.profiles[1]).toMatchObject({
+      profileKey: "CARD",
+      profileName: "Cartao",
+      technicalPriceCents: "3750",
+      netProfitCents: "1000"
+    });
+    expect(supabase.calls.profileIds).toBeNull();
     expect(supabase.calls.rpcName).toBeNull();
   });
 
+
+  it("applies the server-side rounding override to every preview profile", async () => {
+    const rows: CommercialProfileRow[] = [
+      profileRows[0],
+      {
+        ...profileRows[0],
+        id: "31000000-0000-0000-0000-0000000000b2",
+        profile_key: "CARD",
+        name: "Cartao",
+        tax_bps: "2000",
+        display_order: "2"
+      }
+    ];
+    const supabase = createSupabaseMock(rows, "should-not-persist");
+    const result = await calculateOfficialPricingPreview(validDto, {
+      accessContext: ownerAccess,
+      supabase,
+      roundingRuleOverride: "ENDING_99"
+    });
+
+    expect(result.roundingRule).toBe("ENDING_99");
+    expect(result.profiles.map((profile) => profile.roundingRule)).toEqual(["ENDING_99", "ENDING_99"]);
+    expect(result.profiles[0].technicalPriceCents).toBe("3334");
+    expect(result.profiles[0].suggestedPriceCents).toBe("3399");
+    expect(result.profiles[0].effectivePriceCents).toBe("3399");
+  });
   it("keeps preview access restricted to pricing managers", async () => {
     await expect(calculateOfficialPricingPreview(validDto, {
       accessContext: operatorAccess,

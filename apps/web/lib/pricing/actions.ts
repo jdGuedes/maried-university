@@ -1,4 +1,4 @@
-﻿"use server";
+"use server";
 
 import { calculateOfficialPricingPreview, PricingServiceError, type PricingPreviewResult } from "./service";
 import { validatePricingForm, type PricingFormValues } from "./form";
@@ -20,7 +20,7 @@ export async function calculatePricingPreviewAction(values: PricingFormValues): 
   }
 
   try {
-    const result = await calculateOfficialPricingPreview(validation.dto);
+    const result = await calculateOfficialPricingPreview(validation.dto, { roundingRuleOverride: values.roundingRule });
     return {
       ok: true,
       message: "Calculo concluido.",

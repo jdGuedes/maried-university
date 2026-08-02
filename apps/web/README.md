@@ -1,8 +1,8 @@
-﻿# MARIED UNIVERSITY Web
+# MARIED UNIVERSITY Web
 
 Aplicacao web/PWA da MARIED UNIVERSITY.
 
-Estado atual: Entregas A, B, C, D, E e F da SPEC-002 concluidas localmente; SPEC-003 Entrega C implementada localmente. O app possui fundacao frontend, componentes-base, clientes Supabase browser/server, proxy de sessao, protecao de rotas, resolucao server-side inicial de acesso, fluxos de autenticacao, App Shell autenticado, PWA segura e formulario inicial funcional do Precificador com ressalvas documentadas.
+Estado atual: Entregas A, B, C, D, E e F da SPEC-002 concluidas localmente; SPEC-003 Entrega D implementada e validada localmente. O app possui fundacao frontend, componentes-base, clientes Supabase browser/server, proxy de sessao, protecao de rotas, resolucao server-side inicial de acesso, fluxos de autenticacao, App Shell autenticado, PWA segura e precificador funcional com comparacao multi-perfil.
 
 Implementado ate a Entrega F:
 
@@ -10,7 +10,7 @@ Implementado ate a Entrega F:
 - App Shell com sidebar desktop, topbar, menu da usuaria e navegacao mobile;
 - dashboard estrutural em `/inicio`;
 - rotas estruturais `/minha-conta` e `/minha-assinatura`;
-- formulario funcional inicial do Precificador em `/precificacao`, consumindo Server Action e calculo oficial server-side;
+- formulario funcional do Precificador em `/precificacao`, consumindo Server Action, calculo oficial server-side, comparacao multi-perfil e arredondamento por simulacao;
 - portas estruturais futuras para `/estoque`, `/fornecedores` e `/minicursos`;
 - estados oficiais `AVAILABLE`, `LOCKED`, `COMING_SOON`, `DISABLED` e `MAINTENANCE`;
 - loading e erro controlados no grupo autenticado;
@@ -24,11 +24,10 @@ Implementado ate a Entrega F:
 - matriz conservadora de cache em lib/pwa/cache-policy.ts;
 - validacao final da fundacao frontend com unit, integration, typecheck, build, E2E em 6 viewports, audit, segredos, bundle e screenshots nao vazios.
 
-Fora do escopo da Entrega C do Precificador:
+Fora do escopo da Entrega D do Precificador:
 
 - historico visual completo do Precificador;
 - edicao, duplicacao pela interface, inativacao visual e listagem completa de precificacoes;
-- comparacao completa entre perfis comerciais;
 - estoque funcional;
 - fornecedores funcionais;
 - minicursos funcionais;
@@ -60,6 +59,8 @@ npm run web:test:e2e
 
 O teste E2E usa Playwright local para validar splash, login, recuperacao, redefinicao, acesso direto protegido, estados publicos seguros, PWA, manifest, fallback offline, Cache Storage, teclado, ausencia de segredos e responsividade em 360, 390, 768, 1024, 1366 e 1440 px. Artefatos de teste ficam em `test-results/` e `playwright-report/`, ignorados pelo Git.
 
-## Precificador Entrega C
+## Precificador Entrega D
 
-A rota `/precificacao` esta protegida pelo App Shell e oferece o primeiro formulario funcional de calculo. A interface valida formato de entrada, converte BRL para centavos e percentuais para basis points, chama a Server Action `calculatePricingPreviewAction` e exibe o resultado retornado pelo backend. Sem harness autenticado seguro, o E2E autenticado da tela permanece `NAO VALIDADO`; a protecao sem sessao foi validada nos 6 viewports configurados.
+A rota `/precificacao` esta protegida pelo App Shell e oferece formulario funcional de calculo com comparacao simultanea por perfis comerciais ativos. A interface valida formato de entrada, converte BRL para centavos e percentuais para basis points, envia a regra de arredondamento escolhida para a Server Action `calculatePricingPreviewAction` e exibe apenas resultados calculados no backend: preco tecnico, preco sugerido, preco aprovado da simulacao, lucro liquido, margem liquida, equilibrio e alertas por perfil.
+
+O preview da Entrega D ignora filtros de perfil enviados pelo cliente e carrega todos os perfis ativos do tenant no servidor. A tela autenticada `/precificacao` foi validada localmente com Chrome temporario isolado, login manual do usuario, 6 cards de perfil, arredondamento `Final .99`, alerta de margem baixa e screenshots nos 6 viewports configurados.

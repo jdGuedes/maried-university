@@ -1,4 +1,4 @@
-﻿import { calculatePricing } from "@maried-university/pricing-engine";
+import { calculatePricing, type RoundingRule } from "@maried-university/pricing-engine";
 import type { AccessContext } from "../access/session-context";
 import {
   buildPricingPersistencePayload,
@@ -11,6 +11,14 @@ import {
 } from "./dto";
 
 const PRICING_MANAGER_ROLES = new Set(["owner", "admin"]);
+const PROFILE_PRIORITY = new Map([
+  ["PIX", 1],
+  ["CARD", 2],
+  ["RESELLER", 3],
+  ["WHOLESALE", 4],
+  ["MARKETPLACE", 5],
+  ["CUSTOM", 6]
+]);
 
 type QueryResult<T> = { data: T | null; error: { message: string } | null };
 
@@ -33,22 +41,26 @@ export type CreatePricingCalculationResult = {
 };
 
 export type PricingPreviewProfileResult = {
+  profileId: string;
+  profileKey: NonNullable<CommercialProfileRow["profile_key"]>;
   profileName: string;
+  roundingRule: RoundingRule;
   breakEvenPriceCents: string;
   minimumRecommendedPriceCents: string;
   technicalPriceCents: string;
   suggestedPriceCents: string;
+  approvedPriceCents: string | null;
   effectivePriceCents: string;
   grossProfitCents: string;
   netProfitCents: string;
   netMarginBps: string;
   alerts: JsonSafe[];
+  errors: JsonSafe[];
 };
 
 export type PricingPreviewResult = {
   pricingMode: CreatePricingCalculationDto["goal"]["mode"];
-  profileId: string;
-  profileName: string;
+  roundingRule: RoundingRule;
   costs: {
     pieceCostCents: string;
     packagingCostCents: string;
@@ -59,15 +71,21 @@ export type PricingPreviewResult = {
     lossAmountCents: string;
     costTotalCents: string;
   };
-  result: PricingPreviewProfileResult;
+  profiles: PricingPreviewProfileResult[];
+};
+
+type PricingServiceDependencies = {
+  accessContext?: AccessContext;
+  supabase?: PricingSupabaseClient;
+};
+
+type PricingPreviewDependencies = PricingServiceDependencies & {
+  roundingRuleOverride?: RoundingRule;
 };
 
 export async function createOfficialPricingCalculation(
   dto: CreatePricingCalculationDto,
-  dependencies?: {
-    accessContext?: AccessContext;
-    supabase?: PricingSupabaseClient;
-  }
+  dependencies?: PricingServiceDependencies
 ): Promise<CreatePricingCalculationResult> {
   const accessContext = dependencies?.accessContext ?? await loadServerAccessContext();
 
@@ -105,32 +123,27 @@ export async function createOfficialPricingCalculation(
 
 export async function calculateOfficialPricingPreview(
   dto: CreatePricingCalculationDto,
-  dependencies?: {
-    accessContext?: AccessContext;
-    supabase?: PricingSupabaseClient;
-  }
+  dependencies?: PricingPreviewDependencies
 ): Promise<PricingPreviewResult> {
   const accessContext = dependencies?.accessContext ?? await loadServerAccessContext();
 
   assertPricingManager(accessContext);
 
   const supabase = dependencies?.supabase ?? await loadServerSupabaseClient();
-  const profileRows = await loadCommercialProfiles(supabase, accessContext.tenant.id, dto.commercialProfileIds);
-  const selectedProfileRows = profileRows.slice(0, 1);
-  const pricingInput = toPricingInput(dto, selectedProfileRows);
+  const profileRows = await loadCommercialProfiles(supabase, accessContext.tenant.id, undefined);
+  const previewProfileRows = dependencies?.roundingRuleOverride
+    ? applyRoundingRuleOverride(profileRows, dependencies.roundingRuleOverride)
+    : profileRows;
+  const pricingInput = toPricingInput(dto, previewProfileRows);
   const result = calculatePricing(pricingInput);
 
   if (!result.ok || result.results.length === 0) {
     throw new PricingServiceError("Official pricing calculation failed validation.");
   }
 
-  const profileResult = result.results[0];
-  const profileRow = selectedProfileRows[0];
-
   return {
     pricingMode: dto.goal.mode,
-    profileId: profileRow.id,
-    profileName: profileResult.profile.name,
+    roundingRule: dependencies?.roundingRuleOverride ?? "NONE",
     costs: {
       pieceCostCents: result.costs.pieceCost.toString(),
       packagingCostCents: result.costs.packagingCost.toString(),
@@ -141,18 +154,26 @@ export async function calculateOfficialPricingPreview(
       lossAmountCents: result.costs.lossAmount.toString(),
       costTotalCents: result.costs.costTotal.toString()
     },
-    result: {
-      profileName: profileResult.profile.name,
-      breakEvenPriceCents: profileResult.breakEvenPrice.toString(),
-      minimumRecommendedPriceCents: profileResult.minimumRecommendedPrice.toString(),
-      technicalPriceCents: profileResult.technicalPrice.toString(),
-      suggestedPriceCents: profileResult.suggestedPrice.toString(),
-      effectivePriceCents: profileResult.effectivePrice.toString(),
-      grossProfitCents: profileResult.grossProfit.toString(),
-      netProfitCents: profileResult.netProfit.toString(),
-      netMarginBps: profileResult.netMarginBps.toString(),
-      alerts: profileResult.alerts.map((alert) => toJsonSafe(alert)) as JsonSafe[]
-    }
+    profiles: result.results.map((profileResult, index) => {
+      const profileRow = previewProfileRows[index];
+      return {
+        profileId: profileRow?.id ?? "",
+        profileKey: profileResult.profile.key,
+        profileName: profileResult.profile.name,
+        roundingRule: profileResult.profile.roundingRule,
+        breakEvenPriceCents: profileResult.breakEvenPrice.toString(),
+        minimumRecommendedPriceCents: profileResult.minimumRecommendedPrice.toString(),
+        technicalPriceCents: profileResult.technicalPrice.toString(),
+        suggestedPriceCents: profileResult.suggestedPrice.toString(),
+        approvedPriceCents: profileResult.approvedPrice?.toString() ?? null,
+        effectivePriceCents: profileResult.effectivePrice.toString(),
+        grossProfitCents: profileResult.grossProfit.toString(),
+        netProfitCents: profileResult.netProfit.toString(),
+        netMarginBps: profileResult.netMarginBps.toString(),
+        alerts: profileResult.alerts.map((alert) => toJsonSafe(alert)) as JsonSafe[],
+        errors: profileResult.errors.map((error) => toJsonSafe(error)) as JsonSafe[]
+      };
+    })
   };
 }
 
@@ -179,7 +200,7 @@ async function loadCommercialProfiles(
 ): Promise<CommercialProfileRow[]> {
   let query = supabase
     .from("commercial_profiles")
-    .select("id, tenant_id, profile_key, name, fixed_fee_cents, tax_bps, commission_bps, discount_bps, taxes_bps, marketplace_bps, default_rounding_rule, is_active")
+    .select("id, tenant_id, profile_key, name, fixed_fee_cents, tax_bps, commission_bps, discount_bps, taxes_bps, marketplace_bps, default_rounding_rule, is_active, display_order")
     .eq("tenant_id", tenantId)
     .eq("is_active", true)
     .is("deleted_at", null);
@@ -198,7 +219,32 @@ async function loadCommercialProfiles(
     throw new PricingServiceError("No active commercial profile is available.");
   }
 
-  return profiles.data;
+  return sortCommercialProfiles(profiles.data);
+}
+
+function sortCommercialProfiles(rows: CommercialProfileRow[]): CommercialProfileRow[] {
+  return [...rows].sort((left, right) => {
+    const leftPriority = PROFILE_PRIORITY.get(left.profile_key ?? "CUSTOM") ?? 99;
+    const rightPriority = PROFILE_PRIORITY.get(right.profile_key ?? "CUSTOM") ?? 99;
+    if (leftPriority !== rightPriority) {
+      return leftPriority - rightPriority;
+    }
+
+    const leftOrder = left.display_order === undefined || left.display_order === null ? 0n : BigInt(left.display_order);
+    const rightOrder = right.display_order === undefined || right.display_order === null ? 0n : BigInt(right.display_order);
+    if (leftOrder === rightOrder) {
+      return left.name.localeCompare(right.name, "pt-BR");
+    }
+
+    return leftOrder < rightOrder ? -1 : 1;
+  });
+}
+
+function applyRoundingRuleOverride(rows: CommercialProfileRow[], roundingRule: RoundingRule): CommercialProfileRow[] {
+  return rows.map((row) => ({
+    ...row,
+    default_rounding_rule: roundingRule
+  }));
 }
 
 function assertPricingManager(accessContext: AccessContext): void {

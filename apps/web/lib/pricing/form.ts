@@ -1,4 +1,5 @@
-﻿import type { CreatePricingCalculationDto, PricingFreightDto, PricingGoalDto, PricingLossDto } from "./dto";
+import type { RoundingRule } from "@maried-university/pricing-engine";
+import type { CreatePricingCalculationDto, PricingFreightDto, PricingGoalDto, PricingLossDto } from "./dto";
 
 export type PricingFormStatus = "IDLE" | "DIRTY" | "INVALID" | "SUBMITTING" | "SUCCESS" | "ERROR";
 export type PricingFormField = keyof PricingFormValues;
@@ -20,6 +21,7 @@ export type PricingFormValues = {
   desiredProfit: string;
   markupPercent: string;
   desiredMargin: string;
+  roundingRule: RoundingRule;
 };
 
 export type PricingFormValidation =
@@ -49,7 +51,8 @@ export const initialPricingFormValues: PricingFormValues = {
   pricingMode: "FIXED_PROFIT",
   desiredProfit: "",
   markupPercent: "",
-  desiredMargin: ""
+  desiredMargin: "",
+  roundingRule: "NONE"
 };
 
 export function validatePricingForm(values: PricingFormValues): PricingFormValidation {
@@ -69,6 +72,7 @@ export function validatePricingForm(values: PricingFormValues): PricingFormValid
   const freight = parseFreight(values, fieldErrors);
   const loss = parseLoss(values, fieldErrors);
   const goal = parseGoal(values, fieldErrors);
+  parseRoundingRule(values.roundingRule, fieldErrors);
 
   if (Object.keys(fieldErrors).length > 0 || !pieceName || pieceCost === null || packagingCost === null || tagCost === null || otherDirectCosts === null || !freight || !loss || !goal) {
     return { ok: false, fieldErrors };
@@ -209,7 +213,8 @@ export function firstErrorField(fieldErrors: Partial<Record<PricingFormField, st
     "lossPercent",
     "desiredProfit",
     "markupPercent",
-    "desiredMargin"
+    "desiredMargin",
+    "roundingRule"
   ];
 
   return order.find((field) => fieldErrors[field]) ?? null;
@@ -261,6 +266,13 @@ function parseGoal(values: PricingFormValues, fieldErrors: Partial<Record<Pricin
 
   const desiredMarginBps = parseRequiredPercent(values.desiredMargin, "desiredMargin", fieldErrors, false);
   return desiredMarginBps === null ? null : { mode: "NET_MARGIN", desiredMarginBps };
+}
+
+
+function parseRoundingRule(value: RoundingRule, fieldErrors: Partial<Record<PricingFormField, string>>): void {
+  if (!["NONE", "ENDING_90", "ENDING_99", "UP_TO_CENT"].includes(value)) {
+    fieldErrors.roundingRule = "Escolha uma regra de arredondamento valida.";
+  }
 }
 
 function parseRequiredMoney(rawValue: string, field: PricingFormField, fieldErrors: Partial<Record<PricingFormField, string>>): string | null {

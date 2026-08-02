@@ -1,4 +1,4 @@
-﻿import { describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
   derivePricingFormStatus,
   firstErrorField,
@@ -79,6 +79,21 @@ describe("pricing form validation", () => {
     }
   });
 
+
+  it("rejects unsupported rounding rules before calling the server action", () => {
+    const validation = validatePricingForm({
+      ...initialPricingFormValues,
+      pieceName: "Brinco",
+      pieceCost: "R$ 10,00",
+      desiredProfit: "R$ 5,00",
+      roundingRule: "CUSTOM" as typeof initialPricingFormValues.roundingRule
+    });
+
+    expect(validation.ok).toBe(false);
+    if (!validation.ok) {
+      expect(validation.fieldErrors.roundingRule).toBe("Escolha uma regra de arredondamento valida.");
+    }
+  });
   it("derives the visible form state", () => {
     expect(derivePricingFormStatus({ dirty: false, hasErrors: false, hasResult: false, hasSubmitError: false, isSubmitting: false })).toBe("IDLE");
     expect(derivePricingFormStatus({ dirty: true, hasErrors: false, hasResult: false, hasSubmitError: false, isSubmitting: false })).toBe("DIRTY");

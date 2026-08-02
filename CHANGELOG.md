@@ -1,10 +1,12 @@
-﻿# Changelog
+# Changelog
 
 Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ## [Nao lancado] - 2026-07-30
 
 ### Adicionado
+
+- SPEC-003 Entrega D implementada localmente com comparacao simultanea dos perfis comerciais ativos, prioridade visual Pix/Cartao/Revendedora/Atacado/Marketplace/Personalizado, seletor de arredondamento, cadeia preco tecnico -> sugerido -> aprovado, alertas por perfil e scripts locais seguros para preparar acesso/perfis sinteticos de teste.
 
 - SPEC-003 Entrega C implementada localmente com rota `/precificacao` funcional, formulario inicial de custos/frete/perdas/modo de precificacao, Server Action de preview oficial, exibicao de resultado e testes unitarios/integracao/E2E aplicaveis.
 
@@ -47,6 +49,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Validacao
 
+- SPEC-003 Entrega D: `npm run pricing:test`, `pricing:typecheck`, `pricing:build`, `pricing:lint`, `web:test:unit`, `web:test:integration`, `web:typecheck`, `web:build` e `web:test:e2e` aprovados; E2E autenticado da tela `/precificacao` validado com Chrome temporario isolado, 6 perfis, arredondamento `Final .99`, alerta de margem baixa e screenshots em 6 viewports.
+
 - SPEC-003 Entrega C: `npm run pricing:test`, `pricing:typecheck`, `pricing:build`, `pricing:lint`, `web:test:unit`, `web:test:integration`, `web:typecheck`, `web:build` e `web:test:e2e` aprovados; E2E autenticado da tela permanece `NAO VALIDADO` sem harness seguro.
 - SPEC-003 Entrega C: `npm run web:lint` nao esta disponivel no workspace atual; `npm audit --audit-level=high` segue reprovado por ressalva herdada Next/PostCSS/Sharp.
 
@@ -68,6 +72,9 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 
 ### Alterado
 
+- Preview oficial do Precificador atualizado para ignorar filtros de perfil enviados pelo cliente e calcular todos os perfis comerciais ativos no backend.
+- Interface de `/precificacao` evoluida para comparacao multi-perfil e arredondamento sem criar persistencia nova.
+
 - Navegacao do App Shell atualizada para marcar `/precificacao` como modulo disponivel, mantendo Estoque, Fornecedores e Minicursos como `COMING_SOON`.
 
 - `apps/web/package.json` e `package-lock.json` atualizados para declarar o workspace `@maried-university/pricing-engine` como dependencia do app web, permitindo reutilizacao server-side do motor oficial sem duplicar formulas.
@@ -83,6 +90,8 @@ Todas as alteracoes relevantes da MARIED UNIVERSITY devem ser registradas aqui.
 ## [0.1.0] - 2026-07-29
 
 ### Adicionado
+
+- SPEC-003 Entrega D implementada localmente com comparacao simultanea dos perfis comerciais ativos, prioridade visual Pix/Cartao/Revendedora/Atacado/Marketplace/Personalizado, seletor de arredondamento, cadeia preco tecnico -> sugerido -> aprovado, alertas por perfil e scripts locais seguros para preparar acesso/perfis sinteticos de teste.
 
 - SPEC-003 Entrega C implementada localmente com rota `/precificacao` funcional, formulario inicial de custos/frete/perdas/modo de precificacao, Server Action de preview oficial, exibicao de resultado e testes unitarios/integracao/E2E aplicaveis.
 

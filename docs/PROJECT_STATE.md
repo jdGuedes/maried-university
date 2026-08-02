@@ -1,6 +1,6 @@
-﻿# Project State - MARIED UNIVERSITY
+# Project State - MARIED UNIVERSITY
 
-Ultima atualizacao: 2026-08-01
+Ultima atualizacao: 2026-08-02
 
 ## Estado Real
 
@@ -9,15 +9,16 @@ Ultima atualizacao: 2026-08-01
 - HEAD antes da Entrega F: `04e974f feat(pwa): implement spec 002 secure offline foundation`.
 - SPEC atual: SPEC-003 Precificador Inteligente v1.0 aprovada para implementacao.
 - Entregas concluidas: SPEC-001; SPEC-002 Entregas A, B, C, D, E e F.
-- Entrega atual: SPEC-003 Entrega C implementada localmente.
-- Proxima etapa recomendada: Entrega D da SPEC-003, limitada a perfis comerciais, comparacao e arredondamento, somente apos autorizacao explicita.
+- Entrega atual: SPEC-003 Entrega D implementada e validada localmente.
+- Proxima etapa recomendada: Entrega E da SPEC-003, limitada a salvamento, historico e edicao, somente apos autorizacao explicita.
 
 ## Implementacoes Existentes
 
 - SPEC-003 do Precificador Inteligente existe como contrato documental aprovado em `.specs/003-PRECIFICADOR-INTELIGENTE/SPEC-003-PRECIFICADOR-INTELIGENTE.md`.
 - Entrega A da SPEC-003 implementada em `packages/pricing-engine` com motor matematico puro, contratos tipados e testes matematicos, sem UI, banco, migration, Supabase ou persistencia.
 - Entrega B da SPEC-003 implementada localmente com migration de persistencia, RLS por tenant, wrappers transacionais, servico server-side oficial e testes SQL/integracao, sem alteracao remota.
-- Entrega C da SPEC-003 implementada localmente com rota `/precificacao` funcional, formulario inicial, validacao BRL/percentual, preview oficial server-side, resultado guiado e testes unitarios/integracao/E2E aplicaveis, sem historico visual, edicao ou comparacao completa.
+- Entrega C da SPEC-003 implementada localmente com rota `/precificacao` funcional, formulario inicial, validacao BRL/percentual, preview oficial server-side, resultado guiado e testes unitarios/integracao/E2E aplicaveis.
+- Entrega D da SPEC-003 implementada e validada localmente com comparacao simultanea de todos os perfis comerciais ativos, prioridade visual oficial, seletor de arredondamento aplicado server-side, preco tecnico -> sugerido -> aprovado e alertas por perfil, sem historico, edicao ou persistencia nova.
 - Frontend Next.js 16 com App Router, React 19, TypeScript strict, Tailwind CSS 4 e Lucide.
 - Tokens visuais oficiais em `apps/web/styles/tokens.css` e contratos em `apps/web/lib/design/tokens.ts`.
 - Supabase browser/server clients com `@supabase/ssr`.
@@ -36,11 +37,31 @@ Ultima atualizacao: 2026-08-01
 - `apps/web/lib/pwa/cache-policy.ts`: matriz conservadora de cache PWA, incluindo bloqueio para headers `authorization`, `apikey` e `x-client-info`.
 - `apps/web/public/sw.js`: service worker estatico versionado com allow-list de assets seguros.
 - `packages/pricing-engine/src`: contratos e motor matematico puro do Precificador Inteligente, usando `bigint` em centavos e basis points.
-- `apps/web/components/pricing`: formulario funcional inicial do Precificador.
-- `apps/web/lib/pricing/actions.ts`: Server Action de preview oficial da Entrega C.
+- `apps/web/components/pricing`: formulario funcional do Precificador com comparacao multi-perfil.
+- `apps/web/lib/pricing/actions.ts`: Server Action de preview oficial que valida entradas e aciona calculo server-side multi-perfil.
 
 
 
+
+## Ultimos Resultados Locais da SPEC-003 Entrega D
+
+- Ambiente local: app web respondendo em `http://127.0.0.1:3000`; `/login` 200; `/auth/resolve` 200 sem sessao; `/precificacao` 307 sem sessao, mantendo guard server-side.
+- Supabase local: portas padrao `5432x` conflitaram com faixa TCP reservada do Windows; `supabase/config.toml` foi ajustado para `554xx`, Auth local respondeu em `55421` e Inbucket em `55424`.
+- Dados locais de teste: usuario de teste local confirmado no Auth local, com `profiles`, tenant ativo e membership `owner`; perfis comerciais sinteticos locais Pix, Cartao, Revendedora, Atacado, Marketplace e Personalizado preparados por script local-only.
+- `npm run pricing:test`: aprovado, 23 testes.
+- `npm run pricing:typecheck`: aprovado.
+- `npm run pricing:build`: aprovado.
+- `npm run pricing:lint`: aprovado.
+- `npm run web:test:unit`: aprovado, 22 testes.
+- `npm run web:test:integration`: aprovado, 23 testes.
+- `npm run web:typecheck`: aprovado.
+- `npm run web:build`: aprovado, 17 rotas, `/precificacao` dinamica.
+- `npm run web:test:e2e`: aprovado, 78 testes em 6 viewports, cobrindo protecao sem sessao, ausencia de segredos e overflow nas rotas publicas/protegidas.
+
+Ressalvas:
+
+- E2E autenticado da tela `/precificacao` com sessao real foi validado via Chrome temporario isolado, login manual do usuario e CDP local `9223`, sem registrar senha e sem ler cookies/storage.
+- Os perfis comerciais locais sao sinteticos para validacao e nao representam taxas oficiais da MARIED UNIVERSITY.
 ## Ultimos Resultados Locais da SPEC-003 Entrega C
 
 - `docker version`, `docker info`, `docker context ls`, `npx supabase --version` e `npx supabase status`: ambiente local validado; credenciais locais descartaveis impressas pela CLI nao foram registradas.
@@ -58,7 +79,7 @@ Ultima atualizacao: 2026-08-01
 
 Ressalvas:
 
-- E2E autenticado da tela `/precificacao` com sessao real e perfil comercial ativo permanece NAO VALIDADO por ausencia de harness seguro.
+- E2E autenticado da tela `/precificacao` com sessao real e perfil comercial ativo foi validado em 6 viewports com 6 cards, arredondamento `Final .99` e alerta de margem baixa.
 - Calculo oficial em sessao real depende de perfil comercial ativo do tenant; se ausente, a UI bloqueia o calculo com mensagem segura.
 ## Ultimos Resultados Locais da SPEC-003 Entrega B
 
@@ -128,8 +149,8 @@ Status: aprovado com ressalvas.
 ## Riscos Restantes
 
 - Reavaliar vulnerabilidades transitivas Next/PostCSS/Sharp quando houver patch seguro da stack atual.
-- Iniciar a Entrega D da SPEC-003 somente com autorizacao explicita, tratando perfis comerciais, comparacao e arredondamento sem reconstruir Entregas A, B ou C.
-- Criar harness seguro de usuario de teste para validar login real ate `/inicio`, App Shell autenticado e `/precificacao` com perfil comercial ativo controlado.
+- Iniciar a Entrega E da SPEC-003 somente com autorizacao explicita, tratando salvamento, historico e edicao sem reconstruir Entregas A, B, C ou D.
+- Validar login real ate `/inicio`, App Shell autenticado e `/precificacao` com comparacao multi-perfil usando credencial manual do usuario ou harness seguro explicitamente aprovado.
 - Executar Lighthouse PWA em pipeline ou ambiente aprovado.
 - Validar instalacao PWA real e update real entre builds em homologacao.
 - Regra de multiplos tenants permanece pendente de produto.
@@ -162,7 +183,7 @@ Status: aprovado com ressalvas.
 - `docs/implementation-log/2026-08-01-spec-003-entrega-a.md`
 - `docs/implementation-log/2026-08-01-spec-003-entrega-b.md`
 - `packages/pricing-engine/README.md`
-- Logs das Entregas A, B, C, D, E e F
+- Logs das Entregas A, B, C e D da SPEC-003; logs das Entregas A, B, C, D, E e F da SPEC-002
 - `CHANGELOG.md`
 - `docs/07-PADROES-DE-DESENVOLVIMENTO/PWA-CACHE-OFFLINE.md`
 

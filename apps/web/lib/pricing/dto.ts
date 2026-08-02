@@ -60,6 +60,7 @@ export type CommercialProfileRow = {
   marketplace_bps: string | number | bigint;
   default_rounding_rule: CommercialProfileInput["roundingRule"];
   is_active: boolean;
+  display_order?: string | number | bigint | null;
 };
 
 export type PricingPersistencePayload = {
